@@ -4171,6 +4171,7 @@
         closeLoginModal();
         updateHeaderUserStatus();
         updateCloudSyncModalUI();
+        pushDataToCloud(false);
         switchTab('personale');
         alert(`Registrazione completata con successo!\n\nBenvenuto in Apex Corse, ${regNome}!\nLa tua password personale \u00E8 stata impostata. Potrai cambiarla in qualsiasi momento dalla tua Area Personale.`);
       }
@@ -4336,6 +4337,14 @@
         const cloudUrl = getCloudSyncUrl();
         if (cloudUrl) {
           pullDataFromCloud(false);
+        }
+        if (!window._apexCloudSyncInterval) {
+          window._apexCloudSyncInterval = setInterval(() => {
+            const u = getCloudSyncUrl();
+            if (u && !document.hidden) {
+              pullDataFromCloud(false);
+            }
+          }, 30000);
         }
 
         renderView();
@@ -4596,6 +4605,10 @@ function doPost(e) {
             teamMembers = data.members;
             safeStorage.setItem('apex_racing_members_v2', JSON.stringify(teamMembers));
           }
+          if (Array.isArray(data.organigramma) && data.organigramma.length > 0) {
+            organigrammaData = data.organigramma;
+            safeStorage.setItem('apex_organigramma_v4', JSON.stringify(organigrammaData));
+          }
         }
         const nowStr = new Date().toLocaleTimeString();
         safeStorage.setItem('apex_last_cloud_sync', nowStr);
@@ -4617,7 +4630,7 @@ function doPost(e) {
 
     function triggerCloudSyncPush() {
       const url = getCloudSyncUrl();
-      if (!url || currentUserRole !== 'owner') return;
+      if (!url || (!currentUserRole && selectedLoginRole !== 'register')) return;
       clearTimeout(cloudSyncDebounceTimer);
       updateCloudSyncBadge('syncing', 'Salvataggio...');
       cloudSyncDebounceTimer = setTimeout(() => {
@@ -4631,8 +4644,8 @@ function doPost(e) {
         if (manual) alert('Nessun URL di sincronizzazione Google Drive configurato!');
         return;
       }
-      if (currentUserRole !== 'owner') {
-        if (manual) alert('Solo il Proprietario pu\u00F2 inviare modifiche al cloud Google Drive.');
+      if (!currentUserRole && selectedLoginRole !== 'register') {
+        if (manual) alert('Devi aver effettuato l\'accesso per inviare modifiche al cloud.');
         return;
       }
       updateCloudSyncBadge('syncing', 'Invio cloud...');
@@ -4641,6 +4654,7 @@ function doPost(e) {
         bom: bomItems,
         scadenze: scadenzeItems,
         members: teamMembers,
+        organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? organigrammaData : [],
         timestamp: new Date().toISOString()
       };
       try {
@@ -8136,6 +8150,7 @@ function doPost(e) {
 
     function saveOrganigrammaToStorage() {
       safeStorage.setItem('apex_organigramma_v4', JSON.stringify(organigrammaData));
+      triggerCloudSyncPush();
     }
 
     function setOrganigrammaViewMode(mode) {
