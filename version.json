@@ -1,13 +1,13 @@
 {
-  "version": "3.0.1",
+  "version": "3.1.0",
   "buildDate": "2026-10-10",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.0.1 - Fix Sessione, Organigramma & Sicurezza Password",
+  "title": "Apex Corse v3.1.0 - Controllo Accessi & Sicurezza Registrazioni",
   "changelog": [
-    "Sicurezza: rimossa la visualizzazione a video della password predefinita del Proprietario e dei Membri",
-    "Persistenza Sessione: risolto il problema della perdita del profilo o scambio identita al refresh di pagina (Ctrl+R)",
-    "Organigramma Automatico: i nuovi membri registrati vengono inseriti immediatamente nel proprio reparto",
-    "Area Personale Riservata: schermata protetta che richiede l'autenticazione individuale"
+    "Sicurezza: Codice Invito di Scuderia obbligatorio per nuovi membri (predefinito: APEX2026)",
+    "Controllo Accessi: Interruttore ON/OFF nel pannello Proprietario per bloccare o aprire le registrazioni",
+    "Filtro Email: Registrazione limitata esclusivamente a indirizzi istituzionali (@community.unipa.it, @apexcorse.it, @unipa.it)",
+    "Pannello Proprietario: Gestione in tempo reale di codice invito, stato registrazioni e domini con Cloud Sync"
   ]
 }

@@ -999,8 +999,18 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" style="font-size: 0.78rem;">Email di Contatto (Opzionale)</label>
-            <input type="email" id="reg-email" class="form-input" placeholder="es. l.conti@apexcorse.it">
+            <label class="form-label" style="font-size: 0.78rem;">Email Istituzionale di Scuderia *</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="es. nome.cognome@community.unipa.it" required>
+            <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 3px;">
+              Domini ammessi: @community.unipa.it, @apexcorse.it, @unipa.it
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.78rem;">Codice Invito Scuderia *</label>
+            <input type="text" id="reg-invite-code" class="form-input" placeholder="es. APEX2026" style="text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px;" required>
+            <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 3px;">
+              Richiedi la parola d'ordine al Team Principal Diego Giordano.
+            </div>
           </div>
         </div>
 
@@ -3921,6 +3931,30 @@
     let scadenzeItems = [];
     let teamMembers = [];
     let organigrammaData = [];
+
+    function getRegistrationSettings() {
+      try {
+        const stored = safeStorage.getItem('apex_registration_settings');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          return {
+            enabled: parsed.enabled !== undefined ? parsed.enabled : true,
+            inviteCode: (parsed.inviteCode || 'APEX2026').trim(),
+            allowedDomains: Array.isArray(parsed.allowedDomains) ? parsed.allowedDomains : ['apexcorse.it', 'community.unipa.it', 'unipa.it', 'you.unipa.it']
+          };
+        }
+      } catch(e) {}
+      return {
+        enabled: true,
+        inviteCode: 'APEX2026',
+        allowedDomains: ['apexcorse.it', 'community.unipa.it', 'unipa.it', 'you.unipa.it']
+      };
+    }
+
+    function saveRegistrationSettings(settings) {
+      safeStorage.setItem('apex_registration_settings', JSON.stringify(settings));
+      triggerCloudSyncPush();
+    }
     let currentMemberId = null;
     let personalMemberFilter = 'current';
     let squadraDeptFilter = 'all';
@@ -3982,6 +4016,10 @@
         }
       });
 
+      const pwdGroup = document.getElementById('login-password-input') ? document.getElementById('login-password-input').parentElement : null;
+      if (pwdGroup) pwdGroup.style.display = 'block';
+      if (submitBtn) submitBtn.style.display = 'flex';
+
       if (role === 'owner') {
         if (btnOwner) {
           btnOwner.className = 'btn';
@@ -4018,6 +4056,7 @@
         if (pwdInput) pwdInput.placeholder = 'Inserisci password personale...';
         if (submitBtn) submitBtn.innerText = 'Accedi all\'Area Personale';
       } else if (role === 'register') {
+        const regSettings = getRegistrationSettings();
         if (btnReg) {
           btnReg.className = 'btn';
           btnReg.style.borderColor = '#10b981';
@@ -4025,12 +4064,25 @@
           btnReg.style.color = '#fff';
           btnReg.style.boxShadow = '0 0 12px rgba(16, 185, 129, 0.3)';
         }
-        if (desc) desc.innerHTML = '<strong>Nuovo Membro:</strong> compila i tuoi dati e scegli la tua password personale per accedere alla piattaforma.';
+        const pwdGroup = document.getElementById('login-password-input') ? document.getElementById('login-password-input').parentElement : null;
+        if (!regSettings.enabled) {
+          if (desc) desc.innerHTML = '<span style="color: #f87171; font-weight: 700;">&#128274; Registrazioni Chiuse:</span> l\'iscrizione di nuovi membri \u00E8 temporaneamente chiusa dal Team Principal Diego Giordano.';
+          if (memberGroup) memberGroup.style.display = 'none';
+          if (regFields) regFields.style.display = 'none';
+          if (pwdGroup) pwdGroup.style.display = 'none';
+          if (submitBtn) submitBtn.style.display = 'none';
+          return;
+        }
+        if (pwdGroup) pwdGroup.style.display = 'block';
+        if (submitBtn) {
+          submitBtn.style.display = 'flex';
+          submitBtn.innerText = 'Registrati ed Entra in Scuderia';
+        }
+        if (desc) desc.innerHTML = '<strong>Nuovo Membro:</strong> inserisci email istituzionale e codice invito segreto per registrarti in scuderia.';
         if (memberGroup) memberGroup.style.display = 'none';
         if (regFields) regFields.style.display = 'block';
         if (pwdLabel) pwdLabel.innerText = 'Scegli la Tua Password Personale *';
         if (pwdInput) pwdInput.placeholder = 'Crea la tua password...';
-        if (submitBtn) submitBtn.innerText = 'Registrati ed Entra in Scuderia';
       }
 
       if (pwdInput) {
@@ -4115,10 +4167,20 @@
         updateCloudSyncModalUI();
         switchTab('personale');
       } else if (selectedLoginRole === 'register') {
+        const regSettings = getRegistrationSettings();
+        if (!regSettings.enabled) {
+          if (errMsg) {
+            errMsg.innerText = 'Le registrazioni sono attualmente chiuse dal Team Principal Diego Giordano.';
+            errMsg.style.display = 'block';
+          }
+          return;
+        }
+
         const regNome = (document.getElementById('reg-nome').value || '').trim();
         const regReparto = normalizeDept(document.getElementById('reg-reparto').value);
         const regRuolo = (document.getElementById('reg-ruolo').value || '').trim();
         const regEmail = (document.getElementById('reg-email').value || '').trim();
+        const regInvite = (document.getElementById('reg-invite-code') ? document.getElementById('reg-invite-code').value : '').trim().toUpperCase();
 
         if (!regNome) {
           if (errMsg) {
@@ -4127,6 +4189,35 @@
           }
           return;
         }
+
+        // Email Institutional Domain Validation
+        if (!regEmail || !regEmail.includes('@')) {
+          if (errMsg) {
+            errMsg.innerText = 'Inserisci un indirizzo email istituzionale valido.';
+            errMsg.style.display = 'block';
+          }
+          return;
+        }
+        const emailParts = regEmail.toLowerCase().split('@');
+        const emailDomain = (emailParts[1] || '').trim();
+        const isAllowedDomain = regSettings.allowedDomains.some(d => emailDomain === d.toLowerCase() || emailDomain.endsWith('.' + d.toLowerCase()));
+        if (!isAllowedDomain) {
+          if (errMsg) {
+            errMsg.innerText = `Dominio email non autorizzato (@` + emailDomain + `). Usa una mail istituzionale (@community.unipa.it, @apexcorse.it o @unipa.it).`;
+            errMsg.style.display = 'block';
+          }
+          return;
+        }
+
+        // Scuderia Invite Code Validation
+        if (!regInvite || regInvite !== regSettings.inviteCode.toUpperCase()) {
+          if (errMsg) {
+            errMsg.innerText = 'Codice Invito Scuderia errato! Richiedi la parola d\'ordine al Team Leader Diego Giordano.';
+            errMsg.style.display = 'block';
+          }
+          return;
+        }
+
         if (!enteredPwd || enteredPwd.length < 3) {
           if (errMsg) {
             errMsg.innerText = 'Scegli una password personale di almeno 3 caratteri.';
@@ -4609,6 +4700,9 @@ function doPost(e) {
             organigrammaData = data.organigramma;
             safeStorage.setItem('apex_organigramma_v4', JSON.stringify(organigrammaData));
           }
+          if (data.regSettings && typeof data.regSettings === 'object') {
+            safeStorage.setItem('apex_registration_settings', JSON.stringify(data.regSettings));
+          }
         }
         const nowStr = new Date().toLocaleTimeString();
         safeStorage.setItem('apex_last_cloud_sync', nowStr);
@@ -4655,6 +4749,7 @@ function doPost(e) {
         scadenze: scadenzeItems,
         members: teamMembers,
         organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? organigrammaData : [],
+        regSettings: getRegistrationSettings(),
         timestamp: new Date().toISOString()
       };
       try {
@@ -6297,6 +6392,68 @@ function doPost(e) {
             </div>
             <div id="personal-pwd-msg" style="display: none; margin-top: 8px; font-size: 0.76rem; font-weight: 700;"></div>
           </div>
+
+          <!-- Registration Access & Security Controls -->
+          <div class="table-container" style="padding: 16px; margin-top: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h3 style="font-size: 1.05rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 8px; color: #fff;">
+                  <svg class="svg-icon" style="width: 18px; height: 18px; color: #10b981;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  CONTROLLO ACCESSI &amp; LIMITAZIONE REGISTRAZIONI
+                </h3>
+                <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
+                  Proteggi la scuderia impedendo registrazioni non autorizzate: codice invito segreto, blocco totale e domini email.
+                </div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 10px;">
+              <!-- Control 1: ON/OFF Toggle -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px;">
+                <label class="form-label" style="font-size: 0.78rem; font-weight: 700;">1. Stato Registrazioni</label>
+                <div style="display: flex; gap: 8px; margin-top: 6px;">
+                  <button type="button" id="btn-toggle-reg-open" class="btn ${getRegistrationSettings().enabled ? 'btn-primary' : 'btn-secondary'}" onclick="setRegistrationStatus(true)" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px;">
+                    &check; Aperte
+                  </button>
+                  <button type="button" id="btn-toggle-reg-closed" class="btn ${!getRegistrationSettings().enabled ? 'btn-danger' : 'btn-secondary'}" onclick="setRegistrationStatus(false)" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px;">
+                    &#128274; Chiuse
+                  </button>
+                </div>
+                <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 8px;">
+                  ${getRegistrationSettings().enabled ? '<span style=\"color: #4ade80;\">&#9679; I nuovi membri possono registrarsi</span>' : '<span style=\"color: #f87171;\">&#9679; Registrazioni bloccate per tutti</span>'}
+                </div>
+              </div>
+
+              <!-- Control 2: Invite Code -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px;">
+                <label class="form-label" style="font-size: 0.78rem; font-weight: 700;">2. Codice Invito Scuderia</label>
+                <div style="display: flex; gap: 6px; margin-top: 6px;">
+                  <input type="text" id="setting-invite-code" class="form-input" value="${getRegistrationSettings().inviteCode}" style="font-family: monospace; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.88rem;">
+                  <button type="button" class="btn btn-primary" onclick="saveNewInviteCode()" style="font-size: 0.78rem; padding: 6px 12px; white-space: nowrap;">
+                    Salva Codice
+                  </button>
+                </div>
+                <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 8px;">
+                  Parola d'ordine segreta da comunicare ai membri scuderia.
+                </div>
+              </div>
+
+              <!-- Control 3: Allowed Domains -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px;">
+                <label class="form-label" style="font-size: 0.78rem; font-weight: 700;">3. Domini Email Autorizzati</label>
+                <div style="display: flex; gap: 6px; margin-top: 6px;">
+                  <input type="text" id="setting-allowed-domains" class="form-input" value="${getRegistrationSettings().allowedDomains.join(', ')}" style="font-size: 0.78rem;">
+                  <button type="button" class="btn btn-primary" onclick="saveNewAllowedDomains()" style="font-size: 0.78rem; padding: 6px 12px; white-space: nowrap;">
+                    Salva Domini
+                  </button>
+                </div>
+                <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 8px;">
+                  Domini consentiti (es. apexcorse.it, community.unipa.it, unipa.it).
+                </div>
+              </div>
+            </div>
+            <div id="reg-settings-msg" style="display: none; margin-top: 8px; font-size: 0.76rem; font-weight: 700;"></div>
+          </div>
         `;
         return html;
       }
@@ -6655,6 +6812,56 @@ function doPost(e) {
         setTimeout(() => {
           if (msgBox) msgBox.style.display = 'none';
         }, 4000);
+      }
+    }
+
+    function setRegistrationStatus(enabled) {
+      if (currentUserRole !== 'owner') return;
+      const current = getRegistrationSettings();
+      current.enabled = enabled;
+      saveRegistrationSettings(current);
+      renderView();
+      if (typeof showToast === 'function') {
+        showToast(enabled ? 'Registrazioni aperte con successo!' : 'Registrazioni bloccate!', enabled ? 'success' : 'warning');
+      } else {
+        alert(enabled ? 'Registrazioni aperte con successo!' : 'Registrazioni bloccate!');
+      }
+    }
+
+    function saveNewInviteCode() {
+      if (currentUserRole !== 'owner') return;
+      const val = (document.getElementById('setting-invite-code').value || '').trim().toUpperCase();
+      if (!val || val.length < 3) {
+        alert('Il codice invito deve contenere almeno 3 caratteri!');
+        return;
+      }
+      const current = getRegistrationSettings();
+      current.inviteCode = val;
+      saveRegistrationSettings(current);
+      renderView();
+      if (typeof showToast === 'function') {
+        showToast('Codice invito aggiornato in: ' + val, 'success');
+      } else {
+        alert('Codice invito aggiornato in: ' + val);
+      }
+    }
+
+    function saveNewAllowedDomains() {
+      if (currentUserRole !== 'owner') return;
+      const val = (document.getElementById('setting-allowed-domains').value || '').trim();
+      const list = val.split(',').map(x => x.trim().replace(/^@/, '')).filter(x => x.length > 0);
+      if (list.length === 0) {
+        alert('Devi inserire almeno un dominio email consentito!');
+        return;
+      }
+      const current = getRegistrationSettings();
+      current.allowedDomains = list;
+      saveRegistrationSettings(current);
+      renderView();
+      if (typeof showToast === 'function') {
+        showToast('Domini email aggiornati con successo!', 'success');
+      } else {
+        alert('Domini email aggiornati con successo!');
       }
     }
 
@@ -9100,7 +9307,7 @@ function doPost(e) {
 // ====================================================
 // APEX CORSE V3.0 - UPDATE & VERSION ENGINE
 // ====================================================
-const APP_VERSION = '3.0.1';
+const APP_VERSION = '3.1.0';
 const APP_BUILD_DATE = '2026-10-10';
 let remoteVersionInfo = null;
 
