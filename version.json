@@ -1,0 +1,14 @@
+{
+  "version": "3.0.0",
+  "buildDate": "2026-10-10",
+  "channel": "stable",
+  "minRequiredVersion": "2.0.0",
+  "title": "Apex Corse v3.0 - Update System & PWA",
+  "changelog": [
+    "Sistema di aggiornamento automatico con banner in-app",
+    "Supporto per installazione come App (PWA) e funzionamento offline",
+    "Centro Aggiornamenti dedicato nelle Impostazioni",
+    "Verifica versione automatica all'avvio",
+    "Conservazione totale dei dati e delle sessioni durante l'update"
+  ]
+}
