@@ -3920,6 +3920,7 @@
     let bomItems = [];
     let scadenzeItems = [];
     let teamMembers = [];
+    let organigrammaData = [];
     let currentMemberId = null;
     let personalMemberFilter = 'current';
     let squadraDeptFilter = 'all';
@@ -4073,6 +4074,8 @@
         currentUserRole = 'owner';
         currentMemberId = null;
         personalMemberFilter = 'owner';
+        safeStorage.setItem('apex_session_role', 'owner');
+        safeStorage.removeItem('apex_session_member_id');
         closeLoginModal();
         updateHeaderUserStatus();
         updateCloudSyncModalUI();
@@ -4105,6 +4108,8 @@
         currentUserRole = 'member';
         currentMemberId = mem.id;
         personalMemberFilter = mem.id;
+        safeStorage.setItem('apex_session_role', 'member');
+        safeStorage.setItem('apex_session_member_id', mem.id);
         closeLoginModal();
         updateHeaderUserStatus();
         updateCloudSyncModalUI();
@@ -4145,6 +4150,24 @@
         currentUserRole = 'member';
         currentMemberId = newMember.id;
         personalMemberFilter = newMember.id;
+        safeStorage.setItem('apex_session_role', 'member');
+        safeStorage.setItem('apex_session_member_id', newMember.id);
+        
+        // Auto-add new member to organigramma scuderia
+        if (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) {
+          if (!organigrammaData.some(n => n.id === 'org-mem-' + newMember.id || (n.nome && n.nome.toLowerCase() === newMember.nome.toLowerCase()))) {
+            organigrammaData.push({
+              id: 'org-mem-' + newMember.id,
+              nome: newMember.nome,
+              ruolo: newMember.ruolo || ('Membro ' + newMember.reparto),
+              reparto: newMember.reparto || 'Chassis',
+              livello: 4,
+              email: newMember.email || '',
+              note: 'Membro registrato in scuderia'
+            });
+            saveOrganigrammaToStorage();
+          }
+        }
         closeLoginModal();
         updateHeaderUserStatus();
         updateCloudSyncModalUI();
@@ -4154,7 +4177,11 @@
     }
 
     function logoutUser() {
+      safeStorage.removeItem('apex_session_role');
+      safeStorage.removeItem('apex_session_member_id');
       currentUserRole = null;
+      currentMemberId = null;
+      personalMemberFilter = 'owner';
       updateHeaderUserStatus();
       updateCloudSyncModalUI();
       openLoginModal('owner');
@@ -4280,11 +4307,30 @@
         const storedTheme = safeStorage.getItem('apex_theme') || 'dark';
         document.documentElement.className = storedTheme;
 
-        // Always force login upon entering the app
-        currentUserRole = null;
-        updateHeaderUserStatus();
-        updateCloudSyncModalUI();
-        openLoginModal('owner');
+        // Ripristina la sessione autenticata se valida per evitare perdite di profilo al refresh (Ctrl+R)
+        const savedRole = safeStorage.getItem('apex_session_role');
+        const savedMemId = safeStorage.getItem('apex_session_member_id');
+        if (savedRole === 'owner') {
+          currentUserRole = 'owner';
+          currentMemberId = null;
+          personalMemberFilter = 'owner';
+          closeLoginModal();
+          updateHeaderUserStatus();
+          updateCloudSyncModalUI();
+        } else if (savedRole === 'member' && savedMemId && teamMembers.some(m => m.id === savedMemId)) {
+          currentUserRole = 'member';
+          currentMemberId = savedMemId;
+          personalMemberFilter = savedMemId;
+          closeLoginModal();
+          updateHeaderUserStatus();
+          updateCloudSyncModalUI();
+        } else {
+          currentUserRole = null;
+          currentMemberId = null;
+          updateHeaderUserStatus();
+          updateCloudSyncModalUI();
+          openLoginModal('owner');
+        }
 
         updateCloudSyncBadge();
         const cloudUrl = getCloudSyncUrl();
@@ -6245,7 +6291,21 @@ function doPost(e) {
       // CASE 2: SINGLE MEMBER PERSONAL DASHBOARD
       // (Either member logged in, or Owner inspecting a member)
       // ====================================================
-      const member = teamMembers.find(m => m.id === targetMemberId) || teamMembers[0] || {
+            if (!targetMemberId || !teamMembers.some(m => m.id === targetMemberId)) {
+        return `
+          <div style="text-align: center; padding: 60px 20px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; max-width: 500px; margin: 40px auto;">
+            <div style="font-size: 2.5rem; margin-bottom: 12px;">&#128100;</div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 8px;">Area Personale Riservata</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+              Per visualizzare la tua dashboard e le tue task, accedi con il tuo profilo personale.
+            </p>
+            <button class="btn btn-primary" onclick="openLoginModal('member')" style="padding: 10px 20px; font-weight: 700;">
+              Accedi al Tuo Profilo
+            </button>
+          </div>
+        `;
+      }
+      const member = teamMembers.find(m => m.id === targetMemberId) || {
         id: 'guest',
         nome: 'Membro Scuderia',
         reparto: 'Chassis',
@@ -7889,7 +7949,7 @@ function doPost(e) {
     // ====================================================
     // ORGANIGRAMMA DEL TEAM APEX CORSE ENGINE (TREE & GRID)
     // ====================================================
-    let organigrammaData = [];
+    // organigrammaData hoisted to top
     let organigrammaDeptFilter = 'all';
     let organigrammaSearchQuery = '';
     let organigrammaViewMode = 'tree'; // 'tree' or 'grid'

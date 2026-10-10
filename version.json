@@ -3,10 +3,11 @@
   "buildDate": "2026-10-10",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.0.1 - Aggiornamento Sicurezza Password",
+  "title": "Apex Corse v3.0.1 - Fix Sessione, Organigramma & Sicurezza Password",
   "changelog": [
-    "Sicurezza: rimossa la visualizzazione a video della password predefinita del Proprietario",
-    "Protezione totale dell'accesso amministrativo di scuderia",
-    "Riservatezza delle credenziali di login"
+    "Sicurezza: rimossa la visualizzazione a video della password predefinita del Proprietario e dei Membri",
+    "Persistenza Sessione: risolto il problema della perdita del profilo o scambio identita al refresh di pagina (Ctrl+R)",
+    "Organigramma Automatico: i nuovi membri registrati vengono inseriti immediatamente nel proprio reparto",
+    "Area Personale Riservata: schermata protetta che richiede l'autenticazione individuale"
   ]
 }
