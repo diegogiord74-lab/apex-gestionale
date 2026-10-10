@@ -1065,7 +1065,7 @@
 
         <div class="form-group">
           <label class="form-label">Password Personale di Accesso</label>
-          <input type="text" id="member-form-password" class="form-input" placeholder="Password (default: test2)">
+          <input type="text" id="member-form-password" class="form-input" placeholder="Password personale...">
           <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">
             Puoi visualizzare o reimpostare la password di accesso di questo membro.
           </div>
@@ -3992,7 +3992,7 @@
         if (desc) desc.innerHTML = '<strong>Profilo Proprietario:</strong> permessi completi di scrittura (creazione, modifica ed eliminazione task, distinta BOM, scadenze e squadra).';
         if (memberGroup) memberGroup.style.display = 'none';
         if (regFields) regFields.style.display = 'none';
-        if (pwdLabel) pwdLabel.innerText = 'Password Proprietario (default: test1)';
+        if (pwdLabel) pwdLabel.innerText = 'Password Proprietario';
         if (pwdInput) pwdInput.placeholder = 'Inserisci password...';
         if (submitBtn) submitBtn.innerText = 'Accedi come Proprietario';
       } else if (role === 'member') {
@@ -6214,7 +6214,7 @@ function doPost(e) {
                   SICUREZZA &amp; PASSWORD PROPRIETARIO
                 </h3>
                 <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
-                  Modifica la password del Profilo Proprietario (default: test1) per proteggere i permessi di scrittura, eliminazione e configurazione.
+                  Modifica la password del Profilo Proprietario per proteggere i permessi di scrittura, eliminazione e configurazione.
                 </div>
               </div>
               <div style="font-size: 0.76rem; color: var(--text-muted);">
@@ -6645,7 +6645,7 @@ function doPost(e) {
     // ----------------------------------------------------
     function openCreateModal(preselectedDept = 'Chassis') {
       if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Il profilo Membro \u00E8 in sola visualizzazione.\nAccedi come Proprietario (password: test1) per inserire nuove task.');
+        alert('ACCESSO LIMITATO: Il profilo Membro \u00E8 in sola visualizzazione.\nAccedi come Proprietario per inserire nuove task.');
         openLoginModal('owner');
         return;
       }
@@ -9025,7 +9025,7 @@ function doPost(e) {
 // ====================================================
 // APEX CORSE V3.0 - UPDATE & VERSION ENGINE
 // ====================================================
-const APP_VERSION = '3.0.0';
+const APP_VERSION = '3.0.1';
 const APP_BUILD_DATE = '2026-10-10';
 let remoteVersionInfo = null;
 
