@@ -964,7 +964,7 @@
         <strong>Profilo Proprietario:</strong> permessi completi di scrittura (creazione e modifica task, distinta base BOM, scadenze e gestione assegnatari squadra).
       </div>
 
-      <form onsubmit="handleLoginSubmit(event)" style="text-align: left;">
+      <form onsubmit="handleLoginSubmit(event)" novalidate style="text-align: left;">
         <!-- Member Identification Select (only for member login) -->
         <div id="login-member-select-group" class="form-group" style="display: none;">
           <label class="form-label" style="font-size: 0.78rem;">Seleziona il Tuo Profilo (Assegnatario):</label>
@@ -1000,14 +1000,14 @@
           </div>
           <div class="form-group">
             <label class="form-label" style="font-size: 0.78rem;">Email Istituzionale di Scuderia *</label>
-            <input type="email" id="reg-email" class="form-input" placeholder="es. nome.cognome@community.unipa.it" required>
+            <input type="email" id="reg-email" class="form-input" placeholder="es. nome.cognome@community.unipa.it">
             <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 3px;">
               Domini ammessi: @community.unipa.it, @apexcorse.it, @unipa.it
             </div>
           </div>
           <div class="form-group">
             <label class="form-label" style="font-size: 0.78rem;">Codice Invito Scuderia *</label>
-            <input type="text" id="reg-invite-code" class="form-input" placeholder="es. APEX2026" style="text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px;" required>
+            <input type="text" id="reg-invite-code" class="form-input" placeholder="es. APEX2026" style="text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px;">
             <div style="font-size: 0.71rem; color: var(--text-muted); margin-top: 3px;">
               Richiedi la parola d'ordine al Team Principal Diego Giordano.
             </div>
@@ -1691,6 +1691,70 @@
     })();
 
     const sampleTasksData = [
+    {
+        "ID":  "BUS-001",
+        "Reparto":  "Business",
+        "Area":  "Business e G\u0026M",
+        "Attivita":  "Marketing e Sponsor",
+        "Dettaglio":  "Gestione partner commerciali, sponsor territoriali e pacchetti sponsorship",
+        "Priorita":  "1 - Massima",
+        "Categoria":  "Management \u0026 Marketing",
+        "Stato":  "Non Avviato",
+        "Assegnatari":  "Roberta La Face",
+        "Inizio":  "2026-10-09",
+        "Durata":  6,
+        "Fine":  "2026-10-16",
+        "Dipendenze":  "",
+        "Note":  "Task attiva e coordinata dal Capo Reparto Roberta La Face"
+    },
+    {
+        "ID":  "GM-001",
+        "Reparto":  "Graphics \u0026 Media",
+        "Area":  "Social",
+        "Attivita":  "Piano Editoriale",
+        "Dettaglio":  "Pianificazione uscite Instagram, LinkedIn e copertura contenuti officina",
+        "Priorita":  "2 - Alta",
+        "Categoria":  "Management \u0026 Marketing",
+        "Stato":  "In Corso",
+        "Assegnatari":  "Angela",
+        "Inizio":  "2026-10-09",
+        "Durata":  5,
+        "Fine":  "2026-10-15",
+        "Dipendenze":  "",
+        "Note":  "Gestito da Social Media Manager Angela"
+    },
+    {
+        "ID":  "GM-002",
+        "Reparto":  "Graphics \u0026 Media",
+        "Area":  "Grafica",
+        "Attivita":  "Brochure e Biglietti da visita nuovi",
+        "Dettaglio":  "Grafica coordinata, brochure sponsor scuderia e biglietti da visita",
+        "Priorita":  "3 - Media",
+        "Categoria":  "Management \u0026 Marketing",
+        "Stato":  "In Corso",
+        "Assegnatari":  "Carmine",
+        "Inizio":  "2026-10-09",
+        "Durata":  6,
+        "Fine":  "2026-10-16",
+        "Dipendenze":  "",
+        "Note":  "In carico al reparto grafica Carmine"
+    },
+    {
+        "ID":  "GM-003",
+        "Reparto":  "Graphics \u0026 Media",
+        "Area":  "Grafica",
+        "Attivita":  "Targhetta Celebrativa Varano",
+        "Dettaglio":  "Design CAD e vettoriale per incisione targhetta celebrativa circuito",
+        "Priorita":  "3 - Media",
+        "Categoria":  "Progetto / CAD",
+        "Stato":  "In Corso",
+        "Assegnatari":  "Carmine",
+        "Inizio":  "2026-10-09",
+        "Durata":  5,
+        "Fine":  "2026-10-15",
+        "Dipendenze":  "",
+        "Note":  "Progetto grafico e CAD Carmine"
+    },
     {
         "Assegnatari":  "UniPa",
         "ID":  "CHA-01",
@@ -3975,14 +4039,16 @@
     let pendingImportedBOM = [];
 
     const DEFAULT_MEMBERS = [
-      { id: 'mem-1', nome: 'Andrea Alessi', reparto: 'Chassis', ruolo: 'Team Principal & Chassis Lead', email: 'a.alessi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-2', nome: 'Marco Rossi', reparto: 'Powertrain', ruolo: 'Powertrain & Cooling Lead', email: 'm.rossi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-3', nome: 'Luca Bianchi', reparto: 'Aerodynamics', ruolo: 'Aero Dynamics & CFD Lead', email: 'l.bianchi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-4', nome: 'Matteo Ferrari', reparto: 'Software', ruolo: 'Software & Telemetry Lead', email: 'm.ferrari@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-5', nome: 'Giulia Verdi', reparto: 'Electronics', ruolo: 'Electronics & Harness Lead', email: 'g.verdi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-6', nome: 'Sofia Romano', reparto: 'Business', ruolo: 'Business Plan & Cost Lead', email: 's.romano@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-7', nome: 'Davide Russo', reparto: 'Graphics & Media', ruolo: 'Graphics, Media & Sponsor Lead', email: 'd.russo@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-8', nome: 'Simone Gallo', reparto: 'Logistics', ruolo: 'Logistics & Track Operations Lead', email: 's.gallo@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' }
+      { id: 'mem-1791571230913', nome: 'Roberta La Face', reparto: 'Business', ruolo: 'Capo Reparto Business', email: 'business@apexcorse.it', password: 'aaa', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791574294045', nome: 'Angela', reparto: 'Graphics & Media', ruolo: 'Social Media Manager', email: 'angela@apexcorse.it', password: 'angela', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791574688441', nome: 'Carmine', reparto: 'Graphics & Media', ruolo: 'Grafico', email: 'carmine@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791629350162', nome: 'Paolo Sidoti', reparto: 'Chassis', ruolo: 'Capo Reparto Chassis', email: 'p.sidoti@community.unipa.it', password: 'test2', dataRegistrazione: '2026-10-10' },
+      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', password: 'test1', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-salvatore', nome: 'Salvatore Alessi', reparto: 'Chassis', ruolo: 'Direttore Tecnico Veicolo', email: 's.alessi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-giuseppe', nome: 'Giuseppe Blunda', reparto: 'Powertrain', ruolo: 'Direttore Tecnico Sistemi', email: 'g.blunda@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-simone', nome: 'Simone Gallo', reparto: 'Logistics', ruolo: 'Capo Reparto Logistics', email: 'logistics@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' }
     ];
 
     // ----------------------------------------------------
@@ -4333,13 +4399,52 @@
       }
     }
 
+    function getDefaultTasks() {
+      if (!Array.isArray(sampleTasksData) || sampleTasksData.length === 0) return [];
+      return sampleTasksData.map(t => {
+        let deps = [];
+        if (t.Dipendenze) {
+          deps = t.Dipendenze.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        const dur = parseInt(t.Durata) || 5;
+        let end = t.Fine;
+        if (!end && t.Inizio) {
+          const d = new Date(t.Inizio);
+          let added = 0;
+          while (added < dur - 1) {
+            d.setDate(d.getDate() + 1);
+            if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+          }
+          end = d.toISOString().split('T')[0];
+        }
+        return {
+          id: t.ID,
+          department: normalizeDept(t.Reparto),
+          subsystem: t.Area || '',
+          title: t.Attivita || '',
+          deliverable: t.Dettaglio || '',
+          priority: t.Priorita || '3 - Media',
+          category: t.Categoria || 'Progetto / CAD',
+          status: t.Stato || 'Non Avviato',
+          assignee: t.Assegnatari || '',
+          startDate: t.Inizio || '',
+          duration: dur,
+          endDate: end || '',
+          dependencies: deps,
+          notes: t.Note || ''
+        };
+      });
+    }
+
     function initApp() {
       try {
         const stored = safeStorage.getItem('apex_racing_tasks_v2');
         if (stored) {
           try { tasks = JSON.parse(stored); } catch(e) { tasks = []; }
-        } else {
-          tasks = [];
+        }
+        if (!tasks || tasks.length === 0) {
+          tasks = getDefaultTasks();
+          safeStorage.setItem('apex_racing_tasks_v2', JSON.stringify(tasks));
         }
 
         const storedBOM = safeStorage.getItem('apex_racing_bom_v2');
@@ -4362,23 +4467,19 @@
         }
 
         const storedScad = safeStorage.getItem('apex_racing_scadenze_v2');
-        if (storedScad) {
+        if (storedScad !== null) {
           try { scadenzeItems = JSON.parse(storedScad); } catch(e) { scadenzeItems = []; }
         } else {
-          scadenzeItems = (scadenzeData || []).map((s, idx) => ({
-            uid: 'scad-' + (idx + 1),
-            data: s.Data || '',
-            descIT: s.DescIT || '',
-            descEN: s.DescEN || '',
-            reparto: s.Reparto || 'Chassis',
-            stato: s.Stato || 'Non Avviato',
-            hard: s.Hard || 'S\u00EC'
-          }));
+          scadenzeItems = [];
+          safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
         }
 
         const storedMembers = safeStorage.getItem('apex_racing_members_v2');
         if (storedMembers) {
-          try { teamMembers = JSON.parse(storedMembers); } catch(e) { teamMembers = []; }
+          try {
+            const parsed = JSON.parse(storedMembers);
+            teamMembers = Array.isArray(parsed) ? parsed.filter(m => m && m.nome && m.nome.trim()) : [];
+          } catch(e) { teamMembers = []; }
         }
         if (!teamMembers || teamMembers.length === 0) {
           teamMembers = [...DEFAULT_MEMBERS];
@@ -4680,11 +4781,11 @@ function doPost(e) {
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const data = await resp.json();
         if (data && typeof data === 'object') {
-          if (Array.isArray(data.tasks)) {
+          if (Array.isArray(data.tasks) && data.tasks.length > 0) {
             tasks = data.tasks;
             safeStorage.setItem('apex_racing_tasks_v2', JSON.stringify(tasks));
           }
-          if (Array.isArray(data.bom)) {
+          if (Array.isArray(data.bom) && data.bom.length > 0) {
             bomItems = data.bom;
             safeStorage.setItem('apex_racing_bom_v2', JSON.stringify(bomItems));
           }
@@ -4692,9 +4793,12 @@ function doPost(e) {
             scadenzeItems = data.scadenze;
             safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
           }
-          if (Array.isArray(data.members)) {
-            teamMembers = data.members;
-            safeStorage.setItem('apex_racing_members_v2', JSON.stringify(teamMembers));
+          if (Array.isArray(data.members) && data.members.length > 0) {
+            const valid = data.members.filter(m => m && m.nome && m.nome.trim());
+            if (valid.length > 0) {
+              teamMembers = valid;
+              safeStorage.setItem('apex_racing_members_v2', JSON.stringify(teamMembers));
+            }
           }
           if (Array.isArray(data.organigramma) && data.organigramma.length > 0) {
             organigrammaData = data.organigramma;
@@ -5824,7 +5928,11 @@ function doPost(e) {
           </div>
 
           ${currentUserRole === 'owner' ? `
-            <div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary" onclick="resetOfficialScadenze()" style="font-size: 0.8rem;">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Carica Scadenze FSAE
+              </button>
               <button class="btn btn-primary" onclick="openScadenzaModal()">
                 <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Nuova Scadenza
@@ -7828,6 +7936,28 @@ function doPost(e) {
       saveScadenzeToStorage();
       closeScadenzaModal();
       renderView();
+    }
+
+    function resetOfficialScadenze() {
+      if (currentUserRole !== 'owner') {
+        alert('Solo il Profilo Proprietario pu\u00F2 importare le scadenze ufficiali FSAE.');
+        return;
+      }
+      if (confirm('Vuoi caricare l\'elenco ufficiale di tutte le scadenze e deadline FSAE 2026?')) {
+        scadenzeItems = (scadenzeData || []).map((s, idx) => ({
+          uid: 'scad-' + (idx + 1),
+          data: s.Data || '',
+          descIT: s.DescIT || '',
+          descEN: s.DescEN || '',
+          reparto: s.Reparto || 'Chassis',
+          stato: s.Stato || 'Non Avviato',
+          hard: s.Hard || 'S\u00EC'
+        }));
+        safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
+        triggerCloudSyncPush();
+        renderView();
+        alert('Caricate ' + scadenzeItems.length + ' scadenze ufficiali FSAE 2026.');
+      }
     }
 
     function deleteScadenzaItem(uid) {
