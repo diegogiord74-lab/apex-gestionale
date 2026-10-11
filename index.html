@@ -838,9 +838,17 @@
         </button>
 
         <div class="dropdown-menu" id="header-settings-menu">
+          <div class="dropdown-item" onclick="saveInternalBackup(false); closeSettingsMenu();">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Salva Backup Dati Adesso</span>
+          </div>
+          <div class="dropdown-item" onclick="restoreInternalBackup(false); closeSettingsMenu();">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>Ripristina Ultimo Backup</span>
+          </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Centro Aggiornamenti &amp; Versione (v3.0)</span>
+            <span>Centro Aggiornamenti &amp; Backup (v3.1)</span>
           </div>
           <div class="dropdown-item" onclick="openCloudSyncModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
@@ -1108,24 +1116,60 @@
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Versione Installata</div>
-          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.0.0</div>
+          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.1.1</div>
         </div>
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Data Rilascio</div>
-          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-10</div>
+          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-11</div>
         </div>
       </div>
 
       <div id="update-modal-status" style="background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.8rem;"></div>
 
-      <div style="display: flex; gap: 8px; margin-bottom: 18px;">
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
         <button type="button" class="btn btn-primary" onclick="checkForUpdates(false)" style="font-size: 0.82rem; flex: 1; justify-content: center;">
           <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           Verifica Aggiornamenti
         </button>
-        <button type="button" class="btn btn-secondary" onclick="simulateUpdateNotification()" style="font-size: 0.82rem; flex: 1; justify-content: center;" title="Simula come i tuoi membri vedranno l'avviso di aggiornamento">
+        <button type="button" class="btn btn-secondary" onclick="simulateUpdateNotification()" style="font-size: 0.82rem; flex: 1; justify-content: center;" title="Simula come i tuoi membri vedranno l'avviso di aggiornamento con protezione automatica">
           &#129514; Simula Notifica Membri
         </button>
+      </div>
+
+      <!-- SEZIONE BACKUP INTERNO & SALVAGUARDIA DATI -->
+      <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.1rem;">&#128190;</span>
+            <strong style="color: #fff; font-size: 0.88rem;">Sistema di Backup Interno &amp; Salvaguardia</strong>
+          </div>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.7rem;">Attivo &amp; Automatico</span>
+        </div>
+        <div id="backup-status-text" style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 12px;">
+          Nessun backup interno presente in memoria locale.
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <button type="button" class="btn btn-primary" onclick="saveInternalBackup(false)" style="font-size: 0.8rem; justify-content: center; background: linear-gradient(135deg, #4f46e5, #06b6d4); padding: 8px 10px;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Salva Backup Ora
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="restoreInternalBackup(false)" style="font-size: 0.8rem; justify-content: center; padding: 8px 10px; border-color: rgba(99, 102, 241, 0.5);">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            Ripristina da Backup
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="exportBackupToFile()" style="font-size: 0.78rem; justify-content: center; padding: 6px 8px;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Esporta File (.json)
+          </button>
+          <label class="btn btn-secondary" style="font-size: 0.78rem; justify-content: center; padding: 6px 8px; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Carica da File</span>
+            <input type="file" accept=".json" onchange="importBackupFromFile(event)" style="display: none;">
+          </label>
+        </div>
+        <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; line-height: 1.3;">
+          &#128737;&#65039; <em>Il backup viene effettuato automaticamente prima di ogni aggiornamento o simulazione, e ripristina all'istante tutte le task e i membri attuali.</em>
+        </div>
       </div>
 
       <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; margin-bottom: 14px;">
@@ -1692,1572 +1736,36 @@
 
     const sampleTasksData = [
     {
-        "ID":  "BUS-001",
-        "Reparto":  "Business",
-        "Area":  "Business e G\u0026M",
-        "Attivita":  "Marketing e Sponsor",
-        "Dettaglio":  "Gestione partner commerciali, sponsor territoriali e pacchetti sponsorship",
-        "Priorita":  "1 - Massima",
-        "Categoria":  "Management \u0026 Marketing",
-        "Stato":  "Non Avviato",
-        "Assegnatari":  "Roberta La Face",
-        "Inizio":  "2026-10-09",
-        "Durata":  6,
-        "Fine":  "2026-10-16",
-        "Dipendenze":  "",
-        "Note":  "Task attiva e coordinata dal Capo Reparto Roberta La Face"
-    },
-    {
         "ID":  "GM-001",
         "Reparto":  "Graphics \u0026 Media",
         "Area":  "Social",
         "Attivita":  "Piano Editoriale",
-        "Dettaglio":  "Pianificazione uscite Instagram, LinkedIn e copertura contenuti officina",
+        "Dettaglio":  "",
         "Priorita":  "2 - Alta",
         "Categoria":  "Management \u0026 Marketing",
         "Stato":  "In Corso",
         "Assegnatari":  "Angela",
-        "Inizio":  "2026-10-09",
-        "Durata":  5,
-        "Fine":  "2026-10-15",
         "Dipendenze":  "",
-        "Note":  "Gestito da Social Media Manager Angela"
+        "Inizio":  "2026-10-08",
+        "Durata":  3,
+        "Fine":  "2026-10-12",
+        "Note":  ""
     },
     {
         "ID":  "GM-002",
         "Reparto":  "Graphics \u0026 Media",
-        "Area":  "Grafica",
-        "Attivita":  "Brochure e Biglietti da visita nuovi",
-        "Dettaglio":  "Grafica coordinata, brochure sponsor scuderia e biglietti da visita",
+        "Area":  "Business e G\u0026M",
+        "Attivita":  "Marketing e Sponsor",
+        "Dettaglio":  "Contenuti per gli sponsor",
         "Priorita":  "3 - Media",
         "Categoria":  "Management \u0026 Marketing",
-        "Stato":  "In Corso",
-        "Assegnatari":  "Carmine",
-        "Inizio":  "2026-10-09",
-        "Durata":  6,
-        "Fine":  "2026-10-16",
-        "Dipendenze":  "",
-        "Note":  "In carico al reparto grafica Carmine"
-    },
-    {
-        "ID":  "GM-003",
-        "Reparto":  "Graphics \u0026 Media",
-        "Area":  "Grafica",
-        "Attivita":  "Targhetta Celebrativa Varano",
-        "Dettaglio":  "Design CAD e vettoriale per incisione targhetta celebrativa circuito",
-        "Priorita":  "3 - Media",
-        "Categoria":  "Progetto / CAD",
-        "Stato":  "In Corso",
-        "Assegnatari":  "Carmine",
-        "Inizio":  "2026-10-09",
-        "Durata":  5,
-        "Fine":  "2026-10-15",
-        "Dipendenze":  "",
-        "Note":  "Progetto grafico e CAD Carmine"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-01",
-        "Dettaglio":  "Rilievo geometrico e reverse engineering per accoppiamento disco/fusello",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
+        "Stato":  "Non Avviato",
+        "Assegnatari":  "Angela, Matteo Glorioso, Roberta La Face",
+        "Dipendenze":  "GM-001",
+        "Inizio":  "2026-10-13",
         "Durata":  4,
-        "Attivita":  "Scansione 3D e rilievo mozzi ruota",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Rilievo completato in laboratorio UniPa",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-19"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-02",
-        "Dettaglio":  "Acquisizione ingombri pinze freno anteriori e posteriori per staffaggio",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  4,
-        "Attivita":  "Scansione 3D pinze freno",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Verificati ingombri cerchio da 10 pollici",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-19"
-    },
-    {
-        "Assegnatari":  "Salamone",
-        "ID":  "CHA-03",
-        "Dettaglio":  "Modellazione CAD e verifica strutturale FEM della flangia di attacco al mozzo",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-03-20",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Dimensionamento flangia disco freno",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Frenante",
-        "Note":  "Verificati fori di fissaggio M8",
-        "Dipendenze":  "CHA-01",
-        "Fine":  "2026-03-24"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-04",
-        "Dettaglio":  "Analisi cinematica bump/droop e verifica interferenze tiranti sterzo in battuta",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Simulazione / FEA / CFD",
-        "Durata":  3,
-        "Attivita":  "Verifica cinematica ed escursione sospensioni",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Verificata escursione +/- 25mm da regolamento",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-18"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-05",
-        "Dettaglio":  "Calcolo wheel rate, frequenze proprie e scelta rigidezza molle coilover",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-19",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Dimensionamento e selezione molle ammortizzatori",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Ordinati coilover specifici",
-        "Dipendenze":  "CHA-04",
-        "Fine":  "2026-03-23"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-06",
-        "Dettaglio":  "Calcolo dei carichi dinamici massimi e scelta uniball motorsport con distanziali",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-20",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Dimensionamento e verifica uniball",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Scelti uniball filettati maschio/femmina M8",
-        "Dipendenze":  "CHA-04",
-        "Fine":  "2026-03-24"
-    },
-    {
-        "Assegnatari":  "Michelangelo Formazione",
-        "ID":  "CHA-07",
-        "Dettaglio":  "Modellazione 3D fuselli ruota con attacchi pinza, uniball e braccetto sterzo",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-24",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  5,
-        "Attivita":  "Dimensionamento e analisi FEM fuselli",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Ottimizzazione topologica per riduzione peso",
-        "Dipendenze":  "CHA-01, CHA-02",
-        "Fine":  "2026-03-30"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-08",
-        "Dettaglio":  "Progettazione triangoli sovrapposti, spessori tubolari e staffe a telaio",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-25",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  7,
-        "Attivita":  "Dimensionamento bracci sospensione ed attacchi telaio",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Verificato carico di snervamento tubolari",
-        "Dipendenze":  "CHA-04, CHA-06",
-        "Fine":  "2026-04-02"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-09",
-        "Dettaglio":  "Messa in tavola 2D con quote e tolleranze per saldatura e lavorazioni",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-04-03",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Tavole tecniche esecutive sospensioni",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Disegni validati e archiviati su cloud",
-        "Dipendenze":  "CHA-08",
-        "Fine":  "2026-04-07"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-10",
-        "Dettaglio":  "Disegni costruttivi per lavorazione a 5 assi con tolleranze sedi cuscinetto",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-01",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Messa in tavola fuselli per lavorazione CNC",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Trasmesso file STEP a Michelangelo Formazione",
-        "Dipendenze":  "CHA-07",
-        "Fine":  "2026-04-03"
-    },
-    {
-        "Assegnatari":  "Michelangelo Formazione",
-        "ID":  "CHA-11",
-        "Dettaglio":  "Lavorazione dal pieno su centro di lavoro CNC con forature e alleggerimenti",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-06",
-        "Stato":  "Completato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Produzione CNC flangia disco freno",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Frenante",
-        "Note":  "Pezzi prodotti e verificati al micrometro",
-        "Dipendenze":  "CHA-03",
-        "Fine":  "2026-04-10"
-    },
-    {
-        "Assegnatari":  "Michelangelo Formazione",
-        "ID":  "CHA-12",
-        "Dettaglio":  "Lavorazione dal pieno in Ergal 7075 dei 4 fuselli ruota",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-04-10",
-        "Stato":  "Completato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  10,
-        "Attivita":  "Fresatura CNC fuselli ruota",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Fuselli consegnati e alloggiati anelli Seeger J60",
-        "Dipendenze":  "CHA-10",
-        "Fine":  "2026-04-23"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-13",
-        "Dettaglio":  "Dimensionamento tiranti esagonali in alluminio con filettatura destrorsa/sinistrorsa",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-13",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  4,
-        "Attivita":  "Progettazione tiranti sterzo e messa in tavola",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sterzante",
-        "Note":  "Include dadi di bloccaggio e uniball M8",
-        "Dipendenze":  "CHA-04",
-        "Fine":  "2026-04-16"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-14",
-        "Dettaglio":  "Progettazione albero telescopico e giunto cardanico con piantone",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-17",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  3,
-        "Attivita":  "Dimensionamento albero e giunto scatola guida",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sterzante",
-        "Note":  "Verificata conformit\u00E0 T4.2 regolamento",
-        "Dipendenze":  "CHA-13",
-        "Fine":  "2026-04-21"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-15",
-        "Dettaglio":  "Taglio, fresatura e saldatura delle staffe di fissaggio scatola sterzo a telaio",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-22",
-        "Stato":  "Completato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  4,
-        "Attivita":  "Fabbricazione supporti scatola guida",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sterzante",
-        "Note":  "Allineamento verificato con scatola montata",
-        "Dipendenze":  "CHA-14",
-        "Fine":  "2026-04-27"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-16",
-        "Dettaglio":  "Posizionamento regolabile piastra guide pedaliera con dadi M6",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-22",
-        "Stato":  "Completato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  3,
-        "Attivita":  "Saldatura piastre attacco pedaliera su fondo telaio",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "Saldatura a punti completata con successo",
-        "Dipendenze":  "",
-        "Fine":  "2026-04-24"
-    },
-    {
-        "Assegnatari":  "Salamone, Corsetti, Sfameni",
-        "ID":  "CHA-17",
-        "Dettaglio":  "Calcolo momenti d\u0027inerzia e resistenza dei tubolari del telaio a traliccio",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-04-27",
-        "Stato":  "In Revisione",
-        "Categoria":  "Simulazione / FEA / CFD",
-        "Durata":  8,
-        "Attivita":  "Verifica calcoli e conformit\u00E0 nodi telaio (SES)",
-        "Reparto":  "Chassis",
-        "Area":  "Telaio",
-        "Note":  "Integrazione con requisiti SES regolamento 2026",
-        "Dipendenze":  "",
-        "Fine":  "2026-05-06"
-    },
-    {
-        "Assegnatari":  "La Spisa, Galluzzo, Amodeo",
-        "ID":  "CHA-18",
-        "Dettaglio":  "Assemblaggio pedaliera OBP, calcolo braccio di leva pedale e bilancino ripartitore",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-28",
-        "Stato":  "In Ritardo",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  14,
-        "Attivita":  "Progettazione e regolazione gruppo pedaliera",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "Ritardo su regolazione fine corsa e sensori pedale",
-        "Dipendenze":  "CHA-16",
-        "Fine":  "2026-05-15"
-    },
-    {
-        "Assegnatari":  "Alessi",
-        "ID":  "CHA-19",
-        "Dettaglio":  "Modifica geometria barra anti-intrusione vano batteria/motore per ingombri",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-05-04",
-        "Stato":  "Sospeso",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  5,
-        "Attivita":  "Riprogettazione barra anti-intrusione posteriore",
-        "Reparto":  "Chassis",
-        "Area":  "Telaio",
-        "Note":  "Sospesa in attesa di definire ingombri finali pacco batteria",
-        "Dipendenze":  "POW-03",
-        "Fine":  "2026-05-08"
-    },
-    {
-        "Assegnatari":  "Amodeo, La Spisa, Galluzzo",
-        "ID":  "CHA-20",
-        "Dettaglio":  "Costruzione supporto poggiatesta con schiuma conforme a specifiche T5.5 regolamento",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-05-15",
-        "Stato":  "In Ritardo",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  10,
-        "Attivita":  "Supporto e sagomatura poggiatesta",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "In attesa del materiale schiuma ad alto assorbimento",
-        "Dipendenze":  "",
-        "Fine":  "2026-05-28"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-21",
-        "Dettaglio":  "Taglio tubi cromomolibdeno su dima e saldatura TIG boccole per uniball",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-05-28",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  20,
-        "Attivita":  "Produzione bracci sospensione (taglio e saldatura)",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "In corso saldatura triangoli inferiori anteriori",
-        "Dipendenze":  "CHA-08, CHA-09",
-        "Fine":  "2026-06-24"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-22",
-        "Dettaglio":  "Taglio piastre sagomate e saldatura staffe rinforzo ammortizzatori anteriori e posteriori",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-06-15",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  14,
-        "Attivita":  "Fabbricazione attacchi coilover-telaio",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sospensivo",
-        "Note":  "Attacchi anteriori finiti, posteriori in preparazione",
-        "Dipendenze":  "CHA-09",
-        "Fine":  "2026-07-02"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-23",
-        "Dettaglio":  "Taglio laser piastra in alluminio 1.5mm e foratura bulloni M8 grado 8.8",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-06-29",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Produzione piastra anti-intrusione frontale (AIP)",
-        "Reparto":  "Chassis",
-        "Area":  "Telaio",
-        "Note":  "Lamiera 500x500x1.5 disponibile in magazzino",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-03"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-24",
-        "Dettaglio":  "Taglio paratia tagliafuoco in alluminio/composito sigillata a tenuta gas",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-07-06",
-        "Stato":  "In Corso",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  14,
-        "Attivita":  "Fabbricazione e montaggio Firewall pilota",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "Verifica tenuta e isolamento conforme a EV4.5",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-23"
-    },
-    {
-        "Assegnatari":  "Alfio, Mancuso",
-        "ID":  "CHA-25",
-        "Dettaglio":  "Costruzione trolley di spinta e traino vettura per pit-lane e collaudi",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-07-13",
-        "Stato":  "In Ritardo",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  12,
-        "Attivita":  "Fabbricazione carrello di spinta (Ammutta Macchina)",
-        "Reparto":  "Chassis",
-        "Area":  "Officina",
-        "Note":  "Ripianificato in coda alle priorit\u00E0 di telaio",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-28"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-26",
-        "Dettaglio":  "Tornitura prolunghe filettate e boccole di scorrimento in materiale polimerico",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  6,
-        "Attivita":  "Lavorazione prolunghe e boccole scatola guida",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Sterzante",
-        "Note":  "Filettatura M18x1 passo fine in esecuzione al tornio",
-        "Dipendenze":  "CHA-14",
-        "Fine":  "2026-07-27"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-27",
-        "Dettaglio":  "Saldatura occhielli piastre cinture conformi a regolamento T5.3",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Staffaggio e montaggio cinture di sicurezza a 6 punti",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "Verificati angoli delle cinghie con pilota a bordo",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-24"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-28",
-        "Dettaglio":  "Creazione manicotti smontabili per arco principale telaio",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-27",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Manicotti bullonati per Main Hoop",
-        "Reparto":  "Chassis",
-        "Area":  "Telaio",
-        "Note":  "In attesa del tornio parallelo",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-31"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "CHA-29",
-        "Dettaglio":  "Adattamento schiuma e forature per passaggio cinghie e schienale",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-07-27",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  4,
-        "Attivita":  "Sagomatura anatomica sedile pilota",
-        "Reparto":  "Chassis",
-        "Area":  "Cockpit",
-        "Note":  "Richiede prova con piloti designati",
-        "Dipendenze":  "CHA-27",
-        "Fine":  "2026-07-30"
-    },
-    {
-        "Assegnatari":  "Alessi, Salamone",
-        "ID":  "CHA-30",
-        "Dettaglio":  "Riempimento con fluido DOT 5.1, spurgo aria e verifica bloccaggio 4 ruote (Brake Test)",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-08-03",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Collaudo / Test",
-        "Durata":  4,
-        "Attivita":  "Spurgo e collaudo pressione impianto frenante",
-        "Reparto":  "Chassis",
-        "Area":  "Sistema Frenante",
-        "Note":  "Necessario per superare lo scrutineering dinamico",
-        "Dipendenze":  "CHA-11, CHA-18",
-        "Fine":  "2026-08-06"
-    },
-    {
-        "Assegnatari":  "Scarpaci",
-        "ID":  "POW-01",
-        "Dettaglio":  "Calcolo curve di riscaldamento ed estrazione potenza termica dissipata per CFD",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Simulazione / FEA / CFD",
-        "Durata":  6,
-        "Attivita":  "Simulazione termica celle batteria (Batemo)",
-        "Reparto":  "Powertrain",
-        "Area":  "Raffreddamento",
-        "Note":  "Curve termiche fornite al reparto aerodinamica",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-23"
-    },
-    {
-        "Assegnatari":  "Blunda",
-        "ID":  "POW-02",
-        "Dettaglio":  "Progettazione contenitore accumulatori con materiali conformi a norma UL94 V-0",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-18",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  8,
-        "Attivita":  "Modellazione CAD cestello pacco batteria",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Verificati isolamenti dielettrici ed interlock",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-27"
-    },
-    {
-        "Assegnatari":  "Salamone, Corsetti, Ciralli, Sfameni",
-        "ID":  "POW-03",
-        "Dettaglio":  "Verifica a fatica e tenuta agli urti 20G/40G come prescritto da regolamento FSAE",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-04-27",
-        "Stato":  "In Revisione",
-        "Categoria":  "Simulazione / FEA / CFD",
-        "Durata":  5,
-        "Attivita":  "Analisi e calcoli strutturali attacchi batteria (20G/40G)",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Relazione di calcolo in fase di finalizzazione",
-        "Dipendenze":  "POW-02",
-        "Fine":  "2026-05-01"
-    },
-    {
-        "Assegnatari":  "Papa",
-        "ID":  "POW-04",
-        "Dettaglio":  "Calcolo carichi radiali/assiali e selezione cuscinetti SKF 6010-2RS1",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-06",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  4,
-        "Attivita":  "Dimensionamento cuscinetti differenziale",
-        "Reparto":  "Powertrain",
-        "Area":  "Trasmissione",
-        "Note":  "Cuscinetti arrivati in magazzino",
-        "Dipendenze":  "",
-        "Fine":  "2026-04-09"
-    },
-    {
-        "Assegnatari":  "Papa",
-        "ID":  "POW-05",
-        "Dettaglio":  "Modellazione staffe simmetriche con regolazione eccentrica tiro catena",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-13",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  5,
-        "Attivita":  "Progettazione supporti differenziale simmetrici",
-        "Reparto":  "Powertrain",
-        "Area":  "Trasmissione",
-        "Note":  "Analisi sforzi completata con successo",
-        "Dipendenze":  "POW-04",
-        "Fine":  "2026-04-17"
-    },
-    {
-        "Assegnatari":  "Papa",
-        "ID":  "POW-06",
-        "Dettaglio":  "Scelta pompa acqua 12V, calcolo prevalenza e posizionamento radiatori laterali",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-20",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  6,
-        "Attivita":  "Dimensionamento circuito raffreddamento liquido",
-        "Reparto":  "Powertrain",
-        "Area":  "Raffreddamento",
-        "Note":  "Tubi siliconici e raccordi ordinati",
-        "Dipendenze":  "POW-01",
-        "Fine":  "2026-04-27"
-    },
-    {
-        "Assegnatari":  "Di Vita, Musso, Scaglione",
-        "ID":  "POW-07",
-        "Dettaglio":  "Cablaggio e crimpatura sensori di temperatura celle con guaina termorestringente",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-05-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  5,
-        "Attivita":  "Allungamento cavi e sonde NTC temperatura",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Verificata continuit\u00E0 e lettura valori corretti",
-        "Dipendenze":  "POW-02",
-        "Fine":  "2026-05-26"
-    },
-    {
-        "Assegnatari":  "Di Vita, Musso, Scaglione",
-        "ID":  "POW-08",
-        "Dettaglio":  "Intestatura connettori Amphenol HV, calza schermante arancione e pressacavi",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-05-25",
-        "Stato":  "In Corso",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  3,
-        "Attivita":  "Assemblaggio connettori e cavi alta tensione Inverter",
-        "Reparto":  "Powertrain",
-        "Area":  "Trasmissione",
-        "Note":  "Richiede verifica isolamento con megger a 500V",
-        "Dipendenze":  "",
-        "Fine":  "2026-05-27"
-    },
-    {
-        "Assegnatari":  "Papa",
-        "ID":  "POW-09",
-        "Dettaglio":  "Montaggio vaso di espansione con valvola di sovrapressione e sfiato a norma",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-05-28",
-        "Stato":  "In Corso",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  4,
-        "Attivita":  "Realizzazione vaschetta recupero liquido refrigerante",
-        "Reparto":  "Powertrain",
-        "Area":  "Raffreddamento",
-        "Note":  "Staffaggio completato su lato sinistro telaio",
-        "Dipendenze":  "POW-06",
-        "Fine":  "2026-06-02"
-    },
-    {
-        "Assegnatari":  "Di Vita, Musso, Scaglione, Scarpaci",
-        "ID":  "POW-10",
-        "Dettaglio":  "Montaggio meccanico ed elettrico dei segmenti batteria con busbar in rame stagnato",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-08",
-        "Stato":  "Sospeso",
-        "Categoria":  "Assemblaggio / Integrazione",
-        "Durata":  10,
-        "Attivita":  "Assemblaggio moduli celle HV e busbar",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Sospeso in attesa di certificazione isolamento UL94",
-        "Dipendenze":  "POW-03",
-        "Fine":  "2026-06-19"
-    },
-    {
-        "Assegnatari":  "MLD (La Duca)",
-        "ID":  "POW-11",
-        "Dettaglio":  "Fabbricazione involucro protettivo per il lampeggiante verde/rosso di stato HV",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-15",
-        "Stato":  "In Revisione",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  3,
-        "Attivita":  "Produzione scatola TSAL (Tractive System Active Light)",
-        "Reparto":  "Powertrain",
-        "Area":  "Inverter \u0026 Motore",
-        "Note":  "Involucro pronto per assemblaggio scheda elettronica",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-17"
-    },
-    {
-        "Assegnatari":  "MLD (La Duca)",
-        "ID":  "POW-12",
-        "Dettaglio":  "Costruzione box sezionatore rapido ad alta tensione accessibile dall\u0027esterno",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-18",
-        "Stato":  "In Revisione",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  5,
-        "Attivita":  "Produzione scatola HVDBox (High Voltage Disconnect)",
-        "Reparto":  "Powertrain",
-        "Area":  "Inverter \u0026 Motore",
-        "Note":  "Conforme a specifica EV4.7 con interlock",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-24"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "POW-13",
-        "Dettaglio":  "Allineamento su dima dell\u0027asse pignone-corona e saldatura staffe a telaio",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-22",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Saldatura supporti differenziale e motore a telaio",
-        "Reparto":  "Powertrain",
-        "Area":  "Trasmissione",
-        "Note":  "Verificata planarit\u00E0 e tensione catena",
-        "Dipendenze":  "POW-05",
-        "Fine":  "2026-06-26"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "POW-14",
-        "Dettaglio":  "Fabbricazione carter catena spessore 2mm acciaio conforme a regolamento T8.2",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-06-29",
-        "Stato":  "In Ritardo",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  4,
-        "Attivita":  "Costruzione copertura catena e carter di protezione",
-        "Reparto":  "Powertrain",
-        "Area":  "Trasmissione",
-        "Note":  "In attesa della barra in materiale da tagliare",
-        "Dipendenze":  "POW-13",
-        "Fine":  "2026-07-02"
-    },
-    {
-        "Assegnatari":  "Powertrain / Blunda",
-        "ID":  "POW-15",
-        "Dettaglio":  "Aggiornamento schemi unifilari, calcoli fusibili, isolamenti e FMEA elettrico",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-06",
-        "Stato":  "In Corso",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  7,
-        "Attivita":  "Revisione e stesura finale documento ESF (Electrical System Form)",
-        "Reparto":  "Powertrain",
-        "Area":  "Documentazione",
-        "Note":  "Documento vincolante per l\u0027accesso alla competizione",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-14"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "POW-16",
-        "Dettaglio":  "Saldatura staffe angolari di supporto inferiore e laterale accumulatore",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-13",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  6,
-        "Attivita":  "Saldatura supporti pacco batteria e tiranti telaio",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Tubolari 30x30 spessore 2mm in arrivo",
-        "Dipendenze":  "POW-03",
-        "Fine":  "2026-07-20"
-    },
-    {
-        "Assegnatari":  "Blunda, Albergoni",
-        "ID":  "POW-17",
-        "Dettaglio":  "Taratura soglie overvoltage, undervoltage, sovratemperatura e bilanciamento celle",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-20",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  5,
-        "Attivita":  "Programmazione e configurazione BMS (Battery Management System)",
-        "Reparto":  "Powertrain",
-        "Area":  "Pacco Batteria",
-        "Note":  "Test di comunicazione CAN con banco di test",
-        "Dipendenze":  "POW-10",
-        "Fine":  "2026-07-24"
-    },
-    {
-        "Assegnatari":  "Blunda, Papa",
-        "ID":  "POW-18",
-        "Dettaglio":  "Setup controllo di coppia FOC, rampe di accelerazione, rigenerazione e limiti termici",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-27",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  6,
-        "Attivita":  "Parametrizzazione inverter e mappatura motore elettrico",
-        "Reparto":  "Powertrain",
-        "Area":  "Inverter \u0026 Motore",
-        "Note":  "Test preliminare su banco prova a vuoto",
-        "Dipendenze":  "POW-08",
-        "Fine":  "2026-08-03"
-    },
-    {
-        "Assegnatari":  "Scarpaci, Genovese",
-        "ID":  "AER-01",
-        "Dettaglio":  "Mappatura aerodinamica, calcolo Cl, Cd, efficienza e centro di pressione in curva/rollio",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Simulazione / FEA / CFD",
-        "Durata":  15,
-        "Attivita":  "Simulazioni CFD complete della vettura in assetto gara",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Simulazioni",
-        "Note":  "Dati validati per dimensionamento ali e pance",
-        "Dipendenze":  "",
-        "Fine":  "2026-04-03"
-    },
-    {
-        "Assegnatari":  "Scarpaci",
-        "ID":  "AER-02",
-        "Dettaglio":  "Modellazione 3D multi-elemento con paratie laterali, flap regolabili e supporti",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-06",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  7,
-        "Attivita":  "Progettazione CAD profili e flap ala anteriore",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Ala Anteriore",
-        "Note":  "Conforme alle regole dimensionali T7 FSAE",
-        "Dipendenze":  "AER-01",
-        "Fine":  "2026-04-14"
-    },
-    {
-        "Assegnatari":  "Scarpaci",
-        "ID":  "AER-03",
-        "Dettaglio":  "Superficie inferiore vettura con canali di espansione e attacchi telaio",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-13",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  8,
-        "Attivita":  "Progettazione CAD fondo piatto e canali diffusore",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Fondo \u0026 Diffusore",
-        "Note":  "Ottimizzato effetto suolo a centro vettura",
-        "Dipendenze":  "AER-01",
-        "Fine":  "2026-04-22"
-    },
-    {
-        "Assegnatari":  "Scarpaci",
-        "ID":  "AER-04",
-        "Dettaglio":  "Raccordo aerodinamico con crash box, telaio e cockpit anteriore",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-20",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  5,
-        "Attivita":  "Modellazione 3D superficie musetto (Nosecone)",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Musetto",
-        "Note":  "File STEP approvato per master di laminazione",
-        "Dipendenze":  "",
-        "Fine":  "2026-04-24"
-    },
-    {
-        "Assegnatari":  "Lo Re, Genovese",
-        "ID":  "AER-05",
-        "Dettaglio":  "Presa d\u0027aria NACA dinamica per mandata aria fresca al contenitore accumulatori",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-04-27",
-        "Stato":  "In Ritardo",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  14,
-        "Attivita":  "Produzione bocchetta raffreddamento vano batteria",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Raffreddamento",
-        "Note":  "Ritardo su stampo negativo in fibra di vetro",
-        "Dipendenze":  "POW-01",
-        "Fine":  "2026-05-14"
-    },
-    {
-        "Assegnatari":  "Alessi, Genovese, Scavone, Giannone",
-        "ID":  "AER-06",
-        "Dettaglio":  "Taglio CNC paratie in polimero alleggerito e foratura per regolazione incidenza",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-05-18",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Lavorazione end-plate e bandelle laterali alari",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Ali",
-        "Note":  "Paratie tagliate, in rifinitura bordi d\u0027attacco",
-        "Dipendenze":  "AER-02",
-        "Fine":  "2026-05-22"
-    },
-    {
-        "Assegnatari":  "MLD (La Duca)",
-        "ID":  "AER-07",
-        "Dettaglio":  "Realizzazione pezzo in carbonio/vetroresina presso officina MLD",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-06-15",
-        "Stato":  "In Revisione",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  5,
-        "Attivita":  "Laminazione in composito del musetto (Nosecone)",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Musetto",
-        "Note":  "Pezzo estratto dallo stampo, in fase di sbavatura",
-        "Dipendenze":  "AER-04",
-        "Fine":  "2026-06-19"
-    },
-    {
-        "Assegnatari":  "Omer",
-        "ID":  "AER-08",
-        "Dettaglio":  "Pannellatura a nido d\u0027ape e fibra di carbonio realizzata con partner Omer",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-22",
-        "Stato":  "In Revisione",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  7,
-        "Attivita":  "Produzione e laminazione pannello fondo piatto",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Fondo \u0026 Diffusore",
-        "Note":  "In attesa di foratura boccole per aggancio telaio",
-        "Dipendenze":  "AER-03",
-        "Fine":  "2026-06-30"
-    },
-    {
-        "Assegnatari":  "Scavone, Giannone",
-        "ID":  "AER-09",
-        "Dettaglio":  "Allineamento pannelli laterali con sganci rapidi Dzus",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-24",
-        "Stato":  "In Revisione",
-        "Categoria":  "Assemblaggio / Integrazione",
-        "Durata":  6,
-        "Attivita":  "Installazione pannelli carrozzeria e carenatura su telaio",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Carena",
-        "Note":  "Verificata tolleranza con cockpit e pedali",
-        "Dipendenze":  "CHA-24",
-        "Fine":  "2026-07-31"
-    },
-    {
-        "Assegnatari":  "Bommarito \u0026 Co",
-        "ID":  "AER-10",
-        "Dettaglio":  "Polimerizzazione in autoclave dei profili principali e flap con Bommarito \u0026 Co",
-        "Priorita":  "4 - Bassa",
-        "Inizio":  "2026-07-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Laminazione Compositi",
-        "Durata":  14,
-        "Attivita":  "Produzione ali anteriore e posteriore in fibra di carbonio",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Ali",
-        "Note":  "In fase di cottura in autoclave",
-        "Dipendenze":  "AER-02, AER-06",
-        "Fine":  "2026-08-06"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "AER-11",
-        "Dettaglio":  "Costruzione traliccio tubolare di ancoraggio ala posteriore al roll-bar",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-08-07",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  5,
-        "Attivita":  "Assemblaggio traliccio e supporti ala posteriore",
-        "Reparto":  "Aerodinamica",
-        "Area":  "Ali",
-        "Note":  "Verifica carico 200N regolamento T7.8",
-        "Dipendenze":  "AER-10",
-        "Fine":  "2026-08-13"
-    },
-    {
-        "Assegnatari":  "Albergoni",
-        "ID":  "ELE-01",
-        "Dettaglio":  "Schema elettrico generale, calcolo correnti, protezione fusibili e connettori Deutsch",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  8,
-        "Attivita":  "Architettura cablaggio Low Voltage (LV Harness)",
-        "Reparto":  "Elettronica",
-        "Area":  "Low Voltage",
-        "Note":  "Schema validato per la compilazione dell\u0027ESF",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-25"
-    },
-    {
-        "Assegnatari":  "Albergoni",
-        "ID":  "ELE-02",
-        "Dettaglio":  "Circuito di condizionamento segnale con verifica plausibilit\u00E0 10% regolamento T11.8",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-05-18",
-        "Stato":  "In Corso",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  6,
-        "Attivita":  "Progettazione e test scheda pedale APS (doppio potenziometro)",
-        "Reparto":  "Elettronica",
-        "Area":  "Sensori",
-        "Note":  "Verifica segnale su oscilloscopio",
-        "Dipendenze":  "CHA-18",
-        "Fine":  "2026-05-25"
-    },
-    {
-        "Assegnatari":  "Albergoni, Sidoti",
-        "ID":  "ELE-03",
-        "Dettaglio":  "Integrazione in serie di interruttori d\u0027emergenza, interlock, inertia switch e BSPD",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-05-25",
-        "Stato":  "In Corso",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  8,
-        "Attivita":  "Cablaggio circuito di sicurezza SDC (Shut Down Circuit)",
-        "Reparto":  "Elettronica",
-        "Area":  "Sicurezza HV/LV",
-        "Note":  "Pulsanti cockpit e laterali gi\u00E0 predisposti",
-        "Dipendenze":  "ELE-01",
-        "Fine":  "2026-06-03"
-    },
-    {
-        "Assegnatari":  "Albergoni, Cal\u00F2",
-        "ID":  "ELE-04",
-        "Dettaglio":  "Sviluppo algoritmi controllo trazione, mappe potenza pilota, decodifica sensori CAN",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-01",
-        "Stato":  "In Corso",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  12,
-        "Attivita":  "Programmazione firmware VCU (Vehicle Control Unit)",
-        "Reparto":  "Elettronica",
-        "Area":  "Controllo",
-        "Note":  "Test logiche su microcontrollore in laboratorio",
-        "Dipendenze":  "ELE-01",
-        "Fine":  "2026-06-16"
-    },
-    {
-        "Assegnatari":  "Sidoti, D\u0027Angelo",
-        "ID":  "ELE-05",
-        "Dettaglio":  "Mappatura messaggi CAN 1 Mbps, registrazione dati su SD e sincronizzazione GPS/IMU",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-06-17",
-        "Stato":  "In Corso",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  7,
-        "Attivita":  "Configurazione datalogger e rete CAN bus di bordo",
-        "Reparto":  "Elettronica",
-        "Area":  "Telemetria",
-        "Note":  "Verificata assenza di errori di bus off",
-        "Dipendenze":  "ELE-04",
-        "Fine":  "2026-06-25"
-    },
-    {
-        "Assegnatari":  "Albergoni",
-        "ID":  "ELE-06",
-        "Dettaglio":  "Progettazione alloggiamento sigillato VCU e schede ausiliarie con passacavi ermetici",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-22",
-        "Stato":  "In Revisione",
-        "Categoria":  "Progetto / CAD",
-        "Durata":  5,
-        "Attivita":  "Scatola VCU e supporti elettronica di bordo",
-        "Reparto":  "Elettronica",
-        "Area":  "Low Voltage",
-        "Note":  "Stampa 3D del case in PETG completata",
-        "Dipendenze":  "ELE-01",
-        "Fine":  "2026-06-26"
-    },
-    {
-        "Assegnatari":  "Sidoti, D\u0027Angelo",
-        "ID":  "ELE-07",
-        "Dettaglio":  "Saldatura led bicolore, circuito oscillatore e isolamento ottico ad alta tensione",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-06-29",
-        "Stato":  "In Revisione",
-        "Categoria":  "Cablaggio \u0026 Circuiti",
-        "Durata":  4,
-        "Attivita":  "Montaggio circuito e ottiche TSAL",
-        "Reparto":  "Elettronica",
-        "Area":  "Sicurezza HV/LV",
-        "Note":  "Luce rossa e verde testate conformi a EV5.10",
-        "Dipendenze":  "POW-11",
-        "Fine":  "2026-07-02"
-    },
-    {
-        "Assegnatari":  "UniPa",
-        "ID":  "ELE-08",
-        "Dettaglio":  "Alloggiamento batteria 12V LiFePO4, fusibile principale e staccabatteria LV",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-07-06",
-        "Stato":  "In Revisione",
-        "Categoria":  "Produzione Meccanica",
-        "Durata":  4,
-        "Attivita":  "Supporto e cablaggio batteria ausiliaria LV",
-        "Reparto":  "Elettronica",
-        "Area":  "Low Voltage",
-        "Note":  "Piastra piegata e verniciata",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-09"
-    },
-    {
-        "Assegnatari":  "Albergoni",
-        "ID":  "ELE-09",
-        "Dettaglio":  "Controllo ricarica via CAN con arresto di sicurezza comandato dal BMS",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-27",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  5,
-        "Attivita":  "Integrazione protocollo comunicazione caricabatterie (Charger)",
-        "Reparto":  "Elettronica",
-        "Area":  "Controllo",
-        "Note":  "Verifica con banco di ricarica isolato",
-        "Dipendenze":  "POW-17",
-        "Fine":  "2026-07-31"
-    },
-    {
-        "Assegnatari":  "Albergoni, Blunda, Sidoti",
-        "ID":  "ELE-10",
-        "Dettaglio":  "Test d\u0027isolamento (IMD test), prova d\u0027arresto SDC e collaudo funzionale completo",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-08-03",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Collaudo / Test",
-        "Durata":  5,
-        "Attivita":  "Verifica isolamento e collaudo impianto elettrico a bordo",
-        "Reparto":  "Elettronica",
-        "Area":  "Collaudo",
-        "Note":  "Test obbligatorio per Electrical Scrutineering",
-        "Dipendenze":  "ELE-03, ELE-04",
-        "Fine":  "2026-08-07"
-    },
-    {
-        "Assegnatari":  "Salamone",
-        "ID":  "BUS-01",
-        "Dettaglio":  "Ideazione del modello di business incentrato sulla mobilit\u00E0 elettrica per la giuria BPP",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  10,
-        "Attivita":  "Definizione Concept Business Plan e Value Proposition",
-        "Reparto":  "Business",
-        "Area":  "Business Plan",
-        "Note":  "Concept validato: fornitura moduli batteria retrofit",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-27"
-    },
-    {
-        "Assegnatari":  "Salamone, Calafato",
-        "ID":  "BUS-02",
-        "Dettaglio":  "Sceneggiatura, riprese e montaggio del Business Pitch Video (Scadenza 30 Giugno 2026)",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-05-18",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  15,
-        "Attivita":  "Realizzazione video di presentazione BPP Stage 1",
-        "Reparto":  "Business",
-        "Area":  "Business Plan",
-        "Note":  "Video in post-produzione, conforme ai vincoli di durata",
-        "Dipendenze":  "BUS-01",
-        "Fine":  "2026-06-05"
-    },
-    {
-        "Assegnatari":  "Salamone, Abitabile",
-        "ID":  "BUS-03",
-        "Dettaglio":  "Dettaglio costi materie prime, processi produttivi e distinta base ufficiale (BOM)",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-01",
-        "Stato":  "In Corso",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  20,
-        "Attivita":  "Compilazione e-Cost and Manufacturing Report",
-        "Reparto":  "Business",
-        "Area":  "Cost Report",
-        "Note":  "Inseriti costi telaio, sospensioni e powertrain",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-26"
-    },
-    {
-        "Assegnatari":  "Salamone",
-        "ID":  "BUS-04",
-        "Dettaglio":  "Analisi del quesito specifico pubblicato dagli organizzatori il 30 Giugno 2026",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-06",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  10,
-        "Attivita":  "Studio ed analisi Deep Dive Topics pubblicati dalla giuria",
-        "Reparto":  "Business",
-        "Area":  "Business Plan",
-        "Note":  "In attesa della pubblicazione ufficiale del tema",
-        "Dipendenze":  "BUS-02",
-        "Fine":  "2026-07-17"
-    },
-    {
-        "Assegnatari":  "Abitabile, Salamone",
-        "ID":  "BUS-05",
-        "Dettaglio":  "Studio del caso applicativo di industrializzazione di serie assegnato dal regolamento",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-13",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  8,
-        "Attivita":  "Risoluzione Real Case Cost Scenario per i giudici",
-        "Reparto":  "Business",
-        "Area":  "Cost Report",
-        "Note":  "Da presentare contestualmente al Cost Report",
-        "Dipendenze":  "BUS-03",
-        "Fine":  "2026-07-22"
-    },
-    {
-        "Assegnatari":  "Salamone, Cammarata",
-        "ID":  "BUS-06",
-        "Dettaglio":  "Rendicontazione fatture materiali, rimborsi trasporti e monitoraggio cassa team",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-07-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  8,
-        "Attivita":  "Controllo consuntivo di spesa e gestione budget stagionale",
-        "Reparto":  "Business",
-        "Area":  "Finanze \u0026 Budget",
-        "Note":  "Aggiornato registro entrate sponsor e uscite materiali",
-        "Dipendenze":  "",
-        "Fine":  "2026-07-29"
-    },
-    {
-        "Assegnatari":  "Salamone, Calafato",
-        "ID":  "BUS-07",
-        "Dettaglio":  "Slide per esposizione in presenza (3-4 Settembre 2026) e prove di pitch orali",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-08-03",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  15,
-        "Attivita":  "Sviluppo presentazione slide e simulazione Q\u0026A BPP Stage 2",
-        "Reparto":  "Business",
-        "Area":  "Business Plan",
-        "Note":  "Simulazione interna con docenti ateneo",
-        "Dipendenze":  "BUS-04",
-        "Fine":  "2026-08-21"
-    },
-    {
-        "Assegnatari":  "Alessi, Spart\u00E0",
-        "ID":  "GM-01",
-        "Dettaglio":  "Iscrizione team, caricamento anagrafica membri, patenti FSAE e documentazione ateneo",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-02-03",
-        "Stato":  "Completato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  5,
-        "Attivita":  "Registrazione team e gestione portale FSAE 2026",
-        "Reparto":  "G\u0026M",
-        "Area":  "Iscrizioni \u0026 Eventi",
-        "Note":  "Iscrizione confermata con successo",
-        "Dipendenze":  "",
-        "Fine":  "2026-02-09"
-    },
-    {
-        "Assegnatari":  "Spart\u00E0",
-        "ID":  "GM-02",
-        "Dettaglio":  "Invio modulo prenotazione piazzole camping autodromo e gestione acconti",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-04-13",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  8,
-        "Attivita":  "Prenotazione alloggi e camping booking form gara",
-        "Reparto":  "G\u0026M",
-        "Area":  "Logistica",
-        "Note":  "Conferma ricevuta, in attesa di saldo definitivo",
-        "Dipendenze":  "GM-01",
-        "Fine":  "2026-04-22"
-    },
-    {
-        "Assegnatari":  "Spart\u00E0, Salamone, Cammarata",
-        "ID":  "GM-03",
-        "Dettaglio":  "Presentazione sponsor kit, contratti di fornitura materiali e supporto lavorazioni",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-04-20",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  25,
-        "Attivita":  "Campagna sponsorizzazioni territoriali e partner tecnici",
-        "Reparto":  "G\u0026M",
-        "Area":  "Sponsor",
-        "Note":  "Partnership siglate con SKF, ISB, Omer, Michelangelo",
-        "Dipendenze":  "",
-        "Fine":  "2026-05-22"
-    },
-    {
-        "Assegnatari":  "Bossa, Amorello",
-        "ID":  "GM-04",
-        "Dettaglio":  "Post settimanali, reel su lavorazioni telaio e componenti, visibilit\u00E0 sponsor",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-05-04",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  30,
-        "Attivita":  "Piano editoriale social media e copertura lavori officina",
-        "Reparto":  "G\u0026M",
-        "Area":  "Comunicazione",
-        "Note":  "Canali Instagram, LinkedIn e TikTok attivi",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-12"
-    },
-    {
-        "Assegnatari":  "Toia",
-        "ID":  "GM-05",
-        "Dettaglio":  "Grafica divise ufficiali da gara, cappellini, pass paddock e adesivi sponsor",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-06-08",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  12,
-        "Attivita":  "Progettazione abbigliamento team e livrea prototipo",
-        "Reparto":  "G\u0026M",
-        "Area":  "Brand \u0026 Team Wear",
-        "Note":  "Bozza grafica livrea approvata, divise in produzione",
-        "Dipendenze":  "GM-03",
-        "Fine":  "2026-06-23"
-    },
-    {
-        "Assegnatari":  "Spart\u00E0",
-        "ID":  "GM-06",
-        "Dettaglio":  "Caricamento certificati medici, patenti e deleghe prima della scadenza del 15 Giugno",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-01",
-        "Stato":  "In Revisione",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  10,
-        "Attivita":  "Invio elenco definitivo membri team e docenti (Final Team List)",
-        "Reparto":  "G\u0026M",
-        "Area":  "Iscrizioni \u0026 Eventi",
-        "Note":  "Elenco 42 membri pronto per validazione ateneo",
-        "Dipendenze":  "GM-01",
-        "Fine":  "2026-06-12"
-    },
-    {
-        "Assegnatari":  "Spart\u00E0, Mancuso",
-        "ID":  "GM-07",
-        "Dettaglio":  "Noleggio furgoni, carrello chiuso porta-auto, casse ricambi e allestimento pit-lane",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-07-20",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  10,
-        "Attivita":  "Organizzazione logistica mezzi, trasporto monoposto e casse attrezzi",
-        "Reparto":  "G\u0026M",
-        "Area":  "Logistica",
-        "Note":  "Pianificazione percorso Palermo -\u003e Autodromo Varano",
-        "Dipendenze":  "GM-02",
-        "Fine":  "2026-07-31"
-    },
-    {
-        "Assegnatari":  "Spart\u00E0, Alessi, Bossa",
-        "ID":  "GM-08",
-        "Dettaglio":  "Presentazione pubblica del prototipo ad autorit\u00E0 accademiche, stampa e sponsor",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-08-03",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  12,
-        "Attivita":  "Organizzazione evento di Roll-Out ufficiale vettura",
-        "Reparto":  "G\u0026M",
-        "Area":  "Iscrizioni \u0026 Eventi",
-        "Note":  "Location: Aula Magna Scuola Politecnica UniPa",
-        "Dipendenze":  "GM-05",
-        "Fine":  "2026-08-18"
-    },
-    {
-        "Assegnatari":  "Andreassi",
-        "ID":  "IT-01",
-        "Dettaglio":  "Strutturazione cartelle condivise per CAD 3D, tavole 2D, schede elettroniche e simulazioni",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-03-16",
-        "Stato":  "Completato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  5,
-        "Attivita":  "Configurazione e manutenzione Cloud Repository del team",
-        "Reparto":  "IT",
-        "Area":  "Infrastruttura",
-        "Note":  "Cartelle organizzate per reparto con permessi dedicati",
-        "Dipendenze":  "",
-        "Fine":  "2026-03-20"
-    },
-    {
-        "Assegnatari":  "Andreassi, Passafiume",
-        "ID":  "IT-02",
-        "Dettaglio":  "Pubblicazione pagine reparto, portfolio sponsor, news e form reclutamento",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-05-04",
-        "Stato":  "In Corso",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  15,
-        "Attivita":  "Aggiornamento portale web Apex Corse UniPa",
-        "Reparto":  "IT",
-        "Area":  "Sito Web",
-        "Note":  "Hosting configurato, sezione partner aggiornata",
-        "Dipendenze":  "IT-01",
-        "Fine":  "2026-05-22"
-    },
-    {
-        "Assegnatari":  "Andreassi, Sidoti",
-        "ID":  "IT-03",
-        "Dettaglio":  "Applicazione web/desktop per visualizzazione in tempo reale di tensioni, temperature, velocit\u00E0",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-06-26",
-        "Stato":  "In Corso",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  18,
-        "Attivita":  "Sviluppo dashboard live telemetria per box pit-lane",
-        "Reparto":  "IT",
-        "Area":  "Telemetria \u0026 Dati",
-        "Note":  "Ricezione pacchetti UDP e grafici in tempo reale ok",
-        "Dipendenze":  "ELE-05",
-        "Fine":  "2026-07-21"
-    },
-    {
-        "Assegnatari":  "Andreassi",
-        "ID":  "IT-04",
-        "Dettaglio":  "Aggiornamento licenze universitarie per SolidWorks, Ansys CFD, MATLAB/Simulink e Batemo",
-        "Priorita":  "2 - Alta",
-        "Inizio":  "2026-06-15",
-        "Stato":  "In Corso",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  8,
-        "Attivita":  "Gestione server di calcolo e licenze software ingegneristiche",
-        "Reparto":  "IT",
-        "Area":  "Software \u0026 Licenze",
-        "Note":  "Licenze rinnovate fino a fine stagione",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-24"
-    },
-    {
-        "Assegnatari":  "Andreassi",
-        "ID":  "IT-05",
-        "Dettaglio":  "Script di sincronizzazione notturna su storage sicuro per proteggere il lavoro da perdite",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-22",
-        "Stato":  "In Corso",
-        "Categoria":  "Software \u0026 FW",
-        "Durata":  6,
-        "Attivita":  "Sistema di backup automatico e versioning modelli CAD/CAE",
-        "Reparto":  "IT",
-        "Area":  "Infrastruttura",
-        "Note":  "Snapshot giornalieri attivi con retention di 30 giorni",
-        "Dipendenze":  "IT-01",
-        "Fine":  "2026-06-29"
-    },
-    {
-        "Assegnatari":  "Andreassi",
-        "ID":  "IT-06",
-        "Dettaglio":  "Configurazione router mobile da campo, switch di rete e antenne per comunicazioni box-pista",
-        "Priorita":  "3 - Media",
-        "Inizio":  "2026-07-27",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Management \u0026 Marketing",
-        "Durata":  5,
-        "Attivita":  "Setup hotspot sicuro e connettivit\u00E0 4G/5G per box autodromo",
-        "Reparto":  "IT",
-        "Area":  "Reti \u0026 Connettivit\u00E0",
-        "Note":  "Test preliminare di copertura con modem da cantiere",
-        "Dipendenze":  "IT-03",
-        "Fine":  "2026-07-31"
-    },
-    {
-        "Assegnatari":  "Salamone, Alessi",
-        "ID":  "DOC-01",
-        "Dettaglio":  "Dossier ufficiale di conformit\u00E0 telaio e modello 3D SE3D sottomessi per approvazione giudici",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-05-07",
-        "Stato":  "In Revisione",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  10,
-        "Attivita":  "Structural Equivalency Spreadsheet (SES) \u0026 3D Model",
-        "Reparto":  "DOCUMENTI",
-        "Area":  "Regolamento",
-        "Note":  "Scadenza ufficiale 27 Aprile 2026 (Hard 22 Maggio)",
-        "Dipendenze":  "CHA-17",
-        "Fine":  "2026-05-20"
-    },
-    {
-        "Assegnatari":  "Blunda, Albergoni",
-        "ID":  "DOC-02",
-        "Dettaglio":  "Documento vincolante per l\u0027approvazione dell\u0027intero impianto alta e bassa tensione",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-15",
-        "Stato":  "In Corso",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  10,
-        "Attivita":  "Electrical System Form (ESF) \u0026 Schemi di Sicurezza",
-        "Reparto":  "DOCUMENTI",
-        "Area":  "Regolamento",
-        "Note":  "Scadenza ufficiale 18 Maggio 2026 (Hard 24 Agosto)",
-        "Dipendenze":  "POW-15",
-        "Fine":  "2026-07-28"
-    },
-    {
-        "Assegnatari":  "Alessi, Salamone",
-        "ID":  "DOC-03",
-        "Dettaglio":  "Relazione sui calcoli o prove fisiche di schiacciamento dell\u0027attenuatore d\u0027urto T3.18.1",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-07-06",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  10,
-        "Attivita":  "Impact Attenuator Data (IAD Report)",
-        "Reparto":  "DOCUMENTI",
-        "Area":  "Regolamento",
-        "Note":  "Scadenza ufficiale 22 Giugno 2026 (Hard 3 Luglio)",
-        "Dipendenze":  "CHA-23",
-        "Fine":  "2026-07-17"
-    },
-    {
-        "Assegnatari":  "Alessi, Blunda, Scarpaci, Albergoni",
-        "ID":  "DOC-04",
-        "Dettaglio":  "Dossier tecnico completo di progetto della vettura per i giudici del Design Event",
-        "Priorita":  "1 - Massima",
-        "Inizio":  "2026-06-15",
-        "Stato":  "Non Avviato",
-        "Categoria":  "Documentazione Gara",
-        "Durata":  8,
-        "Attivita":  "Engineering Design Report (EDR) \u0026 Spec Sheet",
-        "Reparto":  "DOCUMENTI",
-        "Area":  "Regolamento",
-        "Note":  "Scadenza ufficiale 24 Giugno 2026 (Hard 8 Luglio)",
-        "Dipendenze":  "",
-        "Fine":  "2026-06-24"
+        "Fine":  "2026-10-18",
+        "Note":  ""
     }
 ];
     const bomData = [
@@ -4043,12 +2551,11 @@
       { id: 'mem-1791574294045', nome: 'Angela', reparto: 'Graphics & Media', ruolo: 'Social Media Manager', email: 'angela@apexcorse.it', password: 'angela', dataRegistrazione: '2026-10-09' },
       { id: 'mem-1791574688441', nome: 'Carmine', reparto: 'Graphics & Media', ruolo: 'Grafico', email: 'carmine@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-09' },
       { id: 'mem-1791629350162', nome: 'Paolo Sidoti', reparto: 'Chassis', ruolo: 'Capo Reparto Chassis', email: 'p.sidoti@community.unipa.it', password: 'test2', dataRegistrazione: '2026-10-10' },
-      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', password: 'test1', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-salvatore', nome: 'Salvatore Alessi', reparto: 'Chassis', ruolo: 'Direttore Tecnico Veicolo', email: 's.alessi@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
       { id: 'mem-giuseppe', nome: 'Giuseppe Blunda', reparto: 'Powertrain', ruolo: 'Direttore Tecnico Sistemi', email: 'g.blunda@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
       { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
       { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-simone', nome: 'Simone Gallo', reparto: 'Logistics', ruolo: 'Capo Reparto Logistics', email: 'logistics@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' }
+      { id: 'mem-1791652074466', nome: 'Gabriele Lo Re', reparto: 'Aerodynamics', ruolo: 'Capo Reparto', email: 'g.lore@community.unipa.it', password: 'test2', dataRegistrazione: '2026-10-10' },
+      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', password: 'test1', dataRegistrazione: '2026-10-01' }
     ];
 
     // ----------------------------------------------------
@@ -4399,6 +2906,191 @@
       }
     }
 
+    // ----------------------------------------------------
+    // APEX CORSE - INTERNAL BACKUP & RESTORE ENGINE
+    // ----------------------------------------------------
+    function getInternalBackupState() {
+      try {
+        const raw = safeStorage.getItem('apex_internal_backup_latest');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return null;
+    }
+
+    function saveInternalBackup(silent = false) {
+      try {
+        const backupData = {
+          version: '3.1.1',
+          timestamp: new Date().toISOString(),
+          formattedDate: new Date().toLocaleString(),
+          tasks: (typeof tasks !== 'undefined' && Array.isArray(tasks)) ? JSON.parse(JSON.stringify(tasks)) : [],
+          members: (typeof teamMembers !== 'undefined' && Array.isArray(teamMembers)) ? JSON.parse(JSON.stringify(teamMembers)) : [],
+          bom: (typeof bomItems !== 'undefined' && Array.isArray(bomItems)) ? JSON.parse(JSON.stringify(bomItems)) : [],
+          scadenze: (typeof scadenzeItems !== 'undefined' && Array.isArray(scadenzeItems)) ? JSON.parse(JSON.stringify(scadenzeItems)) : [],
+          organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? JSON.parse(JSON.stringify(organigrammaData)) : [],
+          regSettings: (typeof getRegistrationSettings === 'function') ? getRegistrationSettings() : null,
+          theme: safeStorage.getItem('apex_theme') || 'dark'
+        };
+
+        safeStorage.setItem('apex_internal_backup_latest', JSON.stringify(backupData));
+        updateBackupUIStatus();
+
+        if (typeof triggerCloudSyncPush === 'function') {
+          triggerCloudSyncPush();
+        }
+
+        if (!silent) {
+          if (typeof showApexToast === 'function') {
+            showApexToast('Backup interno salvato con successo! (' + backupData.tasks.length + ' task, ' + backupData.members.length + ' membri)', 'success');
+          } else {
+            alert('Backup interno salvato con successo!\n\nTask salvate: ' + backupData.tasks.length + '\nMembri: ' + backupData.members.length);
+          }
+        }
+        return backupData;
+      } catch(err) {
+        console.error('Errore durante saveInternalBackup:', err);
+        if (!silent) {
+          if (typeof showApexToast === 'function') {
+            showApexToast('Errore nel salvataggio del backup: ' + err.message, 'warning');
+          } else {
+            alert('Errore nel salvataggio del backup: ' + err.message);
+          }
+        }
+        return null;
+      }
+    }
+
+    function restoreInternalBackup(silent = false, sourceData = null) {
+      try {
+        const backup = sourceData || getInternalBackupState();
+        if (!backup) {
+          if (!silent) {
+            if (typeof showApexToast === 'function') {
+              showApexToast('Nessun backup interno trovato da ripristinare.', 'warning');
+            } else {
+              alert('Nessun backup interno trovato da ripristinare.');
+            }
+          }
+          return false;
+        }
+
+        if (Array.isArray(backup.tasks)) {
+          tasks = JSON.parse(JSON.stringify(backup.tasks));
+          safeStorage.setItem('apex_racing_tasks_v2', JSON.stringify(tasks));
+        }
+
+        if (Array.isArray(backup.members)) {
+          teamMembers = JSON.parse(JSON.stringify(backup.members));
+          safeStorage.setItem('apex_racing_members_v2', JSON.stringify(teamMembers));
+        }
+
+        if (Array.isArray(backup.bom)) {
+          bomItems = JSON.parse(JSON.stringify(backup.bom));
+          safeStorage.setItem('apex_racing_bom_v2', JSON.stringify(bomItems));
+        }
+
+        if (Array.isArray(backup.scadenze)) {
+          scadenzeItems = JSON.parse(JSON.stringify(backup.scadenze));
+          safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
+        }
+
+        if (Array.isArray(backup.organigramma)) {
+          organigrammaData = JSON.parse(JSON.stringify(backup.organigramma));
+          safeStorage.setItem('apex_organigramma_v4', JSON.stringify(organigrammaData));
+        }
+
+        if (backup.regSettings) {
+          safeStorage.setItem('apex_registration_settings', JSON.stringify(backup.regSettings));
+        }
+
+        if (backup.theme) {
+          safeStorage.setItem('apex_theme', backup.theme);
+          document.documentElement.className = backup.theme;
+        }
+
+        if (typeof triggerCloudSyncPush === 'function') {
+          triggerCloudSyncPush();
+        }
+
+        if (typeof renderView === 'function') {
+          renderView();
+        }
+
+        updateBackupUIStatus();
+
+        if (!silent) {
+          if (typeof showApexToast === 'function') {
+            showApexToast('Dati ripristinati con successo dal backup! (' + tasks.length + ' task, ' + teamMembers.length + ' membri)', 'success');
+          } else {
+            alert('Dati ripristinati con successo dal backup!\n\nTask ripristinate: ' + tasks.length + '\nMembri: ' + teamMembers.length);
+          }
+        }
+        return true;
+      } catch(err) {
+        console.error('Errore durante restoreInternalBackup:', err);
+        if (!silent) {
+          if (typeof showApexToast === 'function') {
+            showApexToast('Errore durante il ripristino: ' + err.message, 'warning');
+          } else {
+            alert('Errore durante il ripristino: ' + err.message);
+          }
+        }
+        return false;
+      }
+    }
+
+    function exportBackupToFile() {
+      const backup = getInternalBackupState() || saveInternalBackup(true);
+      if (!backup) {
+        if (typeof showApexToast === 'function') showApexToast('Impossibile esportare il backup.', 'warning');
+        return;
+      }
+      const str = JSON.stringify(backup, null, 2);
+      const blob = new Blob([str], { type: 'application/json' });
+      const a = document.createElement('a');
+      const dStr = new Date().toISOString().split('T')[0];
+      a.href = URL.createObjectURL(blob);
+      a.download = `Apex_Corse_Backup_${dStr}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      if (typeof showApexToast === 'function') showApexToast('File di backup scaricato con successo!', 'success');
+    }
+
+    function importBackupFromFile(evt) {
+      const file = evt.target.files && evt.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!data || typeof data !== 'object') throw new Error('Formato JSON non valido');
+          if (confirm('Vuoi ripristinare questo file di backup? I dati attuali verranno sostituiti con quelli del backup.')) {
+            saveInternalBackup(true);
+            safeStorage.setItem('apex_internal_backup_latest', JSON.stringify(data));
+            restoreInternalBackup(false, data);
+          }
+        } catch(err) {
+          alert('Errore nel caricamento del file di backup: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      evt.target.value = '';
+    }
+
+    function updateBackupUIStatus() {
+      const el = document.getElementById('backup-status-text');
+      if (!el) return;
+      const backup = getInternalBackupState();
+      if (backup) {
+        const tCount = Array.isArray(backup.tasks) ? backup.tasks.length : 0;
+        const mCount = Array.isArray(backup.members) ? backup.members.length : 0;
+        el.innerHTML = `Ultimo backup salvato: <strong style="color: #10b981;">${backup.formattedDate || backup.timestamp}</strong> (${tCount} task, ${mCount} membri)`;
+      } else {
+        el.innerHTML = `Nessun backup interno presente in memoria locale. Clicca su "Salva Backup Ora".`;
+      }
+    }
+
     function getDefaultTasks() {
       if (!Array.isArray(sampleTasksData) || sampleTasksData.length === 0) return [];
       return sampleTasksData.map(t => {
@@ -4438,13 +3130,29 @@
 
     function initApp() {
       try {
+        // Ripristino prioritario automatico se la pagina e' stata ricaricata da un aggiornamento
+        const autoRestorePending = safeStorage.getItem('apex_auto_restore_after_update');
+        if (autoRestorePending === 'true') {
+          safeStorage.removeItem('apex_auto_restore_after_update');
+          restoreInternalBackup(true);
+        }
+
         const stored = safeStorage.getItem('apex_racing_tasks_v2');
         if (stored) {
           try { tasks = JSON.parse(stored); } catch(e) { tasks = []; }
         }
         if (!tasks || tasks.length === 0) {
-          tasks = getDefaultTasks();
+          const bkp = getInternalBackupState();
+          if (bkp && Array.isArray(bkp.tasks) && bkp.tasks.length > 0) {
+            tasks = JSON.parse(JSON.stringify(bkp.tasks));
+          } else {
+            tasks = getDefaultTasks();
+          }
           safeStorage.setItem('apex_racing_tasks_v2', JSON.stringify(tasks));
+        }
+
+        if (!getInternalBackupState()) {
+          saveInternalBackup(true);
         }
 
         const storedBOM = safeStorage.getItem('apex_racing_bom_v2');
@@ -9435,10 +8143,10 @@ function doPost(e) {
     // V3.0 UPDATE & VERSION ENGINE
     // ====================================================
 // ====================================================
-// APEX CORSE V3.0 - UPDATE & VERSION ENGINE
+// APEX CORSE V3.1 - UPDATE, VERSION & BACKUP ENGINE
 // ====================================================
-const APP_VERSION = '3.1.0';
-const APP_BUILD_DATE = '2026-10-10';
+const APP_VERSION = '3.1.1';
+const APP_BUILD_DATE = '2026-10-11';
 let remoteVersionInfo = null;
 
 // Sistema di Toast Notifiche Fluttuanti
@@ -9521,7 +8229,13 @@ function dismissUpdateBanner() {
 }
 
 function applyAppUpdate() {
-  showToast('Aggiornamento in corso... Ricaricamento interfaccia...', 'info');
+  if (typeof saveInternalBackup === 'function') {
+    saveInternalBackup(true);
+  }
+  try {
+    localStorage.setItem('apex_auto_restore_after_update', 'true');
+  } catch(e) {}
+  showToast('Backup di sicurezza creato! Aggiornamento in corso... Ricaricamento interfaccia...', 'info');
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
     navigator.serviceWorker.getRegistrations().then(regs => {
       for (let reg of regs) {
@@ -9535,18 +8249,26 @@ function applyAppUpdate() {
 }
 
 function simulateUpdateNotification() {
+  // Salva subito il backup interno per proteggere i dati correnti
+  if (typeof saveInternalBackup === 'function') {
+    saveInternalBackup(true);
+  }
+  // Riapplica e conferma il backup per garantire che le task correnti sovrascrivano qualsiasi dato vecchio
+  if (typeof restoreInternalBackup === 'function') {
+    restoreInternalBackup(true);
+  }
   const demoData = {
-    version: '3.1.0',
-    title: 'Nuova versione Apex Corse v3.1 (Ottimizzazioni & Telemetria)',
+    version: '3.1.2',
+    title: 'Nuova versione Apex Corse (Ottimizzazioni & Telemetria)',
     changelog: [
-      'Nuovo sistema di telemetria integrato per Powertrain ed Electronics',
+      'Sistema di Backup Interno e protezione dati attiva',
       'Miglioramenti prestazionali al cronoprogramma Gantt',
       'Nuovi filtri per il coordinamento delle gare FSAE'
     ]
   };
   showUpdateBanner(demoData);
   updateModalVersionDisplay(demoData);
-  showToast('Notifica di aggiornamento simulata con successo!', 'success');
+  showToast('Backup di sicurezza creato! I tuoi dati attuali sono protetti al 100%.', 'success');
 }
 
 function openUpdateModal() {
@@ -9564,12 +8286,16 @@ function openUpdateModal() {
   } else {
     updateModalVersionDisplay({ version: APP_VERSION });
   }
+  if (typeof updateBackupUIStatus === 'function') {
+    updateBackupUIStatus();
+  }
   modal.style.display = 'flex';
 }
 
 function closeUpdateModal() {
   const modal = document.getElementById('update-modal');
-  if (modal) modal.style.display = 'none';
+  if (!modal) return;
+  modal.style.display = 'none';
 }
 
 function updateModalVersionDisplay(data) {

@@ -1,13 +1,13 @@
 {
-  "version": "3.1.0",
-  "buildDate": "2026-10-10",
+  "version": "3.1.1",
+  "buildDate": "2026-10-11",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.1.0 - Controllo Accessi & Sicurezza Registrazioni",
+  "title": "Apex Corse v3.1.1 - Sistema di Backup Interno & Protezione Aggiornamenti",
   "changelog": [
-    "Sicurezza: Codice Invito di Scuderia obbligatorio per nuovi membri (predefinito: APEX2026)",
-    "Controllo Accessi: Interruttore ON/OFF nel pannello Proprietario per bloccare o aprire le registrazioni",
-    "Filtro Email: Registrazione limitata esclusivamente a indirizzi istituzionali (@community.unipa.it, @apexcorse.it, @unipa.it)",
-    "Pannello Proprietario: Gestione in tempo reale di codice invito, stato registrazioni e domini con Cloud Sync"
+    "Backup Interno: Nuovo tasto di backup immediato e ripristino istantaneo nel Centro Aggiornamenti e nel menu",
+    "Protezione Aggiornamenti: Salvataggio automatico del backup prima di ogni simulazione o aggiornamento",
+    "Ripristino Automatico: I dati e le task correnti vengono ripristinati e confermati automaticamente dopo ogni aggiornamento",
+    "Import/Export: Possibilità di esportare e importare file di backup JSON per massima sicurezza"
   ]
 }
