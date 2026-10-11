@@ -1,5 +1,5 @@
-// Apex Corse - Service Worker v3.0.1
-const CACHE_NAME = 'apex-corse-v3.0.1';
+// Apex Corse - Service Worker v3.1.1
+const CACHE_NAME = 'apex-corse-v3.1.1';
 const ASSETS = [
   './',
   './index.html',

@@ -776,7 +776,7 @@
 </head>
 <body>
   <!-- ==================================================== -->
-  <!-- APEX CORSE V3.0 - UPDATE NOTIFICATION BANNER -->
+  <!-- APEX CORSE V3.1.1 - UPDATE NOTIFICATION BANNER -->
   <!-- ==================================================== -->
   <div id="apex-update-banner" style="display: none; background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); border-bottom: 2px solid #6366f1; padding: 10px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 10000;">
     <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
@@ -787,18 +787,24 @@
         <div>
           <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
             <span>NUOVO AGGIORNAMENTO DISPONIBILE!</span>
-            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.1.0</span>
+            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.1.1</span>
           </div>
           <div id="update-banner-desc" style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">
-            Una nuova versione della piattaforma e' pronta. Clicca per aggiornare l'interfaccia senza perdere password, task o dati personali.
+            Una nuova versione della piattaforma e' pronta. Clicca per visualizzare il recap o aggiornare l'interfaccia senza perdere dati.
           </div>
         </div>
       </div>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <button class="btn btn-primary" onclick="applyAppUpdate()" style="background: linear-gradient(135deg, #4f46e5, #06b6d4); font-weight: 800; font-size: 0.82rem; padding: 7px 16px; border: none; box-shadow: 0 2px 10px rgba(6, 182, 212, 0.4); display: flex; align-items: center; gap: 6px;">
-          <span>&#9889; Aggiorna Ora</span>
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="openUpdateRecapModal()" style="background: linear-gradient(135deg, #4f46e5, #06b6d4); font-weight: 800; font-size: 0.82rem; padding: 7px 14px; border: none; box-shadow: 0 2px 10px rgba(6, 182, 212, 0.4); display: flex; align-items: center; gap: 6px;">
+          <span>&#10024; Leggi Recap</span>
         </button>
-        <button class="btn btn-secondary" onclick="dismissUpdateBanner()" style="font-size: 0.78rem; padding: 6px 12px;">
+        <button class="btn btn-secondary" onclick="openReleaseNotesModal()" style="font-size: 0.78rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+          <span>&#128220; Note Rilascio</span>
+        </button>
+        <button class="btn btn-secondary" onclick="applyAppUpdate()" style="font-size: 0.78rem; padding: 6px 12px;">
+          &#9889; Aggiorna Ora
+        </button>
+        <button class="btn btn-secondary" onclick="dismissUpdateBanner()" style="font-size: 0.78rem; padding: 6px 10px;">
           Pi&ugrave; tardi
         </button>
       </div>
@@ -842,13 +848,17 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             <span>Salva Backup Dati Adesso</span>
           </div>
-          <div class="dropdown-item" onclick="restoreInternalBackup(false); closeSettingsMenu();">
+          <div class="dropdown-item" id="menu-restore-backup" onclick="restoreInternalBackup(false); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
             <span>Ripristina Ultimo Backup</span>
           </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span>Centro Aggiornamenti &amp; Backup (v3.1)</span>
+          </div>
+          <div class="dropdown-item" onclick="openReleaseNotesModal(); closeSettingsMenu();">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Note di Rilascio &amp; Storico Versioni</span>
           </div>
           <div class="dropdown-item" onclick="openCloudSyncModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
@@ -1097,7 +1107,7 @@
     </div>
   </div>
 
-  <!-- Update Center Modal (v3.0) -->
+  <!-- Update Center Modal (v3.1.1) -->
   <div id="update-modal" class="modal-backdrop" style="display: none; z-index: 9999; backdrop-filter: blur(8px); background: rgba(5, 8, 15, 0.85);">
     <div class="modal-box" style="max-width: 580px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.85); background: #111827;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -1107,7 +1117,7 @@
           </div>
           <div>
             <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0; color: #fff;">Centro Aggiornamenti Apex Corse</h3>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">Gestione versione e aggiornamento dell'interfaccia con un click</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Gestione versione e sincronizzazione per tutta la scuderia</div>
           </div>
         </div>
         <button onclick="closeUpdateModal()" style="background: none; border: none; font-size: 1.4rem; color: var(--text-muted); cursor: pointer;">&times;</button>
@@ -1131,8 +1141,8 @@
           <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           Verifica Aggiornamenti
         </button>
-        <button type="button" class="btn btn-secondary" onclick="simulateUpdateNotification()" style="font-size: 0.82rem; flex: 1; justify-content: center;" title="Simula come i tuoi membri vedranno l'avviso di aggiornamento con protezione automatica">
-          &#129514; Simula Notifica Membri
+        <button type="button" class="btn btn-secondary" onclick="simulateUpdateNotification()" style="font-size: 0.82rem; flex: 1; justify-content: center;" title="Trasmetti aggiornamento in tempo reale via cloud a tutta la squadra">
+          &#128227; Simula &amp; Invia a Tutta la Squadra
         </button>
       </div>
 
@@ -1143,7 +1153,7 @@
             <span style="font-size: 1.1rem;">&#128190;</span>
             <strong style="color: #fff; font-size: 0.88rem;">Sistema di Backup Interno &amp; Salvaguardia</strong>
           </div>
-          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.7rem;">Attivo &amp; Automatico</span>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.7rem;">Attivo &amp; Protetto</span>
         </div>
         <div id="backup-status-text" style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 12px;">
           Nessun backup interno presente in memoria locale.
@@ -1153,7 +1163,7 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Salva Backup Ora
           </button>
-          <button type="button" class="btn btn-secondary" onclick="restoreInternalBackup(false)" style="font-size: 0.8rem; justify-content: center; padding: 8px 10px; border-color: rgba(99, 102, 241, 0.5);">
+          <button type="button" id="btn-restore-backup" class="btn btn-secondary" onclick="restoreInternalBackup(false)" style="font-size: 0.8rem; justify-content: center; padding: 8px 10px; border-color: rgba(99, 102, 241, 0.5);">
             <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
             Ripristina da Backup
           </button>
@@ -1161,14 +1171,17 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Esporta File (.json)
           </button>
-          <label class="btn btn-secondary" style="font-size: 0.78rem; justify-content: center; padding: 6px 8px; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+          <label id="btn-import-backup-label" class="btn btn-secondary" style="font-size: 0.78rem; justify-content: center; padding: 6px 8px; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 6px;">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <span>Carica da File</span>
             <input type="file" accept=".json" onchange="importBackupFromFile(event)" style="display: none;">
           </label>
         </div>
+        <div id="backup-member-restriction-notice" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 0.73rem; color: #f59e0b; line-height: 1.35;">
+          &#128274; <strong>Ripristino e importazione riservati al Profilo Proprietario.</strong> Come membro puoi effettuare salvataggi di sicurezza o esportare file JSON.
+        </div>
         <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; line-height: 1.3;">
-          &#128737;&#65039; <em>Il backup viene effettuato automaticamente prima di ogni aggiornamento o simulazione, e ripristina all'istante tutte le task e i membri attuali.</em>
+          &#128737;&#65039; <em>Il backup viene effettuato automaticamente prima di ogni aggiornamento o simulazione per garantire la massima protezione dei lavori.</em>
         </div>
       </div>
 
@@ -1183,8 +1196,179 @@
         </div>
       </div>
 
+      <button type="button" class="btn btn-secondary" onclick="openReleaseNotesModal()" style="font-size: 0.8rem; width: 100%; justify-content: center; margin-bottom: 12px; border-color: rgba(99, 102, 241, 0.4);">
+        &#128220; Consulta Note di Rilascio Complete (Storico Versioni)
+      </button>
+
       <div style="display: flex; justify-content: flex-end;">
         <button type="button" class="btn btn-secondary" onclick="closeUpdateModal()" style="font-size: 0.82rem;">Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- APEX CORSE - RECAP AGGIORNAMENTO SQUADRA MODAL -->
+  <!-- ==================================================== -->
+  <div id="update-recap-modal" class="modal-backdrop" style="display: none; z-index: 10001; backdrop-filter: blur(10px); background: rgba(5, 8, 15, 0.88);">
+    <div class="modal-box" style="max-width: 620px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.5); box-shadow: 0 25px 60px -10px rgba(0,0,0,0.9); background: #111827; border-radius: 14px; padding: 22px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #06b6d4); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);">
+            &#10024;
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 style="font-size: 1.18rem; font-weight: 800; margin: 0; color: #fff;">Riepilogo Aggiornamento Apex Corse</h3>
+              <span id="recap-badge-version" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 8px;">v3.1.1</span>
+            </div>
+            <div id="recap-subtitle" style="font-size: 0.76rem; color: #94a3b8; margin-top: 2px;">
+              Nuova versione distribuita dal Team Principal Diego Giordano &bull; Aggiornato via Cloud
+            </div>
+          </div>
+        </div>
+        <button type="button" onclick="closeUpdateRecapModal(true)" style="background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;">
+        <div style="font-weight: 700; font-size: 0.84rem; color: #e0e7ff; margin-bottom: 4px;" id="recap-title">
+          Novit&agrave; e Miglioramenti per la Scuderia
+        </div>
+        <div style="font-size: 0.76rem; color: #cbd5e1; line-height: 1.4;" id="recap-description">
+          La piattaforma di gestione e telemetria Apex Corse e' stata aggiornata. Tutti i dati, task e credenziali sono sincronizzati e protetti dal nuovo sistema di salvaguardia interna.
+        </div>
+      </div>
+
+      <div style="font-size: 0.78rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px;">
+        Punti Chiave dell'Aggiornamento:
+      </div>
+
+      <div id="recap-highlights-list" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <!-- Elementi generati dinamicamente -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; flex-wrap: wrap; gap: 8px;">
+        <button type="button" class="btn btn-secondary" onclick="openReleaseNotesModal(); closeUpdateRecapModal(false);" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+          <span>&#128220; Note di Rilascio Complete</span>
+        </button>
+        <button type="button" class="btn btn-primary" onclick="closeUpdateRecapModal(true)" style="background: linear-gradient(135deg, #4f46e5, #06b6d4); font-size: 0.84rem; font-weight: 800; padding: 8px 18px; border: none; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);">
+          Ho Capito, Continua al Gestionale &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- APEX CORSE - NOTE DI RILASCIO & STORICO VERSIONI -->
+  <!-- ==================================================== -->
+  <div id="release-notes-modal" class="modal-backdrop" style="display: none; z-index: 10002; backdrop-filter: blur(10px); background: rgba(5, 8, 15, 0.88);">
+    <div class="modal-box" style="max-width: 680px; max-height: 85vh; display: flex; flex-direction: column; text-align: left; border: 1px solid rgba(99, 102, 241, 0.5); box-shadow: 0 25px 60px -10px rgba(0,0,0,0.9); background: #111827; border-radius: 14px; padding: 22px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+            &#128220;
+          </div>
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin: 0; color: #fff;">Note di Rilascio &amp; Storico Versioni</h3>
+            <div style="font-size: 0.74rem; color: #94a3b8;">Registro ufficiale delle novit&agrave;, aggiornamenti e sicurezza di Apex Corse</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeReleaseNotesModal()" style="background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <div style="overflow-y: auto; padding-right: 6px; flex: 1; display: flex; flex-direction: column; gap: 14px;">
+        <!-- Release Card v3.1.1 (Attuale) -->
+        <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.1.1</span>
+              <span class="badge" style="background: #10b981; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Attuale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">11 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Protezione Ripristino Backup:</strong> Ripristino e importazione backup blindati ad uso esclusivo del Team Principal (Proprietario).</li>
+              <li><strong>Salvataggio Sicuro per Membri:</strong> I membri della squadra possono effettuare salvataggi di sicurezza ed esportare JSON senza rischi di alterazione dati.</li>
+              <li><strong>Notifica Broadcast Cloud:</strong> Simulazione aggiornamenti e avvisi trasmessi in tempo reale a tutti i membri connessi.</li>
+              <li><strong>Popup Recap al Primo Avvio:</strong> Finestra con il riassunto delle novit&agrave; visualizzata alla prima apertura o quando il Proprietario lancia una notifica.</li>
+              <li><strong>Sezione Note di Rilascio:</strong> Registro completo consultabile sempre dal menu Impostazioni.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.1.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.1.0</span>
+              <span class="badge" style="background: #4f46e5; color: #fff; font-size: 0.68rem; padding: 2px 6px;">PWA &amp; Update</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">11 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Centro Aggiornamenti:</strong> Modale di controllo versione con verifica remota e banner reattivo sticky.</li>
+              <li><strong>PWA &amp; Offline Cache:</strong> Supporto Service Worker con installazione web app.</li>
+              <li><strong>Filtro Registrazioni:</strong> Protezione registrazioni con codice invito segreto per soli membri Apex.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.0.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.0.0</span>
+              <span class="badge" style="background: #0284c7; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Cloud Sync</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">10 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Sincronizzazione Cloud Automatica:</strong> Integrazione Google Drive Apps Script con polling ogni 30s.</li>
+              <li><strong>Architettura Versionata:</strong> Separazione modulare delle cartelle di sviluppo (v1.0, v2.0, v3.0).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v2.0.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v2.0.0</span>
+              <span class="badge" style="background: #7c3aed; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Area Personale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">9 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Area Personale &amp; Credenziali:</strong> Login dedicato per ciascun membro con password personale.</li>
+              <li><strong>Organigramma Scuderia:</strong> Struttura reparti Chassis, Powertrain, Electronics, Aero, Business.</li>
+              <li><strong>Distinta Base BOM:</strong> Tracciamento componenti veicolo FSAE.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v1.0.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v1.0.0</span>
+              <span class="badge" style="background: #475569; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Foundation</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">8 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Cronoprogramma Gantt Interattivo:</strong> Timeline ad alte prestazioni, dipendenze, cammino critico.</li>
+              <li><strong>Scadenze Ufficiali FSAE:</strong> Gestione milestone e date limite competizione.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; margin-top: 14px;">
+        <button type="button" class="btn btn-secondary" onclick="closeReleaseNotesModal()" style="font-size: 0.82rem; padding: 7px 18px;">Chiudi</button>
       </div>
     </div>
   </div>
@@ -2863,6 +3047,13 @@
       if (menuClear) {
         menuClear.style.display = (currentUserRole === 'owner') ? 'flex' : 'none';
       }
+      const menuRestore = document.getElementById('menu-restore-backup');
+      if (menuRestore) {
+        menuRestore.style.display = (currentUserRole === 'owner') ? 'flex' : 'none';
+      }
+      if (typeof updateBackupUIStatus === 'function') {
+        updateBackupUIStatus();
+      }
 
       const tabPersonaleLabel = document.getElementById('tab-personale-label');
       if (tabPersonaleLabel) {
@@ -2961,6 +3152,16 @@
     }
 
     function restoreInternalBackup(silent = false, sourceData = null) {
+      if (currentUserRole !== 'owner') {
+        if (!silent) {
+          if (typeof showApexToast === 'function') {
+            showApexToast('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 ripristinare i backup.', 'warning');
+          } else {
+            alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 ripristinare i backup.');
+          }
+        }
+        return false;
+      }
       try {
         const backup = sourceData || getInternalBackupState();
         if (!backup) {
@@ -3058,6 +3259,11 @@
     }
 
     function importBackupFromFile(evt) {
+      if (currentUserRole !== 'owner') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 importare file di backup.');
+        evt.target.value = '';
+        return;
+      }
       const file = evt.target.files && evt.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -3080,15 +3286,31 @@
 
     function updateBackupUIStatus() {
       const el = document.getElementById('backup-status-text');
-      if (!el) return;
-      const backup = getInternalBackupState();
-      if (backup) {
-        const tCount = Array.isArray(backup.tasks) ? backup.tasks.length : 0;
-        const mCount = Array.isArray(backup.members) ? backup.members.length : 0;
-        el.innerHTML = `Ultimo backup salvato: <strong style="color: #10b981;">${backup.formattedDate || backup.timestamp}</strong> (${tCount} task, ${mCount} membri)`;
-      } else {
-        el.innerHTML = `Nessun backup interno presente in memoria locale. Clicca su "Salva Backup Ora".`;
+      if (el) {
+        const backup = getInternalBackupState();
+        if (backup) {
+          const tCount = Array.isArray(backup.tasks) ? backup.tasks.length : 0;
+          const mCount = Array.isArray(backup.members) ? backup.members.length : 0;
+          el.innerHTML = `Ultimo backup salvato: <strong style="color: #10b981;">${backup.formattedDate || backup.timestamp}</strong> (${tCount} task, ${mCount} membri)`;
+        } else {
+          el.innerHTML = `Nessun backup interno presente in memoria locale. Clicca su "Salva Backup Ora".`;
+        }
       }
+      const btnRestore = document.getElementById('btn-restore-backup');
+      const labelImport = document.getElementById('btn-import-backup-label');
+      const memberNotice = document.getElementById('backup-member-restriction-notice');
+      const isOwner = (currentUserRole === 'owner');
+      if (btnRestore) btnRestore.style.display = isOwner ? 'inline-flex' : 'none';
+      if (labelImport) labelImport.style.display = isOwner ? 'inline-flex' : 'none';
+      if (memberNotice) memberNotice.style.display = isOwner ? 'none' : 'block';
+    }
+
+    function getActiveAnnouncement() {
+      try {
+        const raw = (typeof safeStorage !== 'undefined') ? safeStorage.getItem('apex_active_announcement') : localStorage.getItem('apex_active_announcement');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return null;
     }
 
     function getDefaultTasks() {
@@ -3248,6 +3470,9 @@
         }
 
         renderView();
+        if (typeof checkPendingRecapOnStartup === 'function') {
+          setTimeout(() => checkPendingRecapOnStartup(), 800);
+        }
       } catch(err) {
         console.error('Errore durante initApp:', err);
         const tc = document.getElementById('tab-content');
@@ -3515,6 +3740,9 @@ function doPost(e) {
           if (data.regSettings && typeof data.regSettings === 'object') {
             safeStorage.setItem('apex_registration_settings', JSON.stringify(data.regSettings));
           }
+          if (data.activeAnnouncement && typeof handleIncomingAnnouncement === 'function') {
+            handleIncomingAnnouncement(data.activeAnnouncement);
+          }
         }
         const nowStr = new Date().toLocaleTimeString();
         safeStorage.setItem('apex_last_cloud_sync', nowStr);
@@ -3562,6 +3790,7 @@ function doPost(e) {
         members: teamMembers,
         organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? organigrammaData : [],
         regSettings: getRegistrationSettings(),
+        activeAnnouncement: (typeof getActiveAnnouncement === 'function') ? getActiveAnnouncement() : null,
         timestamp: new Date().toISOString()
       };
       try {
@@ -8143,7 +8372,7 @@ function doPost(e) {
     // V3.0 UPDATE & VERSION ENGINE
     // ====================================================
 // ====================================================
-// APEX CORSE V3.1 - UPDATE, VERSION & BACKUP ENGINE
+// APEX CORSE V3.1.1 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
 // ====================================================
 const APP_VERSION = '3.1.1';
 const APP_BUILD_DATE = '2026-10-11';
@@ -8172,11 +8401,172 @@ function showApexToast(msg, type = 'info') {
 }
 const showToast = showApexToast;
 
-// Verifica disponibilita aggiornamenti
+// ----------------------------------------------------
+// ANNOUNCEMENT & BROADCAST UPDATE ENGINE
+// ----------------------------------------------------
+function getActiveAnnouncement() {
+  try {
+    const raw = (typeof safeStorage !== 'undefined') ? safeStorage.getItem('apex_active_announcement') : localStorage.getItem('apex_active_announcement');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
+
+function broadcastUpdateAnnouncement(customAnn = null) {
+  // Salva subito il backup interno per proteggere i dati correnti prima di ogni annuncio
+  if (typeof saveInternalBackup === 'function') {
+    saveInternalBackup(true);
+  }
+
+  const annId = 'ann_' + Date.now();
+  const ann = customAnn || {
+    id: annId,
+    version: APP_VERSION,
+    date: APP_BUILD_DATE,
+    title: 'Aggiornamento Apex Corse v' + APP_VERSION,
+    subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
+    highlights: [
+      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.',
+      'Salvataggio ed Esportazione Membri: Tutti i membri possono salvare snapshot ed esportare JSON in piena sicurezza.',
+      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.',
+      'Recap al Primo Avvio: Finestra popup con riassunto novita mostrata solo al primo accesso o su simulazione.',
+      'Sezione Note di Rilascio: Storico completo delle versioni consultabile in qualsiasi momento dal menu Impostazioni.'
+    ],
+    author: 'Diego Giordano (Team Principal)',
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    if (typeof safeStorage !== 'undefined') {
+      safeStorage.setItem('apex_active_announcement', JSON.stringify(ann));
+    } else {
+      localStorage.setItem('apex_active_announcement', JSON.stringify(ann));
+    }
+  } catch(e) {}
+
+  // Sincronizza immediatamente nel Cloud se connesso
+  if (typeof pushDataToCloud === 'function') {
+    pushDataToCloud(false);
+  }
+
+  showUpdateBanner(ann);
+  openUpdateRecapModal(ann);
+  updateModalVersionDisplay(ann);
+  showToast('Notifica di aggiornamento inviata con successo a tutta la squadra!', 'success');
+}
+
+function simulateUpdateNotification() {
+  broadcastUpdateAnnouncement();
+}
+
+function handleIncomingAnnouncement(ann, forceOpen = false) {
+  if (!ann || !ann.id) return;
+  try {
+    if (typeof safeStorage !== 'undefined') {
+      safeStorage.setItem('apex_active_announcement', JSON.stringify(ann));
+    } else {
+      localStorage.setItem('apex_active_announcement', JSON.stringify(ann));
+    }
+  } catch(e) {}
+
+  const lastSeenId = (typeof safeStorage !== 'undefined') ? safeStorage.getItem('apex_last_seen_announcement_id') : localStorage.getItem('apex_last_seen_announcement_id');
+  if (forceOpen || lastSeenId !== ann.id) {
+    showUpdateBanner(ann);
+    openUpdateRecapModal(ann);
+  }
+}
+
+function checkPendingRecapOnStartup() {
+  const ann = getActiveAnnouncement();
+  if (ann && ann.id) {
+    const lastSeenId = (typeof safeStorage !== 'undefined') ? safeStorage.getItem('apex_last_seen_announcement_id') : localStorage.getItem('apex_last_seen_announcement_id');
+    if (lastSeenId !== ann.id) {
+      showUpdateBanner(ann);
+      openUpdateRecapModal(ann);
+    }
+  }
+}
+
+function openUpdateRecapModal(ann = null) {
+  const data = ann || getActiveAnnouncement() || {
+    id: 'ann_default',
+    version: APP_VERSION,
+    title: 'Aggiornamento Apex Corse v' + APP_VERSION,
+    subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
+    highlights: [
+      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.',
+      'Salvataggio ed Esportazione Membri: Tutti i membri possono salvare snapshot ed esportare JSON in piena sicurezza.',
+      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.',
+      'Recap al Primo Avvio: Finestra popup con riassunto novita mostrata solo al primo accesso o su simulazione.',
+      'Sezione Note di Rilascio: Storico completo delle versioni consultabile in qualsiasi momento dal menu Impostazioni.'
+    ]
+  };
+
+  const modal = document.getElementById('update-recap-modal');
+  if (!modal) return;
+  const verBadge = document.getElementById('recap-badge-version');
+  if (verBadge) verBadge.innerText = 'v' + (data.version || APP_VERSION);
+  const titleEl = document.getElementById('recap-title');
+  if (titleEl && data.title) titleEl.innerText = data.title;
+  const subtitleEl = document.getElementById('recap-subtitle');
+  if (subtitleEl && data.subtitle) subtitleEl.innerText = data.subtitle;
+
+  const listEl = document.getElementById('recap-highlights-list');
+  if (listEl) {
+    const items = Array.isArray(data.highlights) ? data.highlights : [
+      'Sistema di Backup Interno e salvaguardia dati attiva',
+      'Protezione ruoli: Ripristino riservato al Team Principal',
+      'Sincronizzazione in tempo reale per tutta la scuderia'
+    ];
+    let html = '';
+    const icons = ['\uD83D\uDEE1\uFE0F', '\uD83D\uDCBE', '\uD83D\uDCE2', '\u2728', '\uD83D\uDCDC'];
+    items.forEach((item, idx) => {
+      const ico = icons[idx % icons.length];
+      html += `
+        <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px;">
+          <span style="font-size: 1.1rem; line-height: 1;">${ico}</span>
+          <div style="font-size: 0.77rem; color: #e2e8f0; line-height: 1.4;">${item}</div>
+        </div>
+      `;
+    });
+    listEl.innerHTML = html;
+  }
+  modal.style.display = 'flex';
+}
+
+function closeUpdateRecapModal(markAsSeen = true) {
+  const modal = document.getElementById('update-recap-modal');
+  if (modal) modal.style.display = 'none';
+  if (markAsSeen) {
+    const ann = getActiveAnnouncement();
+    if (ann && ann.id) {
+      try {
+        if (typeof safeStorage !== 'undefined') {
+          safeStorage.setItem('apex_last_seen_announcement_id', ann.id);
+        } else {
+          localStorage.setItem('apex_last_seen_announcement_id', ann.id);
+        }
+      } catch(e) {}
+    }
+  }
+}
+
+function openReleaseNotesModal() {
+  const modal = document.getElementById('release-notes-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeReleaseNotesModal() {
+  const modal = document.getElementById('release-notes-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+// ----------------------------------------------------
+// VERIFICA DISPONIBILITA AGGIORNAMENTI (SERVER / JSON)
+// ----------------------------------------------------
 function checkForUpdates(silent = true) {
   const customUrl = localStorage.getItem('apex_custom_update_url') || 'version.json';
-  
-  // Prova a recuperare version.json dal server o URL configurato
+
   fetch(customUrl + '?t=' + Date.now(), { cache: 'no-store' })
     .then(res => {
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -8188,9 +8578,9 @@ function checkForUpdates(silent = true) {
         updateModalVersionDisplay(data);
         if (isNewerVersion(data.version, APP_VERSION)) {
           showUpdateBanner(data);
-          if (!silent) showToast('Nuovo aggiornamento ' + data.version + ' disponibile!', 'warning');
+          if (!silent) showToast('Nuovo aggiornamento v' + data.version + ' disponibile!', 'warning');
         } else {
-          if (!silent) showToast('La tua versione (' + APP_VERSION + ') e\' la piu\' recente!', 'success');
+          if (!silent) showToast('La tua versione (v' + APP_VERSION + ') e\' la piu\' recente!', 'success');
         }
       }
     })
@@ -8218,8 +8608,8 @@ function showUpdateBanner(info) {
   if (!banner) return;
   const badge = document.getElementById('update-banner-badge');
   const desc = document.getElementById('update-banner-desc');
-  if (badge) badge.innerText = 'v' + (info.version || 'Nuova');
-  if (desc && info.title) desc.innerText = info.title + ' - Clicca per aggiornare la piattaforma senza perdere dati o password.';
+  if (badge) badge.innerText = 'v' + (info.version || APP_VERSION);
+  if (desc && (info.title || info.message)) desc.innerText = (info.title || info.message) + ' - Clicca per visualizzare il recap o aggiornare la piattaforma.';
   banner.style.display = 'block';
 }
 
@@ -8248,29 +8638,6 @@ function applyAppUpdate() {
   }, 500);
 }
 
-function simulateUpdateNotification() {
-  // Salva subito il backup interno per proteggere i dati correnti
-  if (typeof saveInternalBackup === 'function') {
-    saveInternalBackup(true);
-  }
-  // Riapplica e conferma il backup per garantire che le task correnti sovrascrivano qualsiasi dato vecchio
-  if (typeof restoreInternalBackup === 'function') {
-    restoreInternalBackup(true);
-  }
-  const demoData = {
-    version: '3.1.2',
-    title: 'Nuova versione Apex Corse (Ottimizzazioni & Telemetria)',
-    changelog: [
-      'Sistema di Backup Interno e protezione dati attiva',
-      'Miglioramenti prestazionali al cronoprogramma Gantt',
-      'Nuovi filtri per il coordinamento delle gare FSAE'
-    ]
-  };
-  showUpdateBanner(demoData);
-  updateModalVersionDisplay(demoData);
-  showToast('Backup di sicurezza creato! I tuoi dati attuali sono protetti al 100%.', 'success');
-}
-
 function openUpdateModal() {
   const modal = document.getElementById('update-modal');
   if (!modal) return;
@@ -8280,7 +8647,7 @@ function openUpdateModal() {
   if (dateEl) dateEl.innerText = APP_BUILD_DATE;
   const urlInp = document.getElementById('update-modal-url-input');
   if (urlInp) urlInp.value = localStorage.getItem('apex_custom_update_url') || '';
-  
+
   if (remoteVersionInfo) {
     updateModalVersionDisplay(remoteVersionInfo);
   } else {
@@ -8304,19 +8671,19 @@ function updateModalVersionDisplay(data) {
   if (isNewerVersion(data.version, APP_VERSION)) {
     statusEl.innerHTML = `
       <div style="color: #f59e0b; font-weight: 800; display: flex; align-items: center; gap: 6px;">
-        <span>&#9888;</span> Nuova versione disponibile: <strong>v${data.version}</strong>
+        <span>\u26A0\uFE0F</span> Nuova versione disponibile: <strong>v${data.version}</strong>
       </div>
       <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 4px;">
         ${data.title || ''}
       </div>
       <button class="btn btn-primary" onclick="applyAppUpdate()" style="margin-top: 10px; width: 100%; justify-content: center; background: linear-gradient(135deg, #4f46e5, #06b6d4);">
-        &#9889; Clicca per Aggiornare Ora alla v${data.version}
+        \u26A1 Clicca per Aggiornare Ora alla v${data.version}
       </button>
     `;
   } else {
     statusEl.innerHTML = `
       <div style="color: #10b981; font-weight: 800; display: flex; align-items: center; gap: 6px;">
-        <span>&#10004;</span> La tua piattaforma e' aggiornata all'ultima versione!
+        <span>\u2714</span> La tua piattaforma e' aggiornata all'ultima versione!
       </div>
       <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 4px;">
         Versione attuale installata: v${APP_VERSION} (Build ${APP_BUILD_DATE})
@@ -8348,7 +8715,7 @@ if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || win
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              showUpdateBanner({ version: 'Nuova', title: 'Nuovo aggiornamento del codice disponibile' });
+              showUpdateBanner({ version: APP_VERSION, title: 'Nuovo aggiornamento del codice disponibile' });
             }
           });
         }

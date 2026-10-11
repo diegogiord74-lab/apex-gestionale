@@ -3,11 +3,12 @@
   "buildDate": "2026-10-11",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.1.1 - Sistema di Backup Interno & Protezione Aggiornamenti",
+  "title": "Apex Corse v3.1.1 - Backup Proprietario, Notifiche Squadra & Note di Rilascio",
   "changelog": [
-    "Backup Interno: Nuovo tasto di backup immediato e ripristino istantaneo nel Centro Aggiornamenti e nel menu",
-    "Protezione Aggiornamenti: Salvataggio automatico del backup prima di ogni simulazione o aggiornamento",
-    "Ripristino Automatico: I dati e le task correnti vengono ripristinati e confermati automaticamente dopo ogni aggiornamento",
-    "Import/Export: Possibilità di esportare e importare file di backup JSON per massima sicurezza"
+    "Backup Interno Riservato: Ripristino e importazione backup blindati ad uso esclusivo del Profilo Proprietario",
+    "Salvataggio ed Esportazione Membri: Tutti i membri possono salvare snapshot ed esportare JSON senza rischi di alterazione",
+    "Notifica Broadcast Squadra: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri via cloud",
+    "Recap al Primo Avvio: Finestra riepilogativa mostrata solo al primo accesso o su simulazione del Team Principal",
+    "Sezione Note di Rilascio: Storico completo delle versioni consultabile in qualsiasi momento dal menu Impostazioni"
   ]
 }
