@@ -1289,6 +1289,8 @@
           <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
             <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
               <li><strong>Dipendenze Concatenate di Pari Passo:</strong> Sblocco progressivo automatico di tutte le attivit&agrave; a monte collegate quando si attiva una task; vincolo di completamento bloccante se le propedeutiche non sono terminate.</li>
+              <li><strong>Ruolo Capo Reparto:</strong> Nuova casella nell'Area Personale per assegnare permessi mirati di aggiunta, modifica ed eliminazione task.</li>
+              <li><strong>Risoluzione Focus Ricerca Task:</strong> Cursore stabile e fluido senza perdita di focus durante la digitazione in tempo reale.</li>
               <li><strong>Delega Permessi Proprietario:</strong> Il Team Principal pu&ograve; assegnare i pieni privilegi di gestione e pianificazione a qualsiasi membro tramite spunta nell'Area Personale.</li>
               <li><strong>Ricerca Rapida Dipendenze:</strong> Filtro istantaneo per ID, titolo o reparto nella selezione delle attivit&agrave; a monte in fase di creazione task, con contatore selezioni live.</li>
             </ul>
@@ -2940,7 +2942,8 @@
           return;
         }
         const isMemOwner = !!(mem.isOwner || mem.hasOwnerPrivileges);
-        currentUserRole = isMemOwner ? 'owner' : 'member';
+        const isMemCapo = !!(mem.isCapoReparto || mem.hasCapoRepartoPrivileges);
+        currentUserRole = isMemOwner ? 'owner' : (isMemCapo ? 'caporeparto' : 'member');
         currentMemberId = mem.id;
         personalMemberFilter = mem.id;
         safeStorage.setItem('apex_session_role', currentUserRole);
@@ -3068,7 +3071,7 @@
       const menuClear = document.getElementById('menu-clear-tasks');
 
       if (btnCreate) {
-        btnCreate.style.display = (currentUserRole === 'owner') ? 'inline-flex' : 'none';
+        btnCreate.style.display = (currentUserRole === 'owner' || currentUserRole === 'caporeparto') ? 'inline-flex' : 'none';
       }
       if (menuClear) {
         menuClear.style.display = (currentUserRole === 'owner') ? 'flex' : 'none';
@@ -3085,6 +3088,8 @@
       if (tabPersonaleLabel) {
         if (currentUserRole === 'owner') {
           tabPersonaleLabel.innerHTML = '&#128081; Area Proprietario';
+        } else if (currentUserRole === 'caporeparto') {
+          tabPersonaleLabel.innerHTML = '&#9874; Area Capo Reparto';
         } else if (currentUserRole === 'member') {
           tabPersonaleLabel.innerHTML = '&#128100; Area Personale';
         } else {
@@ -3101,6 +3106,16 @@
           <div class="user-badge owner" title="Accesso Proprietario: permessi completi di scrittura">
             <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <span>${ownerTitle}</span>
+            <button class="btn-user-action" onclick="logoutUser()" title="Cambia profilo o esci">Esci</button>
+          </div>
+        `;
+      } else if (currentUserRole === 'caporeparto') {
+        const mem = teamMembers.find(m => m.id === currentMemberId) || { nome: 'Capo Reparto' };
+        container.innerHTML = `
+          <div class="user-badge member" style="background: rgba(14, 165, 233, 0.15); border: 1px solid #0284c7; color: #38bdf8;" title="Accesso Capo Reparto: pu\u00F2 aggiungere, modificare ed eliminare task">
+            <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>&#9874; ${mem.nome} (Capo Reparto)</span>
+            <button class="btn-user-action" onclick="switchTab('personale')" title="Apri la tua Area Personale" style="color: var(--brand-cyan); font-weight: 700;">La Mia Area</button>
             <button class="btn-user-action" onclick="logoutUser()" title="Cambia profilo o esci">Esci</button>
           </div>
         `;
@@ -3471,7 +3486,8 @@
         } else if (savedMemId && teamMembers.some(m => m.id === savedMemId)) {
           const mem = teamMembers.find(m => m.id === savedMemId);
           const isMemOwner = !!(mem && (mem.isOwner || mem.hasOwnerPrivileges));
-          currentUserRole = isMemOwner ? 'owner' : 'member';
+          const isMemCapo = !!(mem && (mem.isCapoReparto || mem.hasCapoRepartoPrivileges));
+          currentUserRole = isMemOwner ? 'owner' : (isMemCapo ? 'caporeparto' : 'member');
           currentMemberId = savedMemId;
           personalMemberFilter = savedMemId;
           closeLoginModal();
@@ -4130,6 +4146,17 @@ function doPost(e) {
     }
 
     function renderView() {
+      let focusedId = null;
+      let selStart = null;
+      let selEnd = null;
+      if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+        focusedId = document.activeElement.id || null;
+        try {
+          selStart = document.activeElement.selectionStart;
+          selEnd = document.activeElement.selectionEnd;
+        } catch(e) {}
+      }
+
       const container = document.getElementById('tab-content');
       if (activeTab === 'gantt') {
         container.innerHTML = renderGanttView();
@@ -4148,6 +4175,16 @@ function doPost(e) {
         container.innerHTML = renderAreaPersonaleView();
       } else if (activeTab === 'organigramma') {
         container.innerHTML = renderOrganigrammaView();
+      }
+
+      if (focusedId) {
+        const el = document.getElementById(focusedId);
+        if (el) {
+          el.focus();
+          if (selStart !== null && selEnd !== null) {
+            try { el.setSelectionRange(selStart, selEnd); } catch(e) {}
+          }
+        }
       }
     }
 
@@ -4321,7 +4358,7 @@ function doPost(e) {
                 </select>
               </div>
 
-              <input type="text" placeholder="Cerca task..." class="form-input" style="width: 140px; padding: 4px 8px; font-size: 0.78rem;" value="${searchQuery}" oninput="searchQuery=this.value; renderView();">
+              <input type="text" id="gantt-search-input" placeholder="Cerca task..." class="form-input" style="width: 140px; padding: 4px 8px; font-size: 0.78rem;" value="${searchQuery}" oninput="searchQuery=this.value; renderView();">
             </div>
           </div>
 
@@ -4523,24 +4560,26 @@ function doPost(e) {
 
       setTimeout(drawDependencyArrows, 60);
 
-      // Auto scroll to first task or today
-      setTimeout(() => {
-        const marker = document.querySelector('.today-marker');
-        const firstBar = document.querySelector('.gantt-bar');
-        const firstMilestone = document.querySelector('.gantt-milestone-pin');
-        if (timelineScroll) {
-          if (firstBar) {
-            const target = firstBar.offsetLeft - 150;
-            timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
-          } else if (firstMilestone) {
-            const target = firstMilestone.offsetLeft - 150;
-            timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
-          } else if (marker) {
-            const target = marker.offsetLeft - 300;
-            timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+      // Auto scroll to first task or today (only if not searching)
+      if (!searchQuery) {
+        setTimeout(() => {
+          const marker = document.querySelector('.today-marker');
+          const firstBar = document.querySelector('.gantt-bar');
+          const firstMilestone = document.querySelector('.gantt-milestone-pin');
+          if (timelineScroll) {
+            if (firstBar) {
+              const target = firstBar.offsetLeft - 150;
+              timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+            } else if (firstMilestone) {
+              const target = firstMilestone.offsetLeft - 150;
+              timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+            } else if (marker) {
+              const target = marker.offsetLeft - 300;
+              timelineScroll.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+            }
           }
-        }
-      }, 100);
+        }, 100);
+      }
     }
 
     function scrollTimeline(delta) {
@@ -4639,7 +4678,7 @@ function doPost(e) {
             }).join('')}
           </div>
 
-          ${currentUserRole === 'owner' ? `
+          ${(currentUserRole === 'owner' || currentUserRole === 'caporeparto') ? `
             <div>
               <button class="btn btn-primary" onclick="openCreateModal('${selectedDepartmentFilter === 'all' ? 'Chassis' : selectedDepartmentFilter}')">
                 <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -4650,7 +4689,7 @@ function doPost(e) {
         </div>
 
         <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap;">
-          <input type="text" placeholder="Cerca attivit&agrave;, specifiche, lead..." class="form-input" style="max-width: 280px;" value="${searchQuery}" oninput="searchQuery=this.value; renderView();">
+          <input type="text" id="table-search-input" placeholder="Cerca attivit&agrave;, specifiche, lead..." class="form-input" style="max-width: 280px;" value="${searchQuery}" oninput="searchQuery=this.value; renderView();">
           <select class="form-select" style="max-width: 170px;" onchange="statusFilter=this.value; renderView();">
             <option value="all">Tutti gli Stati</option>
             <option value="Completato">Completato</option>
@@ -4691,7 +4730,7 @@ function doPost(e) {
                 <th>Durata</th>
                 <th>Fine Prevista</th>
                 <th>Giorni Residui</th>
-                ${currentUserRole === 'owner' ? '<th>Azioni</th>' : ''}
+                ${(currentUserRole === 'owner' || currentUserRole === 'caporeparto') ? '<th>Azioni</th>' : ''}
               </tr>
             </thead>
             <tbody>
@@ -4711,7 +4750,7 @@ function doPost(e) {
                     </td>
                     <td><span class="badge">${t.priority}</span></td>
                     <td>
-                      <select class="form-select" style="padding: 2px 6px; font-size: 0.74rem;" ${currentUserRole !== 'owner' ? 'disabled title="Modifica riservata al Profilo Proprietario"' : ''} onchange="updateTaskStatus('${t.id}', this.value)">
+                      <select class="form-select" style="padding: 2px 6px; font-size: 0.74rem;" ${(currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') ? 'disabled title="Modifica riservata a Proprietario e Capo Reparto"' : ''} onchange="updateTaskStatus('${t.id}', this.value)">
                         <option value="Non Avviato" ${t.status==='Non Avviato'?'selected':''}>Non Avviato</option>
                         <option value="In Corso" ${t.status==='In Corso'?'selected':''}>In Corso</option>
                         <option value="In Revisione" ${t.status==='In Revisione'?'selected':''}>In Revisione</option>
@@ -4729,7 +4768,7 @@ function doPost(e) {
                     <td>${t.duration || 1} gg</td>
                     <td style="white-space: nowrap;">${t.endDate || '-'}</td>
                     <td>${remBadge}</td>
-                    ${currentUserRole === 'owner' ? `
+                    ${(currentUserRole === 'owner' || currentUserRole === 'caporeparto') ? `
                       <td>
                         <div style="display: flex; gap: 4px;">
                           <button class="btn btn-secondary" style="padding: 3px 7px;" onclick="openEditModal('${t.id}')" title="Modifica">
@@ -4909,7 +4948,7 @@ function doPost(e) {
         </div>
 
         <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
-          <input type="text" placeholder="Cerca codice, componente, fornitore..." class="form-input" style="max-width: 320px;" value="${bomSearchQuery}" oninput="bomSearchQuery=this.value; renderView();">
+          <input type="text" id="bom-search-input" placeholder="Cerca codice, componente, fornitore..." class="form-input" style="max-width: 320px;" value="${bomSearchQuery}" oninput="bomSearchQuery=this.value; renderView();">
           <span style="font-size: 0.8rem; color: var(--text-muted);">Componenti visualizzati: <strong>${filtered.length}</strong> su ${bomItems.length}</span>
         </div>
 
@@ -5018,7 +5057,7 @@ function doPost(e) {
         </div>
 
         <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
-          <input type="text" placeholder="Cerca scadenza, descrizione, regolamento..." class="form-input" style="max-width: 320px;" value="${scadenzaSearchQuery}" oninput="scadenzaSearchQuery=this.value; renderView();">
+          <input type="text" id="scadenza-search-input" placeholder="Cerca scadenza, descrizione, regolamento..." class="form-input" style="max-width: 320px;" value="${scadenzaSearchQuery}" oninput="scadenzaSearchQuery=this.value; renderView();">
           <span style="font-size: 0.8rem; color: var(--text-muted);">Scadenze visualizzate: <strong>${filtered.length}</strong> su ${scadenzeItems.length}</span>
         </div>
 
@@ -5107,9 +5146,38 @@ function doPost(e) {
       if (!mem) return;
       mem.isOwner = !!enable;
       mem.hasOwnerPrivileges = !!enable;
+      if (enable) {
+        mem.isCapoReparto = false;
+        mem.hasCapoRepartoPrivileges = false;
+      }
       saveMembersToStorage();
       renderView();
       const msg = enable ? `Permessi Proprietario concessi a ${mem.nome}!` : `Permessi Proprietario rimossi per ${mem.nome}.`;
+      if (typeof showApexToast === 'function') {
+        showApexToast(msg, 'success');
+      } else if (typeof showToast === 'function') {
+        showToast(msg, 'success');
+      } else {
+        alert(msg);
+      }
+    }
+
+    function toggleMemberCapoRepartoPrivilege(memberId, enable) {
+      if (currentUserRole !== 'owner') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 assegnare i ruoli di Capo Reparto.');
+        return;
+      }
+      const mem = teamMembers.find(m => m.id === memberId);
+      if (!mem) return;
+      mem.isCapoReparto = !!enable;
+      mem.hasCapoRepartoPrivileges = !!enable;
+      if (enable) {
+        mem.isOwner = false;
+        mem.hasOwnerPrivileges = false;
+      }
+      saveMembersToStorage();
+      renderView();
+      const msg = enable ? `Permessi Capo Reparto concessi a ${mem.nome}! Pu\u00F2 aggiungere, modificare e rimuovere task.` : `Permessi Capo Reparto rimossi per ${mem.nome}.`;
       if (typeof showApexToast === 'function') {
         showApexToast(msg, 'success');
       } else if (typeof showToast === 'function') {
@@ -5200,7 +5268,7 @@ function doPost(e) {
         </div>
 
         <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
-          <input type="text" placeholder="Cerca membro per nome, ruolo, reparto..." class="form-input" style="max-width: 320px;" value="${squadraSearchQuery}" oninput="squadraSearchQuery=this.value; renderView();">
+          <input type="text" id="squadra-search-input" placeholder="Cerca membro per nome, ruolo, reparto..." class="form-input" style="max-width: 320px;" value="${squadraSearchQuery}" oninput="squadraSearchQuery=this.value; renderView();">
           <span style="font-size: 0.8rem; color: var(--text-muted);">Visualizzati: <strong>${filtered.length}</strong> su ${teamMembers.length} membri</span>
         </div>
 
@@ -5779,28 +5847,35 @@ function doPost(e) {
         </div>
 
         ${currentUserRole === 'owner' ? `
-          <!-- OWNER PERMISSIONS DELEGATION BOX -->
-          <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
-                &#128081;
-              </div>
-              <div>
-                <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
-                  <span>Privilegi di Gestione &amp; Proprietario Scuderia</span>
-                  <span class="badge" style="background: ${member.isOwner ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.08)'}; color: ${member.isOwner ? '#10b981' : '#94a3b8'}; border: 1px solid ${member.isOwner ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255,255,255,0.1)'};">
-                    ${member.isOwner ? '&#10004; Proprietario Abilitato' : 'Membro Standard'}
-                  </span>
+          <!-- OWNER & CAPO REPARTO PERMISSIONS DELEGATION BOX -->
+          <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 8px; padding: 14px 18px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                  &#128081;
                 </div>
-                <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
-                  Spunta la casella per assegnare a <strong>${member.nome}</strong> i permessi completi di scrittura, modifica cronoprogramma Gantt e gestione backup.
+                <div>
+                  <div style="font-weight: 800; font-size: 0.9rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    <span>Ruoli &amp; Privilegi Scuderia: ${member.nome}</span>
+                    <span class="badge" style="background: ${member.isOwner ? 'rgba(16, 185, 129, 0.2)' : (member.isCapoReparto ? 'rgba(14, 165, 233, 0.2)' : 'rgba(255,255,255,0.08)')}; color: ${member.isOwner ? '#10b981' : (member.isCapoReparto ? '#38bdf8' : '#94a3b8')}; border: 1px solid ${member.isOwner ? 'rgba(16, 185, 129, 0.4)' : (member.isCapoReparto ? 'rgba(14, 165, 233, 0.4)' : 'rgba(255,255,255,0.1)')};">
+                      ${member.isOwner ? '&#128081; Co-Proprietario (Completo)' : (member.isCapoReparto ? '&#9874; Capo Reparto (Solo Task)' : 'Membro Standard')}
+                    </span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
+                    Assegna i permessi desiderati per <strong>${member.nome}</strong>: Proprietario (gestione totale) o Capo Reparto (solo aggiungere, modificare e rimuovere task).
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
               <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--bg); padding: 8px 14px; border-radius: 6px; border: 1px solid ${member.isOwner ? '#6366f1' : 'var(--card-border)'}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
                 <input type="checkbox" id="check-member-owner-privileges-${member.id}" ${member.isOwner ? 'checked' : ''} onchange="toggleMemberOwnerPrivilege('${member.id}', this.checked)" style="transform: scale(1.25); cursor: pointer; accent-color: #6366f1;">
-                <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isOwner ? '#818cf8' : '#fff'};">Permessi Proprietario</span>
+                <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isOwner ? '#818cf8' : '#fff'};">&#128081; Permessi Proprietario</span>
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--bg); padding: 8px 14px; border-radius: 6px; border: 1px solid ${member.isCapoReparto ? '#0284c7' : 'var(--card-border)'}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                <input type="checkbox" id="check-member-caporeparto-privileges-${member.id}" ${member.isCapoReparto ? 'checked' : ''} onchange="toggleMemberCapoRepartoPrivilege('${member.id}', this.checked)" style="transform: scale(1.25); cursor: pointer; accent-color: #0284c7;">
+                <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isCapoReparto ? '#38bdf8' : '#fff'};">&#9874; Capo Reparto (Solo Task: Aggiungi, Modifica, Elimina)</span>
               </label>
             </div>
           </div>
@@ -6165,8 +6240,8 @@ function doPost(e) {
     // MODAL OPERATIONS
     // ----------------------------------------------------
     function openCreateModal(preselectedDept = 'Chassis') {
-      if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Il profilo Membro \u00E8 in sola visualizzazione.\nAccedi come Proprietario per inserire nuove task.');
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Il profilo Membro \u00E8 in sola visualizzazione.\nAccedi come Proprietario o Capo Reparto per inserire nuove task.');
         openLoginModal('owner');
         return;
       }
@@ -6204,13 +6279,13 @@ function doPost(e) {
       const task = tasks.find(t => t.id === taskId);
       if (!task) return;
 
-      const isOwner = (currentUserRole === 'owner');
+      const canEdit = (currentUserRole === 'owner' || currentUserRole === 'caporeparto');
 
       document.getElementById('form-edit-id').value = task.id;
-      document.getElementById('modal-title').innerText = isOwner ? ('Modifica Task: ' + task.id) : ('Dettagli Task: ' + task.id + ' (Sola Lettura)');
+      document.getElementById('modal-title').innerText = canEdit ? ('Modifica Task: ' + task.id) : ('Dettagli Task: ' + task.id + ' (Sola Lettura)');
       const submitBtn = document.getElementById('modal-submit-btn');
       if (submitBtn) {
-        submitBtn.style.display = isOwner ? 'inline-flex' : 'none';
+        submitBtn.style.display = canEdit ? 'inline-flex' : 'none';
         submitBtn.innerText = 'Salva Modifiche';
       }
 
@@ -6218,7 +6293,7 @@ function doPost(e) {
       if (form) {
         form.querySelectorAll('input, select, textarea').forEach(el => {
           if (el.id !== 'form-edit-id') {
-            el.disabled = !isOwner;
+            el.disabled = !canEdit;
           }
         });
       }
@@ -6241,7 +6316,7 @@ function doPost(e) {
       setFormAssignees(task.assignee || '', task.assignees || []);
 
       const delBtn = document.getElementById('modal-delete-btn');
-      if (delBtn) delBtn.style.display = isOwner ? 'inline-flex' : 'none';
+      if (delBtn) delBtn.style.display = canEdit ? 'inline-flex' : 'none';
 
       document.getElementById('task-modal').style.display = 'flex';
     }
@@ -6450,8 +6525,8 @@ function doPost(e) {
 
     function handleFormSubmit(e) {
       e.preventDefault();
-      if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 salvare o modificare le task.');
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o Capo Reparto pu\u00F2 salvare o modificare le task.');
         return;
       }
       const editId = document.getElementById('form-edit-id').value;
@@ -6558,8 +6633,8 @@ function doPost(e) {
 
 
     function updateTaskStatus(id, newStatus) {
-      if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 aggiornare lo stato delle task.');
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o Capo Reparto pu\u00F2 aggiornare lo stato delle task.');
         return;
       }
       const task = tasks.find(t => t.id === id);
@@ -7474,8 +7549,8 @@ function doPost(e) {
     // TASK DELETION ENGINE
     // ----------------------------------------------------
     function deleteCurrentTask() {
-      if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 eliminare le task.');
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o Capo Reparto pu\u00F2 eliminare le task.');
         return;
       }
       const editId = document.getElementById('form-edit-id').value;
@@ -7484,8 +7559,8 @@ function doPost(e) {
     }
 
     function deleteTask(taskId) {
-      if (currentUserRole !== 'owner') {
-        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 eliminare le task.');
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o Capo Reparto pu\u00F2 eliminare le task.');
         return;
       }
       const task = tasks.find(t => t.id === taskId);
@@ -7977,7 +8052,7 @@ function doPost(e) {
               </div>
 
               <div style="display: flex; align-items: center; gap: 6px;">
-                <input type="text" placeholder="Cerca ruolo o nome..." class="form-input" style="width: 180px; padding: 5px 10px; font-size: 0.78rem;" value="${organigrammaSearchQuery}" oninput="organigrammaSearchQuery=this.value; renderView();">
+                <input type="text" id="organigramma-search-input" placeholder="Cerca ruolo o nome..." class="form-input" style="width: 180px; padding: 5px 10px; font-size: 0.78rem;" value="${organigrammaSearchQuery}" oninput="organigrammaSearchQuery=this.value; renderView();">
               </div>
 
               ${currentUserRole === 'owner' ? `
@@ -8696,10 +8771,11 @@ function broadcastUpdateAnnouncement(customAnn = null) {
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
       'Dipendenze Concatenate di Pari Passo: Sblocco progressivo delle attivit\u00E0 a monte e blocco completamento.',
-      'Delega Permessi Proprietario: Il proprietario pu\u00F2 abilitare i privilegi completi di gestione per qualsiasi membro nell\'Area Personale.',
-      'Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore selezioni nella modale di creazione.',
-      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.',
-      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.'
+      'Ruolo Capo Reparto: Nuova casella nell\'Area Personale per abilitare la gestione task (aggiunta, modifica, eliminazione).',
+      'Correzione Ricerca Task: Risolto bug sparizione cursore, scrittura fluida e continua senza perdita di focus.',
+      'Delega Permessi Proprietario: Il proprietario pu\u00F2 abilitare i privilegi completi di gestione per qualsiasi membro.',
+      'Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore selezioni.',
+      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.'
     ],
     author: 'Diego Giordano (Team Principal)',
     timestamp: new Date().toISOString()

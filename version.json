@@ -3,11 +3,13 @@
   "buildDate": "2026-10-12",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.2.0 - Dipendenze Concatenate di Pari Passo, Delega Proprietario & Ricerca Task",
+  "title": "Apex Corse v3.2.0 - Dipendenze Concatenate, Ruolo Capo Reparto & Fix Ricerca Task",
   "changelog": [
     "Dipendenze Concatenate: Sblocco progressivo di pari passo delle attivit\u00E0 propedeutiche a monte per attivare o completare le task",
-    "Delega Permessi Proprietario: Il Team Principal pu\u00F2 assegnare i permessi di gestione ai membri direttamente dall'Area Personale tramite checkbox dedicata",
-    "Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore attivo nella finestra di creazione/modifica task",
+    "Ruolo Capo Reparto: Nuova casella nell'Area Personale per assegnare permessi mirati (solo aggiungere, modificare e rimuovere task)",
+    "Risoluzione Focus Ricerca: Eliminato il bug del cursore che spariva digitando nelle barre di ricerca task",
+    "Delega Permessi Proprietario: Il Team Principal pu\u00F2 assegnare i pieni privilegi di gestione direttamente dall'Area Personale",
+    "Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore attivo nella finestra di creazione task",
     "Backup Interno Riservato: Ripristino e importazione backup blindati ad uso esclusivo del Profilo Proprietario",
     "Notifica Broadcast Squadra: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri via cloud"
   ]
