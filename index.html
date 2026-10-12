@@ -276,6 +276,7 @@
     .badge-sbloccato { background: #10b98126; color: #34d399; border: 1px solid #10b9814d; }
     .badge-bloccante { background: #ef444426; color: #f87171; border: 1px solid #ef44444d; }
     .badge-indipendente { background: #6366f126; color: #a5b4fc; border: 1px solid #6366f14d; }
+    .badge-pari-passo { background: rgba(6, 182, 212, 0.18); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4); }
     
     .dept-pill {
       font-size: 0.70rem;
@@ -787,7 +788,7 @@
         <div>
           <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
             <span>NUOVO AGGIORNAMENTO DISPONIBILE!</span>
-            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.1.1</span>
+            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.2.0</span>
           </div>
           <div id="update-banner-desc" style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">
             Una nuova versione della piattaforma e' pronta. Clicca per visualizzare il recap o aggiornare l'interfaccia senza perdere dati.
@@ -854,7 +855,7 @@
           </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Centro Aggiornamenti &amp; Backup (v3.1)</span>
+            <span>Centro Aggiornamenti &amp; Backup (v3.2)</span>
           </div>
           <div class="dropdown-item" onclick="openReleaseNotesModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1107,7 +1108,7 @@
     </div>
   </div>
 
-  <!-- Update Center Modal (v3.1.1) -->
+  <!-- Update Center Modal (v3.2.0) -->
   <div id="update-modal" class="modal-backdrop" style="display: none; z-index: 9999; backdrop-filter: blur(8px); background: rgba(5, 8, 15, 0.85);">
     <div class="modal-box" style="max-width: 580px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.85); background: #111827;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -1126,11 +1127,11 @@
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Versione Installata</div>
-          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.1.1</div>
+          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.2.0</div>
         </div>
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Data Rilascio</div>
-          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-11</div>
+          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-12</div>
         </div>
       </div>
 
@@ -1219,7 +1220,7 @@
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <h3 style="font-size: 1.18rem; font-weight: 800; margin: 0; color: #fff;">Riepilogo Aggiornamento Apex Corse</h3>
-              <span id="recap-badge-version" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 8px;">v3.1.1</span>
+              <span id="recap-badge-version" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 8px;">v3.2.0</span>
             </div>
             <div id="recap-subtitle" style="font-size: 0.76rem; color: #94a3b8; margin-top: 2px;">
               Nuova versione distribuita dal Team Principal Diego Giordano &bull; Aggiornato via Cloud
@@ -1276,12 +1277,30 @@
       </div>
 
       <div style="overflow-y: auto; padding-right: 6px; flex: 1; display: flex; flex-direction: column; gap: 14px;">
-        <!-- Release Card v3.1.1 (Attuale) -->
+        <!-- Release Card v3.2.0 (Attuale) -->
         <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 10px; padding: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.1.1</span>
+              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.2.0</span>
               <span class="badge" style="background: #10b981; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Attuale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">12 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Dipendenze Concatenate di Pari Passo:</strong> Sblocco progressivo automatico di tutte le attivit&agrave; a monte collegate quando si attiva una task; vincolo di completamento bloccante se le propedeutiche non sono terminate.</li>
+              <li><strong>Delega Permessi Proprietario:</strong> Il Team Principal pu&ograve; assegnare i pieni privilegi di gestione e pianificazione a qualsiasi membro tramite spunta nell'Area Personale.</li>
+              <li><strong>Ricerca Rapida Dipendenze:</strong> Filtro istantaneo per ID, titolo o reparto nella selezione delle attivit&agrave; a monte in fase di creazione task, con contatore selezioni live.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.1.1 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.1.1</span>
+              <span class="badge" style="background: #4f46e5; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Backup &amp; Recap</span>
             </div>
             <span style="font-size: 0.72rem; color: #94a3b8;">11 Ottobre 2026</span>
           </div>
@@ -1583,8 +1602,14 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Dipendenze (Attivit&agrave; Propedeutiche a Monte)</label>
-          <div id="form-dependencies-list" style="max-height: 125px; overflow-y: auto; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px; background: var(--bg); display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <label class="form-label" style="margin-bottom: 0;">Dipendenze (Attivit&agrave; Propedeutiche a Monte)</label>
+            <span id="dep-count-badge" class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8; font-size: 0.7rem;">0 selezionate</span>
+          </div>
+          <div style="position: relative; margin-bottom: 6px;">
+            <input type="text" id="form-dep-search" class="form-input" placeholder="&#128269; Cerca task per ID, titolo o reparto..." oninput="filterDependencyCheckboxes(this.value)" style="font-size: 0.78rem; padding: 6px 10px;">
+          </div>
+          <div id="form-dependencies-list" style="max-height: 135px; overflow-y: auto; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px; background: var(--bg); display: flex; flex-direction: column; gap: 4px;">
           </div>
           
           <!-- DYNAMIC DEPENDENCY CONSTRAINT ALERT BANNER -->
@@ -2914,10 +2939,11 @@
           }
           return;
         }
-        currentUserRole = 'member';
+        const isMemOwner = !!(mem.isOwner || mem.hasOwnerPrivileges);
+        currentUserRole = isMemOwner ? 'owner' : 'member';
         currentMemberId = mem.id;
         personalMemberFilter = mem.id;
-        safeStorage.setItem('apex_session_role', 'member');
+        safeStorage.setItem('apex_session_role', currentUserRole);
         safeStorage.setItem('apex_session_member_id', mem.id);
         closeLoginModal();
         updateHeaderUserStatus();
@@ -3069,10 +3095,12 @@
       if (!container) return;
 
       if (currentUserRole === 'owner') {
+        const ownerMem = currentMemberId ? teamMembers.find(m => m.id === currentMemberId) : null;
+        const ownerTitle = ownerMem ? `${ownerMem.nome} (Co-Proprietario)` : 'Proprietario';
         container.innerHTML = `
           <div class="user-badge owner" title="Accesso Proprietario: permessi completi di scrittura">
             <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>Proprietario</span>
+            <span>${ownerTitle}</span>
             <button class="btn-user-action" onclick="logoutUser()" title="Cambia profilo o esci">Esci</button>
           </div>
         `;
@@ -3433,15 +3461,17 @@
         // Ripristina la sessione autenticata se valida per evitare perdite di profilo al refresh (Ctrl+R)
         const savedRole = safeStorage.getItem('apex_session_role');
         const savedMemId = safeStorage.getItem('apex_session_member_id');
-        if (savedRole === 'owner') {
+        if (savedRole === 'owner' && !savedMemId) {
           currentUserRole = 'owner';
           currentMemberId = null;
           personalMemberFilter = 'owner';
           closeLoginModal();
           updateHeaderUserStatus();
           updateCloudSyncModalUI();
-        } else if (savedRole === 'member' && savedMemId && teamMembers.some(m => m.id === savedMemId)) {
-          currentUserRole = 'member';
+        } else if (savedMemId && teamMembers.some(m => m.id === savedMemId)) {
+          const mem = teamMembers.find(m => m.id === savedMemId);
+          const isMemOwner = !!(mem && (mem.isOwner || mem.hasOwnerPrivileges));
+          currentUserRole = isMemOwner ? 'owner' : 'member';
           currentMemberId = savedMemId;
           personalMemberFilter = savedMemId;
           closeLoginModal();
@@ -3953,6 +3983,8 @@ function doPost(e) {
       let anyFound = false;
       let hasTemporalViolation = false;
       let conflictDetails = '';
+      let anyUnstarted = false;
+      let unstartedNames = [];
 
       task.dependencies.forEach(depId => {
         const parent = tasks.find(t => t.id === depId);
@@ -3960,6 +3992,10 @@ function doPost(e) {
           anyFound = true;
           if (parent.status !== 'Completato') {
             allDone = false;
+          }
+          if (parent.status === 'Non Avviato' || parent.status === 'Sospeso') {
+            anyUnstarted = true;
+            unstartedNames.push(parent.id);
           }
           if (parent.endDate && task.startDate && task.startDate <= parent.endDate) {
             hasTemporalViolation = true;
@@ -3977,7 +4013,110 @@ function doPost(e) {
       if (allDone) {
         return { status: 'Sbloccato', label: 'Sbloccato (Via Libera)', badgeClass: 'badge-sbloccato' };
       }
+      if (task.status === 'In Corso' || task.status === 'In Revisione') {
+        return { status: 'Di Pari Passo', label: 'Di Pari Passo (Attiva con monte)', badgeClass: 'badge-pari-passo' };
+      }
+      if (anyUnstarted) {
+        return { status: 'In Attesa Sblocco', label: `In Attesa: ${unstartedNames.join(', ')} Non Avviata`, badgeClass: 'badge-bloccante' };
+      }
       return { status: 'In Attesa', label: 'In Attesa (Propedeutiche non completate)', badgeClass: 'badge-bloccante' };
+    }
+
+    function checkCanActivateTask(taskId, targetStatus) {
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) return { allowed: true };
+
+      if (targetStatus === 'Non Avviato' || targetStatus === 'Sospeso') {
+        return { allowed: true };
+      }
+
+      if (!task.dependencies || task.dependencies.length === 0) {
+        return { allowed: true };
+      }
+
+      const unstartedParents = [];
+      const incompleteParents = [];
+
+      task.dependencies.forEach(depId => {
+        const parent = tasks.find(t => t.id === depId);
+        if (parent) {
+          if (parent.status === 'Non Avviato' || parent.status === 'Sospeso') {
+            unstartedParents.push(parent);
+          }
+          if (parent.status !== 'Completato') {
+            incompleteParents.push(parent);
+          }
+        }
+      });
+
+      if (targetStatus === 'Completato') {
+        if (incompleteParents.length > 0) {
+          return {
+            allowed: false,
+            reason: 'incomplete_parents',
+            unstartedParents,
+            incompleteParents
+          };
+        }
+      }
+
+      if (targetStatus === 'In Corso' || targetStatus === 'In Revisione' || targetStatus === 'In Ritardo') {
+        if (unstartedParents.length > 0) {
+          return {
+            allowed: false,
+            reason: 'unstarted_parents',
+            unstartedParents,
+            incompleteParents
+          };
+        }
+      }
+
+      return { allowed: true };
+    }
+
+    function unlockPredecessorsInChain(taskId) {
+      const task = tasks.find(t => t.id === taskId);
+      if (!task || !task.dependencies) return;
+      task.dependencies.forEach(depId => {
+        const parent = tasks.find(t => t.id === depId);
+        if (parent) {
+          if (parent.status === 'Non Avviato' || parent.status === 'Sospeso') {
+            parent.status = 'In Corso';
+          }
+          unlockPredecessorsInChain(parent.id);
+        }
+      });
+    }
+
+    function handleDependencyActivationBlock(task, targetStatus, checkResult) {
+      if (checkResult.reason === 'incomplete_parents') {
+        const pNames = checkResult.incompleteParents.map(p => `${p.id} (${p.title || 'Task'})`).join(', ');
+        alert(`VINCOLO DIPENDENZE CONCATENATE:\n\nNon puoi segnare la task "${task.id}: ${task.title}" come "${targetStatus}".\n\nLe attivit\u00E0 propedeutiche a monte (${pNames}) non sono ancora state completate!\nBisogna completarle di pari passo.`);
+        renderView();
+        return;
+      }
+
+      if (checkResult.reason === 'unstarted_parents') {
+        const pList = checkResult.unstartedParents.map(p => `\u2022 ${p.id}: ${p.title} (Stato: ${p.status})`).join('\n');
+        const confirmUnlock = confirm(
+          `DIPENDENZE CONCATENATE - SBLOCCO DI PARI PASSO:\n\n` +
+          `La task "${task.id}: ${task.title}" \u00E8 concatenata ad attivit\u00E0 a monte non ancora avviate:\n\n${pList}\n\n` +
+          `Per attivare questa task bisogna sbloccarle di pari passo.\n\n` +
+          `Vuoi sbloccare e avviare anche le attivit\u00E0 a monte ("In Corso") di pari passo adesso?`
+        );
+        if (confirmUnlock) {
+          unlockPredecessorsInChain(task.id);
+          task.status = targetStatus;
+          saveTasksToStorage();
+          renderView();
+          if (typeof showApexToast === 'function') {
+            showApexToast(`Task ${task.id} e dipendenze a monte sbloccate di pari passo!`, 'success');
+          }
+        } else {
+          renderView();
+        }
+        return;
+      }
     }
 
     function calculateRemainingDays(endDate, status) {
@@ -4959,13 +5098,40 @@ function doPost(e) {
       switchTab('personale');
     }
 
+    function toggleMemberOwnerPrivilege(memberId, enable) {
+      if (currentUserRole !== 'owner') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 assegnare i permessi di gestione.');
+        return;
+      }
+      const mem = teamMembers.find(m => m.id === memberId);
+      if (!mem) return;
+      mem.isOwner = !!enable;
+      mem.hasOwnerPrivileges = !!enable;
+      saveMembersToStorage();
+      renderView();
+      const msg = enable ? `Permessi Proprietario concessi a ${mem.nome}!` : `Permessi Proprietario rimossi per ${mem.nome}.`;
+      if (typeof showApexToast === 'function') {
+        showApexToast(msg, 'success');
+      } else if (typeof showToast === 'function') {
+        showToast(msg, 'success');
+      } else {
+        alert(msg);
+      }
+    }
+
     function updateMemberTaskStatus(taskId, newStatus) {
       const t = tasks.find(x => x.id === taskId);
-      if (t) {
-        t.status = newStatus;
-        saveTasksToStorage();
-        renderView();
+      if (!t) return;
+      if (newStatus !== t.status) {
+        const canActivate = checkCanActivateTask(taskId, newStatus);
+        if (!canActivate.allowed) {
+          handleDependencyActivationBlock(t, newStatus, canActivate);
+          return;
+        }
       }
+      t.status = newStatus;
+      saveTasksToStorage();
+      renderView();
     }
 
     // ----------------------------------------------------
@@ -5583,6 +5749,7 @@ function doPost(e) {
                 <h2 style="font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff;">${member.nome}</h2>
                 ${getDeptPill(member.reparto, member.reparto)}
                 <span style="font-size: 0.76rem; color: var(--text-muted); background: var(--bg); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--card-border);">${member.ruolo || 'Membro Scuderia'}</span>
+                ${member.isOwner ? '<span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.72rem;">&#128081; Permessi Proprietario Attivi</span>' : ''}
               </div>
               <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 3px;">
                 ${member.email ? `Email: <strong>${member.email}</strong> &bull; ` : ''}Area di Gestione Personale &amp; Avanzamento Task
@@ -5610,6 +5777,34 @@ function doPost(e) {
             </div>
           `}
         </div>
+
+        ${currentUserRole === 'owner' ? `
+          <!-- OWNER PERMISSIONS DELEGATION BOX -->
+          <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                &#128081;
+              </div>
+              <div>
+                <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+                  <span>Privilegi di Gestione &amp; Proprietario Scuderia</span>
+                  <span class="badge" style="background: ${member.isOwner ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.08)'}; color: ${member.isOwner ? '#10b981' : '#94a3b8'}; border: 1px solid ${member.isOwner ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255,255,255,0.1)'};">
+                    ${member.isOwner ? '&#10004; Proprietario Abilitato' : 'Membro Standard'}
+                  </span>
+                </div>
+                <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
+                  Spunta la casella per assegnare a <strong>${member.nome}</strong> i permessi completi di scrittura, modifica cronoprogramma Gantt e gestione backup.
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--bg); padding: 8px 14px; border-radius: 6px; border: 1px solid ${member.isOwner ? '#6366f1' : 'var(--card-border)'}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                <input type="checkbox" id="check-member-owner-privileges-${member.id}" ${member.isOwner ? 'checked' : ''} onchange="toggleMemberOwnerPrivilege('${member.id}', this.checked)" style="transform: scale(1.25); cursor: pointer; accent-color: #6366f1;">
+                <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isOwner ? '#818cf8' : '#fff'};">Permessi Proprietario</span>
+              </label>
+            </div>
+          </div>
+        ` : ''}
 
         <div class="personal-kpi-grid">
           <div class="personal-kpi-card" style="border-left: 4px solid var(--brand-purple);">
@@ -6086,6 +6281,9 @@ function doPost(e) {
       const listContainer = document.getElementById('form-dependencies-list');
       listContainer.innerHTML = '';
 
+      const searchInput = document.getElementById('form-dep-search');
+      if (searchInput) searchInput.value = '';
+
       const otherTasks = tasks.filter(t => t.id !== currentTaskId);
       if (otherTasks.length === 0) {
         listContainer.innerHTML = '<span style="color: var(--text-muted); font-size: 0.75rem;">Nessun\'altra task disponibile a monte.</span>';
@@ -6096,11 +6294,11 @@ function doPost(e) {
       otherTasks.forEach(t => {
         const checked = selectedDeps.includes(t.id) ? 'checked' : '';
         const item = document.createElement('label');
-        item.style = 'display: flex; align-items: center; gap: 6px; font-size: 0.78rem; cursor: pointer; padding: 2px 0;';
+        item.style = 'display: flex; align-items: center; gap: 8px; font-size: 0.78rem; cursor: pointer; padding: 4px 6px; border-radius: 4px; transition: background 0.15s ease;';
         item.innerHTML = `
           <input type="checkbox" name="dep-check" value="${t.id}" ${checked} onchange="onDependencySelectionChange()">
           ${getDeptPill(t.department, t.id)}
-          <span>${t.title} <strong style="color: var(--accent-cyan); font-size: 0.72rem;">(Fine: ${formatDateIT(t.endDate)})</strong></span>
+          <span style="flex: 1;"><strong>${t.id}</strong> - ${t.title} <strong style="color: var(--accent-cyan); font-size: 0.72rem;">(Fine: ${formatDateIT(t.endDate)})</strong></span>
         `;
         listContainer.appendChild(item);
       });
@@ -6108,9 +6306,32 @@ function doPost(e) {
       onDependencySelectionChange();
     }
 
+    function filterDependencyCheckboxes(query) {
+      const q = (query || '').toLowerCase().trim();
+      const listContainer = document.getElementById('form-dependencies-list');
+      if (!listContainer) return;
+      const labels = listContainer.querySelectorAll('label');
+      labels.forEach(lbl => {
+        const text = lbl.innerText.toLowerCase();
+        const chk = lbl.querySelector('input[type="checkbox"]');
+        const isChecked = chk && chk.checked;
+        if (!q || text.includes(q) || isChecked) {
+          lbl.style.display = 'flex';
+        } else {
+          lbl.style.display = 'none';
+        }
+      });
+    }
+
     function onDependencySelectionChange() {
       const checkedDeps = [];
       document.querySelectorAll('input[name="dep-check"]:checked').forEach(c => checkedDeps.push(c.value));
+
+      const countBadge = document.getElementById('dep-count-badge');
+      if (countBadge) {
+        countBadge.innerText = `${checkedDeps.length} selezionate`;
+        countBadge.style.color = checkedDeps.length > 0 ? '#818cf8' : 'var(--text-muted)';
+      }
 
       const banner = document.getElementById('dep-constraint-banner');
       const bannerText = document.getElementById('dep-constraint-text');
@@ -6272,6 +6493,48 @@ function doPost(e) {
         }
       }
 
+      // Chained dependencies check during form submit
+      if (taskData.status !== 'Non Avviato' && taskData.status !== 'Sospeso') {
+        const unstartedParents = [];
+        const incompleteParents = [];
+        checkedDeps.forEach(depId => {
+          const parent = tasks.find(t => t.id === depId);
+          if (parent) {
+            if (parent.status === 'Non Avviato' || parent.status === 'Sospeso') {
+              unstartedParents.push(parent);
+            }
+            if (parent.status !== 'Completato') {
+              incompleteParents.push(parent);
+            }
+          }
+        });
+        if (taskData.status === 'Completato' && incompleteParents.length > 0) {
+          const pNames = incompleteParents.map(p => `${p.id} (${p.title || 'Task'})`).join(', ');
+          alert(`VINCOLO DIPENDENZE CONCATENATE:\n\nNon puoi impostare lo stato su "Completato".\n\nLe attivit\u00E0 propedeutiche a monte (${pNames}) non sono ancora state completate!\nBisogna completarle di pari passo.`);
+          return;
+        }
+        if ((taskData.status === 'In Corso' || taskData.status === 'In Revisione' || taskData.status === 'In Ritardo') && unstartedParents.length > 0) {
+          const pList = unstartedParents.map(p => `\u2022 ${p.id}: ${p.title} (Stato: ${p.status})`).join('\n');
+          const confirmUnlock = confirm(
+            `DIPENDENZE CONCATENATE - SBLOCCO DI PARI PASSO:\n\n` +
+            `La task \u00E8 concatenata ad attivit\u00E0 a monte non ancora avviate:\n\n${pList}\n\n` +
+            `Per attivare questa task bisogna sbloccarle di pari passo.\n\n` +
+            `Vuoi sbloccare e avviare anche le attivit\u00E0 a monte ("In Corso") di pari passo adesso?`
+          );
+          if (confirmUnlock) {
+            checkedDeps.forEach(depId => {
+              const p = tasks.find(t => t.id === depId);
+              if (p && (p.status === 'Non Avviato' || p.status === 'Sospeso')) {
+                p.status = 'In Corso';
+              }
+              unlockPredecessorsInChain(depId);
+            });
+          } else {
+            return;
+          }
+        }
+      }
+
       if (editId) {
         const idx = tasks.findIndex(t => t.id === editId);
         if (idx !== -1) tasks[idx] = taskData;
@@ -6300,11 +6563,17 @@ function doPost(e) {
         return;
       }
       const task = tasks.find(t => t.id === id);
-      if (task) {
-        task.status = newStatus;
-        saveTasksToStorage();
-        renderView();
+      if (!task) return;
+      if (newStatus !== task.status) {
+        const canActivate = checkCanActivateTask(id, newStatus);
+        if (!canActivate.allowed) {
+          handleDependencyActivationBlock(task, newStatus, canActivate);
+          return;
+        }
       }
+      task.status = newStatus;
+      saveTasksToStorage();
+      renderView();
     }
 
     function confirmClearAllTasks() {
@@ -8372,10 +8641,10 @@ function doPost(e) {
     // V3.0 UPDATE & VERSION ENGINE
     // ====================================================
 // ====================================================
-// APEX CORSE V3.1.1 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
+// APEX CORSE V3.2.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
 // ====================================================
-const APP_VERSION = '3.1.1';
-const APP_BUILD_DATE = '2026-10-11';
+const APP_VERSION = '3.2.0';
+const APP_BUILD_DATE = '2026-10-12';
 let remoteVersionInfo = null;
 
 // Sistema di Toast Notifiche Fluttuanti
@@ -8426,11 +8695,11 @@ function broadcastUpdateAnnouncement(customAnn = null) {
     title: 'Aggiornamento Apex Corse v' + APP_VERSION,
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
+      'Dipendenze Concatenate di Pari Passo: Sblocco progressivo delle attivit\u00E0 a monte e blocco completamento.',
+      'Delega Permessi Proprietario: Il proprietario pu\u00F2 abilitare i privilegi completi di gestione per qualsiasi membro nell\'Area Personale.',
+      'Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore selezioni nella modale di creazione.',
       'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.',
-      'Salvataggio ed Esportazione Membri: Tutti i membri possono salvare snapshot ed esportare JSON in piena sicurezza.',
-      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.',
-      'Recap al Primo Avvio: Finestra popup con riassunto novita mostrata solo al primo accesso o su simulazione.',
-      'Sezione Note di Rilascio: Storico completo delle versioni consultabile in qualsiasi momento dal menu Impostazioni.'
+      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.'
     ],
     author: 'Diego Giordano (Team Principal)',
     timestamp: new Date().toISOString()
