@@ -277,6 +277,35 @@
     .badge-bloccante { background: #ef444426; color: #f87171; border: 1px solid #ef44444d; }
     .badge-indipendente { background: #6366f126; color: #a5b4fc; border: 1px solid #6366f14d; }
     .badge-pari-passo { background: rgba(6, 182, 212, 0.18); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4); }
+    .badge-richiesta-attesa { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-richiesta-approvata { background: rgba(14, 165, 233, 0.18); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.4); }
+    .badge-richiesta-ordinata { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .badge-richiesta-ricevuta { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-richiesta-rifiutata { background: rgba(239, 68, 68, 0.18); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    
+    .gantt-dept-lane-header {
+      height: 38px;
+      min-height: 38px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--card-border);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .gantt-dept-lane-grid-header {
+      height: 38px;
+      min-height: 38px;
+      background: rgba(255, 255, 255, 0.025);
+      border-bottom: 1px solid var(--card-border);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      user-select: none;
+    }
     
     .dept-pill {
       font-size: 0.70rem;
@@ -788,7 +817,7 @@
         <div>
           <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
             <span>NUOVO AGGIORNAMENTO DISPONIBILE!</span>
-            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.2.0</span>
+            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.3.0</span>
           </div>
           <div id="update-banner-desc" style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">
             Una nuova versione della piattaforma e' pronta. Clicca per visualizzare il recap o aggiornare l'interfaccia senza perdere dati.
@@ -855,7 +884,7 @@
           </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Centro Aggiornamenti &amp; Backup (v3.2)</span>
+            <span>Centro Aggiornamenti &amp; Backup (v3.3)</span>
           </div>
           <div class="dropdown-item" onclick="openReleaseNotesModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -921,6 +950,10 @@
     <div class="tab-link" onclick="switchTab('bom')" id="tab-btn-bom">
       <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
       Distinta Base (BOM)
+    </div>
+    <div class="tab-link" onclick="switchTab('acquisti')" id="tab-btn-acquisti">
+      <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Richieste Acquisto
     </div>
     <div class="tab-link" onclick="switchTab('scadenze')" id="tab-btn-scadenze">
       <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
@@ -1108,7 +1141,7 @@
     </div>
   </div>
 
-  <!-- Update Center Modal (v3.2.0) -->
+  <!-- Update Center Modal (v3.3.0) -->
   <div id="update-modal" class="modal-backdrop" style="display: none; z-index: 9999; backdrop-filter: blur(8px); background: rgba(5, 8, 15, 0.85);">
     <div class="modal-box" style="max-width: 580px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.85); background: #111827;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -1127,11 +1160,11 @@
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Versione Installata</div>
-          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.2.0</div>
+          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.3.0</div>
         </div>
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Data Rilascio</div>
-          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-12</div>
+          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-13</div>
         </div>
       </div>
 
@@ -1277,12 +1310,32 @@
       </div>
 
       <div style="overflow-y: auto; padding-right: 6px; flex: 1; display: flex; flex-direction: column; gap: 14px;">
-        <!-- Release Card v3.2.0 (Attuale) -->
+        <!-- Release Card v3.3.0 (Attuale) -->
         <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 10px; padding: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.2.0</span>
+              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.3.0</span>
               <span class="badge" style="background: #10b981; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Attuale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">13 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Nuova Sezione Richieste Acquisto:</strong> Gestione completa richieste componenti con campi obbligatori (Nome componente, Prezzo) e facoltativi (P. number, Link sito/Azienda, Descrizione), metriche KPI ed export CSV.</li>
+              <li><strong>Integrazione Diretta BOM:</strong> Conversione con 1 click delle richieste approvate in voci della Distinta Base BOM riservata al Proprietario.</li>
+              <li><strong>Gantt Suddiviso per Reparti:</strong> Corsie orizzontali dedicate per ciascun reparto con sincronizzazione pixel-perfect e pulsante rapido <em>+ Task</em> per reparto.</li>
+              <li><strong>Dipendenze Inter-Reparto Avanzate:</strong> Frecce SVG intelligenti ad alta visibilit&agrave; ciano/verde tratteggiate tra reparti diversi con etichette esplicative (<em>&#128279; da REP</em>).</li>
+              <li><strong>Backup Interno &amp; Cloud Sync 3.3:</strong> Salvataggio automatico e sincronizzazione Google Drive estesi all'intero modulo richieste acquisto.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.2.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.2.0</span>
+              <span class="badge" style="background: #6366f1; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Dipendenze &amp; Ruoli</span>
             </div>
             <span style="font-size: 0.72rem; color: #94a3b8;">12 Ottobre 2026</span>
           </div>
@@ -1724,6 +1777,82 @@
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px;">
           <button type="button" class="btn btn-secondary" onclick="closeBOMModal()">Annulla</button>
           <button type="submit" class="btn btn-primary" id="bom-modal-submit-btn">Salva Componente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Richieste Acquisto Modal (Create & Edit) -->
+  <div id="acquisti-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-box" style="max-width: 580px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 id="acquisti-modal-title" style="font-size: 1.15rem; font-weight: 800;">Nuova Richiesta di Acquisto</h3>
+        <button onclick="closeAcquistiModal()" style="background: none; border: none; font-size: 1.4rem; color: var(--text-muted); cursor: pointer;">&times;</button>
+      </div>
+
+      <form id="acquisti-form" onsubmit="handleAcquistiSubmit(event)">
+        <input type="hidden" id="acquisti-form-edit-id" value="">
+        
+        <div class="form-grid-2">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Nome Componente <span style="color: var(--accent-red);">* (Obbligatorio)</span></label>
+            <input type="text" id="req-nome" class="form-input" required placeholder="es. Pinza Freno Anteriore, Sensore Hall, Resina Epossidica...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">P. Number / Codice Articolo <span style="color: var(--text-muted); font-size: 0.72rem;">(Facoltativo)</span></label>
+            <input type="text" id="req-pnumber" class="form-input" placeholder="es. 0265005303, M8-HEX-7075...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prezzo Stimato Unitario (&euro;) <span style="color: var(--accent-red);">* (Obbligatorio)</span></label>
+            <input type="number" step="0.01" min="0" id="req-prezzo" class="form-input" required placeholder="es. 150.00">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quantit&agrave; <span style="color: var(--text-muted); font-size: 0.72rem;">(Facoltativo)</span></label>
+            <input type="number" min="1" id="req-quantita" class="form-input" value="1">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Reparto Richiedente</label>
+            <select id="req-reparto" class="form-select" required>
+              <option value="Chassis">Chassis</option>
+              <option value="Powertrain">Powertrain</option>
+              <option value="Aerodynamics">Aerodynamics</option>
+              <option value="Software">Software</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Graphics & Media">Graphics & Media</option>
+              <option value="Business">Business</option>
+              <option value="Logistics">Logistics</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Link Sito / Nome Azienda Fornitore <span style="color: var(--text-muted); font-size: 0.72rem;">(Facoltativo)</span></label>
+            <input type="text" id="req-fornitore" class="form-input" placeholder="es. https://www.rs-online.com/... oppure Brembo Racing">
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Descrizione / Note / Specifiche <span style="color: var(--text-muted); font-size: 0.72rem;">(Facoltativo)</span></label>
+            <textarea id="req-desc" class="form-textarea" rows="3" placeholder="Specifiche tecniche, diametri, tolleranze, motivo o urgenza dell'acquisto..."></textarea>
+          </div>
+
+          <div class="form-group" id="req-stato-group" style="grid-column: 1 / -1;">
+            <label class="form-label">Stato Richiesta</label>
+            <select id="req-stato" class="form-select">
+              <option value="In Attesa">In Attesa di Approvazione</option>
+              <option value="Approvata">Approvata</option>
+              <option value="Ordinata">Ordinata</option>
+              <option value="Ricevuta">Ricevuta in Officina</option>
+              <option value="Rifiutata">Rifiutata</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px;">
+          <button type="button" class="btn btn-secondary" onclick="closeAcquistiModal()">Annulla</button>
+          <button type="submit" class="btn btn-primary" id="acquisti-modal-submit-btn">Salva Richiesta</button>
         </div>
       </form>
     </div>
@@ -2756,6 +2885,61 @@
     let scadenzaSearchQuery = '';
     let showGanttScadenze = true;
     let pendingImportedBOM = [];
+    let acquistiItems = [];
+    let acquistiDeptFilter = 'all';
+    let acquistiStatusFilter = 'all';
+    let acquistiSearchQuery = '';
+
+    const DEFAULT_ACQUISTI = [
+      {
+        id: 'REQ-001',
+        nomeComponente: 'Sensore di Pressione Freni 0-250 bar',
+        pNumber: '0265005303',
+        prezzo: 145.00,
+        quantita: 2,
+        fornitoreLink: 'https://www.bosch-motorsport.com',
+        descrizione: 'Sensori per telemetria idraulica circuito freni anteriore e posteriore FSAE',
+        reparto: 'Electronics',
+        richiedente: 'Mario Rossi',
+        richiedenteId: 'mem-mario',
+        dataRichiesta: '2026-10-10',
+        stato: 'In Attesa',
+        approvatoDa: '',
+        noteApprovazione: ''
+      },
+      {
+        id: 'REQ-002',
+        nomeComponente: 'Tessuto Fibra di Carbonio Twill 200g/m2',
+        pNumber: 'CF-200-TW-100',
+        prezzo: 320.00,
+        quantita: 1,
+        fornitoreLink: 'Angeloni Group Compositi',
+        descrizione: 'Rotolo 10m x 1m per laminazione alette ala anteriore e pacco pance laterali',
+        reparto: 'Aerodynamics',
+        richiedente: 'Claudia Genovese',
+        richiedenteId: 'mem-claudia',
+        dataRichiesta: '2026-10-09',
+        stato: 'Approvata',
+        approvatoDa: 'Diego Giordano',
+        noteApprovazione: 'Approvato per sessione laminazione ottobrina'
+      },
+      {
+        id: 'REQ-003',
+        nomeComponente: 'Uniball M10 Motorsport Alta Resistenza',
+        pNumber: 'ROD-M10-MS',
+        prezzo: 85.00,
+        quantita: 4,
+        fornitoreLink: 'https://www.fluro.de',
+        descrizione: 'Snodi sferici di precisione per puntoni e triangoli sospensione anteriore',
+        reparto: 'Chassis',
+        richiedente: 'Paolo Sidoti',
+        richiedenteId: 'mem-1791629350162',
+        dataRichiesta: '2026-10-08',
+        stato: 'Ordinata',
+        approvatoDa: 'Diego Giordano',
+        noteApprovazione: 'Ordinato con spedizione rapida'
+      }
+    ];
 
     const DEFAULT_MEMBERS = [
       { id: 'mem-1791571230913', nome: 'Roberta La Face', reparto: 'Business', ruolo: 'Capo Reparto Business', email: 'business@apexcorse.it', password: 'aaa', dataRegistrazione: '2026-10-09' },
@@ -3154,12 +3338,13 @@
     function saveInternalBackup(silent = false) {
       try {
         const backupData = {
-          version: '3.1.1',
+          version: '3.3.0',
           timestamp: new Date().toISOString(),
           formattedDate: new Date().toLocaleString(),
           tasks: (typeof tasks !== 'undefined' && Array.isArray(tasks)) ? JSON.parse(JSON.stringify(tasks)) : [],
           members: (typeof teamMembers !== 'undefined' && Array.isArray(teamMembers)) ? JSON.parse(JSON.stringify(teamMembers)) : [],
           bom: (typeof bomItems !== 'undefined' && Array.isArray(bomItems)) ? JSON.parse(JSON.stringify(bomItems)) : [],
+          acquisti: (typeof acquistiItems !== 'undefined' && Array.isArray(acquistiItems)) ? JSON.parse(JSON.stringify(acquistiItems)) : [],
           scadenze: (typeof scadenzeItems !== 'undefined' && Array.isArray(scadenzeItems)) ? JSON.parse(JSON.stringify(scadenzeItems)) : [],
           organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? JSON.parse(JSON.stringify(organigrammaData)) : [],
           regSettings: (typeof getRegistrationSettings === 'function') ? getRegistrationSettings() : null,
@@ -3241,6 +3426,11 @@
         if (Array.isArray(backup.organigramma)) {
           organigrammaData = JSON.parse(JSON.stringify(backup.organigramma));
           safeStorage.setItem('apex_organigramma_v4', JSON.stringify(organigrammaData));
+        }
+
+        if (Array.isArray(backup.acquisti)) {
+          acquistiItems = JSON.parse(JSON.stringify(backup.acquisti));
+          safeStorage.setItem('apex_racing_acquisti_v2', JSON.stringify(acquistiItems));
         }
 
         if (backup.regSettings) {
@@ -3447,6 +3637,14 @@
           safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
         }
 
+        const storedAcquisti = safeStorage.getItem('apex_racing_acquisti_v2');
+        if (storedAcquisti !== null) {
+          try { acquistiItems = JSON.parse(storedAcquisti); } catch(e) { acquistiItems = []; }
+        } else {
+          acquistiItems = [...DEFAULT_ACQUISTI];
+          safeStorage.setItem('apex_racing_acquisti_v2', JSON.stringify(acquistiItems));
+        }
+
         const storedMembers = safeStorage.getItem('apex_racing_members_v2');
         if (storedMembers) {
           try {
@@ -3465,6 +3663,9 @@
         tasks.forEach(t => { if (t.department) t.department = normalizeDept(t.department); });
         bomItems.forEach(b => { if (b.reparto) b.reparto = normalizeDept(b.reparto); });
         scadenzeItems.forEach(s => { if (s.reparto) s.reparto = normalizeDept(s.reparto); });
+        if (Array.isArray(acquistiItems)) {
+          acquistiItems.forEach(a => { if (a.reparto) a.reparto = normalizeDept(a.reparto); });
+        }
         teamMembers.forEach(m => {
           if (m.reparto) m.reparto = normalizeDept(m.reparto);
           if (!m.password) m.password = 'test2';
@@ -3550,6 +3751,11 @@
 
     function saveMembersToStorage() {
       safeStorage.setItem('apex_racing_members_v2', JSON.stringify(teamMembers));
+      triggerCloudSyncPush();
+    }
+
+    function saveAcquistiToStorage() {
+      safeStorage.setItem('apex_racing_acquisti_v2', JSON.stringify(acquistiItems));
       triggerCloudSyncPush();
     }
 
@@ -3772,6 +3978,10 @@ function doPost(e) {
             scadenzeItems = data.scadenze;
             safeStorage.setItem('apex_racing_scadenze_v2', JSON.stringify(scadenzeItems));
           }
+          if (Array.isArray(data.acquisti)) {
+            acquistiItems = data.acquisti;
+            safeStorage.setItem('apex_racing_acquisti_v2', JSON.stringify(acquistiItems));
+          }
           if (Array.isArray(data.members) && data.members.length > 0) {
             const valid = data.members.filter(m => m && m.nome && m.nome.trim());
             if (valid.length > 0) {
@@ -3832,6 +4042,7 @@ function doPost(e) {
       const payload = {
         tasks: tasks,
         bom: bomItems,
+        acquisti: (typeof acquistiItems !== 'undefined' && Array.isArray(acquistiItems)) ? acquistiItems : [],
         scadenze: scadenzeItems,
         members: teamMembers,
         organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? organigrammaData : [],
@@ -4167,6 +4378,8 @@ function doPost(e) {
         container.innerHTML = renderDashboardView();
       } else if (activeTab === 'bom') {
         container.innerHTML = renderBOMView();
+      } else if (activeTab === 'acquisti') {
+        container.innerHTML = renderAcquistiView();
       } else if (activeTab === 'scadenze') {
         container.innerHTML = renderScadenzeView();
       } else if (activeTab === 'squadra') {
@@ -4320,7 +4533,30 @@ function doPost(e) {
 
       const hasMilestones = showGanttScadenze && filteredScadenze.length > 0;
       const milestoneHeight = hasMilestones ? 52 : 0;
-      const bodyHeight = milestoneHeight + (filtered.length > 0 ? (filtered.length * 46) : 90);
+
+      // Gruppi per Reparto (Department Lanes)
+      const deptsToDisplay = [];
+      if (selectedDepartmentFilter !== 'all') {
+        deptsToDisplay.push(selectedDepartmentFilter);
+      } else {
+        OFFICIAL_DEPTS.forEach(d => {
+          if (filtered.some(t => t.department === d)) {
+            deptsToDisplay.push(d);
+          }
+        });
+        filtered.forEach(t => {
+          if (t.department && !deptsToDisplay.includes(t.department)) {
+            deptsToDisplay.push(t.department);
+          }
+        });
+        if (deptsToDisplay.length === 0 && filtered.length > 0) {
+          deptsToDisplay.push('Generale');
+        }
+      }
+
+      const totalLaneHeadersHeight = deptsToDisplay.length * 38;
+      const totalTaskRowsHeight = filtered.length * 46;
+      const bodyHeight = milestoneHeight + totalLaneHeadersHeight + (filtered.length > 0 ? totalTaskRowsHeight : 90);
 
       html += `
         <div class="gantt-panel">
@@ -4387,21 +4623,54 @@ function doPost(e) {
                     Nessuna task inserita.<br>
                     <button class="btn btn-primary" style="margin-top: 8px; padding: 4px 10px; font-size: 0.75rem;" onclick="openCreateModal()">+ Nuova Task</button>
                   </div>
-                ` : filtered.map(t => {
-                  const depEval = evaluateDependencyStatus(t);
+                ` : deptsToDisplay.map(dept => {
+                  const deptTasks = filtered.filter(t => (t.department || 'Generale') === dept);
+                  const color = deptColors[dept] || '#8b5cf6';
                   return `
-                    <div class="gantt-sidebar-row" onclick="openEditModal('${t.id}')">
-                      <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; max-width: 170px;" title="${t.title}">
-                        ${getDeptPill(t.department, t.id)}
-                        <strong style="font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis;">${getPriorityDot(t.priority)}${t.title}</strong>
+                    <div class="gantt-dept-lane-header">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: ${color}; box-shadow: 0 0 6px ${color}88;"></span>
+                        <strong style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.5px; color: #fff;">${dept}</strong>
+                        <span class="badge" style="background: rgba(255,255,255,0.08); font-size: 0.65rem; padding: 1px 6px;">${deptTasks.length}</span>
                       </div>
-                      <span class="badge ${getStatusBadge(t.status)}" style="font-size: 0.65rem;">
-                        ${t.status}
-                      </span>
-                      <span class="badge ${depEval.badgeClass}" style="font-size: 0.65rem;" title="${depEval.label}">
-                        ${depEval.status}
-                      </span>
+                      <button class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.68rem; height: 24px;" onclick="openCreateModal('${dept}')" title="Aggiungi una task direttamente in ${dept}">+ Task</button>
                     </div>
+
+                    ${deptTasks.map(t => {
+                      const depEval = evaluateDependencyStatus(t);
+                      let interDeptPill = '';
+                      if (t.dependencies && t.dependencies.length > 0) {
+                        const extDepts = [];
+                        t.dependencies.forEach(pId => {
+                          const pt = tasks.find(x => x.id === pId);
+                          if (pt && pt.department && pt.department !== t.department) {
+                            const sc = getDeptShortCode(pt.department);
+                            if (!extDepts.includes(sc)) extDepts.push(sc);
+                          }
+                        });
+                        if (extDepts.length > 0) {
+                          interDeptPill = `<span class="badge" style="background: rgba(6,182,212,0.18); color: #06b6d4; font-size: 0.60rem; padding: 1px 4px; border: 1px solid rgba(6,182,212,0.35);" title="Dipende da task di ${extDepts.join(', ')}">&#128279; da ${extDepts.join(', ')}</span>`;
+                        }
+                      }
+
+                      return `
+                        <div class="gantt-sidebar-row" onclick="openEditModal('${t.id}')">
+                          <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; max-width: 170px;" title="${t.title}">
+                            ${getDeptPill(t.department, t.id)}
+                            <strong style="font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis;">${getPriorityDot(t.priority)}${t.title}</strong>
+                          </div>
+                          <span class="badge ${getStatusBadge(t.status)}" style="font-size: 0.65rem;">
+                            ${t.status}
+                          </span>
+                          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+                            <span class="badge ${depEval.badgeClass}" style="font-size: 0.65rem;" title="${depEval.label}">
+                              ${depEval.status}
+                            </span>
+                            ${interDeptPill}
+                          </div>
+                        </div>
+                      `;
+                    }).join('')}
                   `;
                 }).join('')}
               </div>
@@ -4489,37 +4758,53 @@ function doPost(e) {
                       <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                         <polygon points="0 1.5, 8 5, 0 8.5" fill="#ef4444" />
                       </marker>
+                      <marker id="arrow-cyan" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <polygon points="0 1.5, 8 5, 0 8.5" fill="#06b6d4" />
+                      </marker>
                     </defs>
                   </svg>
 
-                  <!-- Task Bars -->
+                  <!-- Task Bars grouped by Department Lane -->
                   ${filtered.length === 0 ? `
                     <div style="height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.82rem; font-style: italic;">
                       Pianificazione task vuota: clicca su "+ Nuova Task" per posizionare le attivit&agrave; sulla timeline rispetto alle deadline sopra indicate.
                     </div>
-                  ` : filtered.map((t) => {
-                    const barPos = calcBarPixelPosition(t, minDate, colWidth);
-                    const color = deptColors[t.department] || '#3b82f6';
-                    const progressPct = t.status === 'Completato' ? 100 : (t.status === 'In Corso' ? 50 : (t.status === 'In Revisione' ? 75 : 0));
-
+                  ` : deptsToDisplay.map(dept => {
+                    const deptTasks = filtered.filter(t => (t.department || 'Generale') === dept);
+                    const color = deptColors[dept] || '#8b5cf6';
                     return `
-                      <div class="gantt-grid-row" id="row-${t.id}">
-                        ${barPos ? `
-                          <div class="gantt-bar" id="bar-${t.id}"
-                                style="left: ${barPos.left}px; width: ${barPos.width}px; background-color: ${color};"
-                                onclick="openEditModal('${t.id}')"
-                                title="${t.id}: ${t.title}&#10;Stato: ${t.status}&#10;Inizio: ${t.startDate} | Fine: ${t.endDate}&#10;Durata: ${t.duration} gg&#10;Assegnatario: ${t.assignee || 'N/D'}">
-                            <div class="gantt-bar-fill" style="width: ${progressPct}%;"></div>
-                            <div class="gantt-bar-text">
-                              <strong>${t.id}</strong> &bull; ${getPriorityDot(t.priority)}${t.title} (${t.duration} gg)
-                            </div>
-                          </div>
-                        ` : `
-                          <div style="position: absolute; left: 10px; top: 12px; font-size: 0.72rem; color: var(--text-muted); font-style: italic;">
-                            [Date non definite per la timeline]
-                          </div>
-                        `}
+                      <div class="gantt-dept-lane-grid-header" style="border-left: 3px solid ${color};">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                          <span style="color: ${color};">&#9632;</span> Reparto: <span style="color: #fff;">${dept}</span>
+                          <span style="opacity: 0.6; font-size: 0.70rem;">(${deptTasks.length} attivit&agrave;)</span>
+                        </div>
                       </div>
+
+                      ${deptTasks.map(t => {
+                        const barPos = calcBarPixelPosition(t, minDate, colWidth);
+                        const bColor = deptColors[t.department] || '#3b82f6';
+                        const progressPct = t.status === 'Completato' ? 100 : (t.status === 'In Corso' ? 50 : (t.status === 'In Revisione' ? 75 : 0));
+
+                        return `
+                          <div class="gantt-grid-row" id="row-${t.id}">
+                            ${barPos ? `
+                              <div class="gantt-bar" id="bar-${t.id}"
+                                    style="left: ${barPos.left}px; width: ${barPos.width}px; background-color: ${bColor};"
+                                    onclick="openEditModal('${t.id}')"
+                                    title="${t.id}: ${t.title}&#10;Stato: ${t.status}&#10;Inizio: ${t.startDate} | Fine: ${t.endDate}&#10;Durata: ${t.duration} gg&#10;Assegnatario: ${t.assignee || 'N/D'}">
+                                <div class="gantt-bar-fill" style="width: ${progressPct}%;"></div>
+                                <div class="gantt-bar-text">
+                                  <strong>${t.id}</strong> &bull; ${getPriorityDot(t.priority)}${t.title} (${t.duration} gg)
+                                </div>
+                              </div>
+                            ` : `
+                              <div style="position: absolute; left: 10px; top: 12px; font-size: 0.72rem; color: var(--text-muted); font-style: italic;">
+                                [Date non definite per la timeline]
+                              </div>
+                            `}
+                          </div>
+                        `;
+                      }).join('')}
                     `;
                   }).join('')}
                 </div>
@@ -4596,6 +4881,21 @@ function doPost(e) {
       }
     }
 
+    function getDeptShortCode(dept) {
+      if (!dept) return 'DEP';
+      const d = dept.toLowerCase();
+      if (d.includes('chassis')) return 'CHA';
+      if (d.includes('powertrain')) return 'PT';
+      if (d.includes('aero')) return 'AER';
+      if (d.includes('soft')) return 'SW';
+      if (d.includes('elec')) return 'EL';
+      if (d.includes('graph') || d.includes('media') || d.includes('gm')) return 'GM';
+      if (d.includes('bus') || d.includes('bp')) return 'BP';
+      if (d.includes('log')) return 'LOG';
+      if (d.includes('dir')) return 'DIR';
+      return dept.substring(0, 3).toUpperCase();
+    }
+
     function drawDependencyArrows() {
       const svg = document.getElementById('gantt-dependencies-svg');
       if (!svg) return;
@@ -4628,8 +4928,17 @@ function doPost(e) {
 
           const parentTask = tasks.find(t => t.id === depId);
           const isCompleted = parentTask && parentTask.status === 'Completato';
-          const strokeColor = isCompleted ? '#10b981' : '#ef4444';
-          const markerId = isCompleted ? 'arrow-green' : 'arrow-red';
+          const isCrossDept = parentTask && parentTask.department && task.department && (parentTask.department !== task.department);
+
+          let strokeColor = isCompleted ? '#10b981' : '#ef4444';
+          let markerId = isCompleted ? 'arrow-green' : 'arrow-red';
+          let strokeWidth = '2';
+
+          if (isCrossDept) {
+            strokeColor = isCompleted ? '#10b981' : '#06b6d4';
+            markerId = isCompleted ? 'arrow-green' : 'arrow-cyan';
+            strokeWidth = '2.5';
+          }
 
           const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
@@ -4646,11 +4955,17 @@ function doPost(e) {
 
           path.setAttribute('d', d);
           path.setAttribute('stroke', strokeColor);
-          path.setAttribute('stroke-width', '2');
+          path.setAttribute('stroke-width', strokeWidth);
           path.setAttribute('fill', 'none');
           path.setAttribute('marker-end', `url(#${markerId})`);
+          if (isCrossDept && !isCompleted) {
+            path.setAttribute('stroke-dasharray', '5,3');
+          }
           path.classList.add('dep-arrow');
-          path.setAttribute('title', `Dipendenza: ${depId} -> ${task.id} (${isCompleted ? 'Sbloccato' : 'In Attesa'})`);
+          const titleDesc = isCrossDept ?
+            `[INTER-REPARTO] ${parentTask.department} (${depId}) \u2794 ${task.department} (${task.id}) - ${isCompleted ? 'Sbloccato' : 'In Attesa'}` :
+            `Dipendenza: ${depId} \u2794 ${task.id} (${isCompleted ? 'Sbloccato' : 'In Attesa'})`;
+          path.setAttribute('title', titleDesc);
 
           svg.appendChild(path);
         });
@@ -5012,6 +5327,556 @@ function doPost(e) {
         </div>
       `;
       return html;
+    }
+
+    // ----------------------------------------------------
+    // RICHIESTE ACQUISTO (PURCHASE REQUESTS & ORDERS)
+    // ----------------------------------------------------
+    function getFilteredAcquisti() {
+      return acquistiItems.filter(item => {
+        if (acquistiDeptFilter !== 'all' && item.reparto !== acquistiDeptFilter) return false;
+        if (acquistiStatusFilter !== 'all' && item.stato !== acquistiStatusFilter) return false;
+        if (acquistiSearchQuery) {
+          const q = acquistiSearchQuery.toLowerCase();
+          const match = (item.id && item.id.toLowerCase().includes(q)) ||
+                        (item.nomeComponente && item.nomeComponente.toLowerCase().includes(q)) ||
+                        (item.pNumber && item.pNumber.toLowerCase().includes(q)) ||
+                        (item.fornitoreLink && item.fornitoreLink.toLowerCase().includes(q)) ||
+                        (item.descrizione && item.descrizione.toLowerCase().includes(q)) ||
+                        (item.reparto && item.reparto.toLowerCase().includes(q)) ||
+                        (item.richiedente && item.richiedente.toLowerCase().includes(q));
+          if (!match) return false;
+        }
+        return true;
+      });
+    }
+
+    function setAcquistiDeptFilter(dept) {
+      acquistiDeptFilter = dept;
+      renderView();
+    }
+
+    function setAcquistiStatusFilter(status) {
+      acquistiStatusFilter = status;
+      renderView();
+    }
+
+    function getAcquistiBadge(status) {
+      switch (status) {
+        case 'In Attesa': return 'badge-richiesta-attesa';
+        case 'Approvata': return 'badge-richiesta-approvata';
+        case 'Ordinata': return 'badge-richiesta-ordinata';
+        case 'Ricevuta': return 'badge-richiesta-ricevuta';
+        case 'Rifiutata': return 'badge-richiesta-rifiutata';
+        default: return 'badge-secondary';
+      }
+    }
+
+    function renderAcquistiView() {
+      const depts = ['all', ...OFFICIAL_DEPTS];
+      const filtered = getFilteredAcquisti();
+
+      const totalCount = acquistiItems.length;
+      const inAttesaCount = acquistiItems.filter(a => a.stato === 'In Attesa').length;
+      const approvateCount = acquistiItems.filter(a => a.stato === 'Approvata' || a.stato === 'Ordinata' || a.stato === 'Ricevuta').length;
+      const totalCost = acquistiItems.reduce((acc, a) => acc + ((a.prezzo || 0) * (a.quantita || 1)), 0);
+      const approvedCost = acquistiItems.filter(a => a.stato === 'Approvata' || a.stato === 'Ordinata' || a.stato === 'Ricevuta')
+                                        .reduce((acc, a) => acc + ((a.prezzo || 0) * (a.quantita || 1)), 0);
+
+      const isManager = (currentUserRole === 'owner' || currentUserRole === 'caporeparto');
+
+      let html = `
+        <!-- KPI Summary Cards -->
+        <div class="kpi-grid" style="margin-bottom: 20px;">
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: #fff;">${totalCount}</div>
+            <div class="kpi-label">Totale Richieste</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: #fbbf24;">${inAttesaCount}</div>
+            <div class="kpi-label">In Attesa di Approvazione</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: #38bdf8;">${approvateCount}</div>
+            <div class="kpi-label">Approvate &amp; Ordinate</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: #c084fc;">&euro; ${totalCost.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            <div class="kpi-label">Spesa Totale Stimata</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" style="color: #34d399;">&euro; ${approvedCost.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            <div class="kpi-label">Budget Approvato</div>
+          </div>
+        </div>
+
+        <!-- Toolbar & Department Filters -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            ${depts.map(d => {
+              const label = d === 'all' ? 'Tutti i Reparti' : (d === 'G&M' ? 'Grafica & Media' : d);
+              const count = d === 'all' ? acquistiItems.length : acquistiItems.filter(a => a.reparto === d).length;
+              return `
+                <button class="btn ${acquistiDeptFilter === d ? 'btn-primary' : 'btn-secondary'}" onclick="setAcquistiDeptFilter('${d}')">
+                  ${label} <span style="opacity: 0.8; font-weight: normal;">(${count})</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="exportAcquistiToCSV()">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Esporta Richieste (CSV)
+            </button>
+            <button class="btn btn-primary" onclick="openCreateAcquistoModal()">
+              <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Nuova Richiesta
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Sub-bar & Search -->
+        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="acquisti-search-input" placeholder="Cerca componente, part number, fornitore..." class="form-input" style="width: 280px;" value="${acquistiSearchQuery}" oninput="acquistiSearchQuery=this.value; renderView();">
+            
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Stato:</span>
+              <select class="form-select" style="width: auto; padding: 4px 10px; font-size: 0.78rem;" onchange="setAcquistiStatusFilter(this.value)">
+                <option value="all" ${acquistiStatusFilter === 'all' ? 'selected' : ''}>Tutti gli Stati</option>
+                <option value="In Attesa" ${acquistiStatusFilter === 'In Attesa' ? 'selected' : ''}>In Attesa</option>
+                <option value="Approvata" ${acquistiStatusFilter === 'Approvata' ? 'selected' : ''}>Approvata</option>
+                <option value="Ordinata" ${acquistiStatusFilter === 'Ordinata' ? 'selected' : ''}>Ordinata</option>
+                <option value="Ricevuta" ${acquistiStatusFilter === 'Ricevuta' ? 'selected' : ''}>Ricevuta</option>
+                <option value="Rifiutata" ${acquistiStatusFilter === 'Rifiutata' ? 'selected' : ''}>Rifiutata</option>
+              </select>
+            </div>
+          </div>
+
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Richieste visualizzate: <strong>${filtered.length}</strong> su ${acquistiItems.length}</span>
+        </div>
+
+        <!-- Table View -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID / Data</th>
+                <th>Nome Componente</th>
+                <th>P. Number</th>
+                <th>Prezzo Stimato</th>
+                <th>Link / Fornitore</th>
+                <th>Reparto</th>
+                <th>Richiedente</th>
+                <th>Stato</th>
+                <th>Descrizione / Note</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.length === 0 ? `
+                <tr>
+                  <td colspan="10" style="text-align: center; padding: 36px; color: var(--text-muted);">
+                    Nessuna richiesta di acquisto trovata. Clicca su "<strong>+ Nuova Richiesta</strong>" per inserire un componente da acquistare.
+                  </td>
+                </tr>
+              ` : filtered.map(item => {
+                const subTot = (item.prezzo || 0) * (item.quantita || 1);
+                const isUrl = item.fornitoreLink && (item.fornitoreLink.startsWith('http://') || item.fornitoreLink.startsWith('https://'));
+                const canEdit = isManager || (currentMemberId && item.richiedenteId === currentMemberId);
+                const canDelete = currentUserRole === 'owner' || (currentMemberId && item.richiedenteId === currentMemberId && item.stato === 'In Attesa');
+                const canAddToBOM = (currentUserRole === 'owner') && (item.stato === 'Approvata' || item.stato === 'Ordinata' || item.stato === 'Ricevuta');
+
+                return `
+                  <tr>
+                    <td>
+                      <strong>${item.id}</strong><br>
+                      <span style="font-size: 0.72rem; color: var(--text-muted);">${formatDateIT(item.dataRichiesta)}</span>
+                    </td>
+                    <td>
+                      <strong style="color: #fff; font-size: 0.88rem;">${item.nomeComponente}</strong>
+                    </td>
+                    <td>
+                      ${item.pNumber ? `<code style="font-size: 0.76rem; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">${item.pNumber}</code>` : '<span style="color: var(--text-muted);">-</span>'}
+                    </td>
+                    <td>
+                      <strong style="color: #22c55e;">&euro; ${(item.prezzo || 0).toFixed(2)}</strong>
+                      <span style="font-size: 0.72rem; color: var(--text-muted);"> &times; ${item.quantita || 1}</span><br>
+                      <span style="font-size: 0.74rem; font-weight: 700; color: #a3e635;">Tot: &euro; ${subTot.toFixed(2)}</span>
+                    </td>
+                    <td>
+                      ${isUrl ? `
+                        <a href="${item.fornitoreLink}" target="_blank" rel="noopener noreferrer" style="color: var(--brand-cyan); font-weight: 700; text-decoration: underline; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                          Visita Sito &nearr;
+                        </a>
+                      ` : (item.fornitoreLink ? `<span style="font-size: 0.8rem;">${item.fornitoreLink}</span>` : '<span style="color: var(--text-muted);">-</span>')}
+                    </td>
+                    <td>
+                      ${getDeptPill(item.reparto, item.reparto)}
+                    </td>
+                    <td>
+                      <span style="font-size: 0.8rem; font-weight: 600;">${item.richiedente || 'Membro'}</span>
+                    </td>
+                    <td>
+                      ${isManager ? `
+                        <select class="form-select" style="padding: 3px 6px; font-size: 0.74rem; width: auto;" onchange="updateAcquistoStatus('${item.id}', this.value)">
+                          <option value="In Attesa" ${item.stato === 'In Attesa' ? 'selected' : ''}>In Attesa</option>
+                          <option value="Approvata" ${item.stato === 'Approvata' ? 'selected' : ''}>Approvata</option>
+                          <option value="Ordinata" ${item.stato === 'Ordinata' ? 'selected' : ''}>Ordinata</option>
+                          <option value="Ricevuta" ${item.stato === 'Ricevuta' ? 'selected' : ''}>Ricevuta</option>
+                          <option value="Rifiutata" ${item.stato === 'Rifiutata' ? 'selected' : ''}>Rifiutata</option>
+                        </select>
+                      ` : `
+                        <span class="badge ${getAcquistiBadge(item.stato)}" style="font-size: 0.72rem;">
+                          ${item.stato}
+                        </span>
+                      `}
+                    </td>
+                    <td style="max-width: 200px;">
+                      <span style="font-size: 0.76rem; color: var(--text-muted); word-break: break-word;">${item.descrizione || '-'}</span>
+                    </td>
+                    <td>
+                      <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                        ${canEdit ? `
+                          <button class="btn btn-secondary" style="padding: 3px 7px;" onclick="openEditAcquistoModal('${item.id}')" title="Modifica Richiesta">
+                            <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                        ` : ''}
+
+                        ${canAddToBOM ? `
+                          <button class="btn btn-secondary" style="padding: 3px 7px; color: var(--brand-cyan); border-color: rgba(6,182,212,0.4);" onclick="convertAcquistoToBOM('${item.id}')" title="Inserisci direttamente nella Distinta Base BOM">
+                            + BOM
+                          </button>
+                        ` : ''}
+
+                        ${canDelete ? `
+                          <button class="btn btn-danger" style="padding: 3px 7px;" onclick="deleteAcquisto('${item.id}')" title="Elimina Richiesta">
+                            <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                          </button>
+                        ` : ''}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      return html;
+    }
+
+    function openCreateAcquistoModal(preselectedDept) {
+      const modal = document.getElementById('acquisti-modal');
+      const form = document.getElementById('acquisti-form');
+      const title = document.getElementById('acquisti-modal-title');
+      const editIdInput = document.getElementById('acquisti-form-edit-id');
+      const statoGroup = document.getElementById('req-stato-group');
+      if (!modal) return;
+
+      if (form) form.reset();
+      if (editIdInput) editIdInput.value = '';
+      if (title) title.innerText = 'Nuova Richiesta di Acquisto';
+
+      const deptSelect = document.getElementById('req-reparto');
+      if (deptSelect) {
+        if (preselectedDept && preselectedDept !== 'all') {
+          deptSelect.value = preselectedDept;
+        } else if (currentMemberId) {
+          const mem = teamMembers.find(m => m.id === currentMemberId);
+          if (mem && mem.reparto) deptSelect.value = mem.reparto;
+        }
+      }
+
+      const qtaInput = document.getElementById('req-quantita');
+      if (qtaInput) qtaInput.value = '1';
+
+      if (statoGroup) {
+        if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
+          statoGroup.style.display = 'block';
+          const statoSelect = document.getElementById('req-stato');
+          if (statoSelect) statoSelect.value = 'In Attesa';
+        } else {
+          statoGroup.style.display = 'none';
+        }
+      }
+
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        const nInput = document.getElementById('req-nome');
+        if (nInput) nInput.focus();
+      }, 60);
+    }
+
+    function openEditAcquistoModal(id) {
+      const item = acquistiItems.find(a => a.id === id);
+      if (!item) return;
+
+      const modal = document.getElementById('acquisti-modal');
+      const title = document.getElementById('acquisti-modal-title');
+      const editIdInput = document.getElementById('acquisti-form-edit-id');
+      const statoGroup = document.getElementById('req-stato-group');
+      if (!modal) return;
+
+      if (title) title.innerText = 'Modifica Richiesta (' + item.id + ')';
+      if (editIdInput) editIdInput.value = item.id;
+
+      const nInput = document.getElementById('req-nome');
+      if (nInput) nInput.value = item.nomeComponente || '';
+
+      const pInput = document.getElementById('req-pnumber');
+      if (pInput) pInput.value = item.pNumber || '';
+
+      const prInput = document.getElementById('req-prezzo');
+      if (prInput) prInput.value = item.prezzo || '';
+
+      const qInput = document.getElementById('req-quantita');
+      if (qInput) qInput.value = item.quantita || 1;
+
+      const repSelect = document.getElementById('req-reparto');
+      if (repSelect) repSelect.value = item.reparto || 'Chassis';
+
+      const fornInput = document.getElementById('req-fornitore');
+      if (fornInput) fornInput.value = item.fornitoreLink || '';
+
+      const dInput = document.getElementById('req-desc');
+      if (dInput) dInput.value = item.descrizione || '';
+
+      const stSelect = document.getElementById('req-stato');
+      if (stSelect) stSelect.value = item.stato || 'In Attesa';
+
+      if (statoGroup) {
+        if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
+          statoGroup.style.display = 'block';
+        } else {
+          statoGroup.style.display = 'none';
+        }
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeAcquistiModal() {
+      const modal = document.getElementById('acquisti-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleAcquistiSubmit(event) {
+      event.preventDefault();
+      const editId = (document.getElementById('acquisti-form-edit-id').value || '').trim();
+      const nome = (document.getElementById('req-nome').value || '').trim();
+      const pNumber = (document.getElementById('req-pnumber').value || '').trim();
+      const prezzo = parseFloat(document.getElementById('req-prezzo').value) || 0;
+      const quantita = parseInt(document.getElementById('req-quantita').value, 10) || 1;
+      const reparto = document.getElementById('req-reparto').value;
+      const fornitore = (document.getElementById('req-fornitore').value || '').trim();
+      const desc = (document.getElementById('req-desc').value || '').trim();
+      const statoSelect = document.getElementById('req-stato');
+      const stato = statoSelect ? statoSelect.value : 'In Attesa';
+
+      if (!nome) {
+        alert('Il nome del componente \u00E8 obbligatorio.');
+        return;
+      }
+      if (prezzo < 0) {
+        alert('Il prezzo non pu\u00F2 essere negativo.');
+        return;
+      }
+
+      let currentUserName = 'Membro Team';
+      let currentUserId = currentMemberId || '';
+      if (currentUserRole === 'owner') {
+        currentUserName = 'Proprietario';
+      } else if (currentMemberId) {
+        const mem = teamMembers.find(m => m.id === currentMemberId);
+        if (mem) currentUserName = mem.nome;
+      }
+
+      if (editId) {
+        const item = acquistiItems.find(a => a.id === editId);
+        if (item) {
+          item.nomeComponente = nome;
+          item.pNumber = pNumber;
+          item.prezzo = prezzo;
+          item.quantita = quantita;
+          item.reparto = reparto;
+          item.fornitoreLink = fornitore;
+          item.descrizione = desc;
+          if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
+            item.stato = stato;
+            if (stato === 'Approvata' && !item.approvatoDa) {
+              item.approvatoDa = currentUserName;
+            }
+          }
+        }
+      } else {
+        const nextNum = acquistiItems.length > 0 ? (Math.max(...acquistiItems.map(a => {
+          const m = (a.id || '').match(/REQ-(\d+)/i);
+          return m ? parseInt(m[1], 10) : 0;
+        })) + 1) : 1;
+        const newId = 'REQ-' + String(nextNum).padStart(3, '0');
+
+        const initialStato = (currentUserRole === 'owner' || currentUserRole === 'caporeparto') ? stato : 'In Attesa';
+        const newItem = {
+          id: newId,
+          nomeComponente: nome,
+          pNumber: pNumber,
+          prezzo: prezzo,
+          quantita: quantita,
+          fornitoreLink: fornitore,
+          descrizione: desc,
+          reparto: reparto,
+          richiedente: currentUserName,
+          richiedenteId: currentUserId,
+          dataRichiesta: new Date().toISOString().split('T')[0],
+          stato: initialStato,
+          approvatoDa: (initialStato === 'Approvata') ? currentUserName : '',
+          noteApprovazione: ''
+        };
+        acquistiItems.unshift(newItem);
+      }
+
+      saveAcquistiToStorage();
+      closeAcquistiModal();
+      renderView();
+      if (typeof showApexToast === 'function') {
+        showApexToast(editId ? 'Richiesta di acquisto aggiornata!' : 'Nuova richiesta di acquisto inviata con successo!', 'success');
+      }
+    }
+
+    function updateAcquistoStatus(id, newStatus) {
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('Solo il Profilo Proprietario o Capo Reparto possono modificare lo stato di approvazione.');
+        renderView();
+        return;
+      }
+      const item = acquistiItems.find(a => a.id === id);
+      if (!item) return;
+
+      item.stato = newStatus;
+      if (newStatus === 'Approvata' && !item.approvatoDa) {
+        let approver = 'Proprietario';
+        if (currentMemberId) {
+          const m = teamMembers.find(x => x.id === currentMemberId);
+          if (m) approver = m.nome;
+        }
+        item.approvatoDa = approver;
+      }
+      saveAcquistiToStorage();
+      renderView();
+      if (typeof showApexToast === 'function') {
+        showApexToast('Stato richiesta aggiornato a "' + newStatus + '"!', 'success');
+      }
+    }
+
+    function deleteAcquisto(id) {
+      const item = acquistiItems.find(a => a.id === id);
+      if (!item) return;
+
+      const canDelete = currentUserRole === 'owner' || (currentMemberId && item.richiedenteId === currentMemberId && item.stato === 'In Attesa');
+      if (!canDelete) {
+        alert('Non hai i permessi per eliminare questa richiesta.');
+        return;
+      }
+
+      if (!confirm('Sei sicuro di voler eliminare la richiesta "' + item.id + ': ' + item.nomeComponente + '"?')) {
+        return;
+      }
+
+      acquistiItems = acquistiItems.filter(a => a.id !== id);
+      saveAcquistiToStorage();
+      renderView();
+      if (typeof showApexToast === 'function') {
+        showApexToast('Richiesta di acquisto eliminata!', 'warning');
+      }
+    }
+
+    function convertAcquistoToBOM(id) {
+      if (currentUserRole !== 'owner') {
+        alert('Solo il Profilo Proprietario pu\u00F2 inserire componenti direttamente nella Distinta Base (BOM).');
+        return;
+      }
+      const item = acquistiItems.find(a => a.id === id);
+      if (!item) return;
+
+      const exists = bomItems.some(b => (item.pNumber && b.codice === item.pNumber) || (b.componente === item.nomeComponente));
+      if (exists) {
+        if (!confirm('Questo componente potrebbe essere gi\u00E0 presente nella BOM. Vuoi inserirlo ugualmente come nuova voce?')) {
+          return;
+        }
+      }
+
+      const newBOMItem = {
+        uid: 'bom-' + Date.now(),
+        codice: item.pNumber || ('ACQ-' + item.id),
+        reparto: item.reparto || 'Chassis',
+        area: 'Acquisti Approvati',
+        componente: item.nomeComponente,
+        note: item.descrizione || '',
+        qta: item.quantita || 1,
+        stato: (item.stato === 'Ricevuta') ? 'Arrivato' : ((item.stato === 'Ordinata') ? 'Ordinato' : 'Da Ordinare'),
+        fornitore: item.fornitoreLink || '',
+        doc: '',
+        costo: item.prezzo ? (item.prezzo * (item.quantita || 1)).toFixed(2) : ''
+      };
+
+      bomItems.push(newBOMItem);
+      saveBOMToStorage();
+      if (typeof showApexToast === 'function') {
+        showApexToast('Componente "' + item.nomeComponente + '" inserito con successo nella Distinta Base BOM!', 'success');
+      } else {
+        alert('Componente "' + item.nomeComponente + '" inserito con successo nella Distinta Base BOM!');
+      }
+    }
+
+    function exportAcquistiToCSV() {
+      if (!acquistiItems || acquistiItems.length === 0) {
+        alert('Nessuna richiesta di acquisto da esportare.');
+        return;
+      }
+
+      let csv = 'ID,Data Richiesta,Nome Componente,Part Number,Prezzo Unitario,Quantita,Totale Stimato,Link o Fornitore,Reparto,Richiedente,Stato,Descrizione\r\n';
+
+      acquistiItems.forEach(item => {
+        const subTot = ((item.prezzo || 0) * (item.quantita || 1)).toFixed(2);
+        const nomeClean = (item.nomeComponente || '').replace(/"/g, '""');
+        const pNumClean = (item.pNumber || '').replace(/"/g, '""');
+        const fornClean = (item.fornitoreLink || '').replace(/"/g, '""');
+        const repClean = (item.reparto || '').replace(/"/g, '""');
+        const richClean = (item.richiedente || '').replace(/"/g, '""');
+        const statoClean = (item.stato || '').replace(/"/g, '""');
+        const descClean = (item.descrizione || '').replace(/"/g, '""');
+
+        const row = [
+          item.id || '',
+          item.dataRichiesta || '',
+          '"' + nomeClean + '"',
+          '"' + pNumClean + '"',
+          (item.prezzo || 0).toFixed(2),
+          item.quantita || 1,
+          subTot,
+          '"' + fornClean + '"',
+          '"' + repClean + '"',
+          '"' + richClean + '"',
+          '"' + statoClean + '"',
+          '"' + descClean + '"'
+        ];
+        csv += row.join(',') + '\r\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      const dStr = new Date().toISOString().split('T')[0];
+      a.href = URL.createObjectURL(blob);
+      a.download = `Apex_Corse_Richieste_Acquisto_${dStr}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      if (typeof showApexToast === 'function') {
+        showApexToast('File CSV delle Richieste Acquisto scaricato con successo!', 'success');
+      }
     }
 
     function renderScadenzeView() {
@@ -8716,10 +9581,10 @@ function doPost(e) {
     // V3.0 UPDATE & VERSION ENGINE
     // ====================================================
 // ====================================================
-// APEX CORSE V3.2.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
+// APEX CORSE V3.3.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
 // ====================================================
-const APP_VERSION = '3.2.0';
-const APP_BUILD_DATE = '2026-10-12';
+const APP_VERSION = '3.3.0';
+const APP_BUILD_DATE = '2026-10-13';
 let remoteVersionInfo = null;
 
 // Sistema di Toast Notifiche Fluttuanti
@@ -8770,12 +9635,11 @@ function broadcastUpdateAnnouncement(customAnn = null) {
     title: 'Aggiornamento Apex Corse v' + APP_VERSION,
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
-      'Dipendenze Concatenate di Pari Passo: Sblocco progressivo delle attivit\u00E0 a monte e blocco completamento.',
-      'Ruolo Capo Reparto: Nuova casella nell\'Area Personale per abilitare la gestione task (aggiunta, modifica, eliminazione).',
-      'Correzione Ricerca Task: Risolto bug sparizione cursore, scrittura fluida e continua senza perdita di focus.',
-      'Delega Permessi Proprietario: Il proprietario pu\u00F2 abilitare i privilegi completi di gestione per qualsiasi membro.',
-      'Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore selezioni.',
-      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.'
+      'Nuova Sezione Richieste Acquisto: Tracciamento acquisti con campi obbligatori (Nome componente, Prezzo) e facoltativi (P. number, Link/Azienda, Descrizione).',
+      'Integrazione Diretta BOM: Possibilit\u00E0 per il Proprietario di convertire le richieste approvate direttamente nella Distinta Base con 1 click.',
+      'Gantt Suddiviso per Reparto: Corsie dedicate (Chassis, Powertrain, Aero, GM, BP, ecc.) con pulsante rapido + Task per ogni reparto.',
+      'Dipendenze Inter-Reparto Avanzate: Frecce SVG evidenziate (ciano/verde tratteggiate) con indicatore esplicito nel Gantt.',
+      'Backup Interno & Cloud Sync 3.3: Salvataggio automatico e sincronizzazione Google Drive estesa all\'intero modulo acquisti.'
     ],
     author: 'Diego Giordano (Team Principal)',
     timestamp: new Date().toISOString()

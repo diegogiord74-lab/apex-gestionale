@@ -1,16 +1,17 @@
 {
-  "version": "3.2.0",
-  "buildDate": "2026-10-12",
+  "version": "3.3.0",
+  "buildDate": "2026-10-13",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.2.0 - Dipendenze Concatenate, Ruolo Capo Reparto & Fix Ricerca Task",
+  "title": "Apex Corse v3.3.0 - Richieste Acquisto & Gantt Suddiviso per Reparto",
   "changelog": [
+    "Nuova Sezione Richieste Acquisto: Gestione completa richieste componenti con campi obbligatori (Nome componente, Prezzo) e facoltativi (P. Number, Link fornitore/Azienda, Descrizione)",
+    "Workflow Ordini & Integrazione BOM: Approvazione richieste da parte di Proprietario/Capi Reparto e conversione diretta in Distinta Base BOM con 1 click",
+    "Gantt per Reparti (Department Lanes): Attivit\u00E0 organizzate in corsie dedicate per reparto (Chassis, Powertrain, Aero, GM, BP, ecc.) senza pi\u00F9 task accodate a caso",
+    "Dipendenze Inter-Reparto: Frecce SVG intelligenti ad alta visibilit\u00E0 ciano/verde tratteggiate tra reparti diversi e pillola esplicativa (\uD83D\uDD17 da REP)",
+    "Pulsante Rapido + Task per Reparto: Creazione immediata di task pre-impostata direttamente dall'intestazione di corsia del reparto nel Gantt",
+    "Backup Interno & Cloud Sync 3.3: Sincronizzazione automatica su Google Drive ed esportazione CSV estesa alle Richieste Acquisto",
     "Dipendenze Concatenate: Sblocco progressivo di pari passo delle attivit\u00E0 propedeutiche a monte per attivare o completare le task",
-    "Ruolo Capo Reparto: Nuova casella nell'Area Personale per assegnare permessi mirati (solo aggiungere, modificare e rimuovere task)",
-    "Risoluzione Focus Ricerca: Eliminato il bug del cursore che spariva digitando nelle barre di ricerca task",
-    "Delega Permessi Proprietario: Il Team Principal pu\u00F2 assegnare i pieni privilegi di gestione direttamente dall'Area Personale",
-    "Ricerca Rapida Dipendenze: Filtro in tempo reale per ID, titolo e reparto con contatore attivo nella finestra di creazione task",
-    "Backup Interno Riservato: Ripristino e importazione backup blindati ad uso esclusivo del Profilo Proprietario",
-    "Notifica Broadcast Squadra: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri via cloud"
+    "Ruolo Capo Reparto: Privilegi dedicati nell'Area Personale per aggiungere, modificare ed eliminare task del proprio reparto"
   ]
 }
