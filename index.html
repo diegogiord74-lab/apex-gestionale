@@ -817,7 +817,7 @@
         <div>
           <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
             <span>NUOVO AGGIORNAMENTO DISPONIBILE!</span>
-            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.3.0</span>
+            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.4.0</span>
           </div>
           <div id="update-banner-desc" style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">
             Una nuova versione della piattaforma e' pronta. Clicca per visualizzare il recap o aggiornare l'interfaccia senza perdere dati.
@@ -884,7 +884,7 @@
           </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Centro Aggiornamenti &amp; Backup (v3.3)</span>
+            <span>Centro Aggiornamenti &amp; Backup (v3.4)</span>
           </div>
           <div class="dropdown-item" onclick="openReleaseNotesModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1141,7 +1141,7 @@
     </div>
   </div>
 
-  <!-- Update Center Modal (v3.3.0) -->
+  <!-- Update Center Modal (v3.4.0) -->
   <div id="update-modal" class="modal-backdrop" style="display: none; z-index: 9999; backdrop-filter: blur(8px); background: rgba(5, 8, 15, 0.85);">
     <div class="modal-box" style="max-width: 580px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.85); background: #111827;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -1160,7 +1160,7 @@
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Versione Installata</div>
-          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.3.0</div>
+          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.4.0</div>
         </div>
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Data Rilascio</div>
@@ -1310,12 +1310,32 @@
       </div>
 
       <div style="overflow-y: auto; padding-right: 6px; flex: 1; display: flex; flex-direction: column; gap: 14px;">
-        <!-- Release Card v3.3.0 (Attuale) -->
+        <!-- Release Card v3.4.0 (Attuale) -->
         <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 10px; padding: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.3.0</span>
+              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.4.0</span>
               <span class="badge" style="background: #10b981; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Attuale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">13 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Gestione BOM Avanzata:</strong> Selezione multipla dei componenti con checkbox per eliminazione a blocchi e pulsante rapido protetto <em>Svuota BOM</em> per cancellare l'intera distinta base con 1 click.</li>
+              <li><strong>Permessi Richieste Acquisto:</strong> Creazione riservata esclusivamente a Profilo Proprietario e Capi Reparto con blocco di sicurezza per i membri ordinari.</li>
+              <li><strong>Richieste Acquisto per Reparto:</strong> Suddivisione in corsie dedicate per ogni reparto con subtotali spesa e pulsante rapido <em>+ Richiesta [Reparto]</em> come nel Gantt.</li>
+              <li><strong>Integrazione Diretta BOM &amp; Workflow Ordini:</strong> Approvazione richieste da parte di Proprietario/Capi Reparto e conversione diretta in Distinta Base BOM.</li>
+              <li><strong>Backup Interno &amp; Cloud Sync 3.4:</strong> Salvataggio automatico e sincronizzazione Google Drive estesi alle nuove modalit&agrave;.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.3.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.3.0</span>
+              <span class="badge" style="background: #6366f1; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Acquisti &amp; Corsie</span>
             </div>
             <span style="font-size: 0.72rem; color: #94a3b8;">13 Ottobre 2026</span>
           </div>
@@ -1325,7 +1345,6 @@
               <li><strong>Integrazione Diretta BOM:</strong> Conversione con 1 click delle richieste approvate in voci della Distinta Base BOM riservata al Proprietario.</li>
               <li><strong>Gantt Suddiviso per Reparti:</strong> Corsie orizzontali dedicate per ciascun reparto con sincronizzazione pixel-perfect e pulsante rapido <em>+ Task</em> per reparto.</li>
               <li><strong>Dipendenze Inter-Reparto Avanzate:</strong> Frecce SVG intelligenti ad alta visibilit&agrave; ciano/verde tratteggiate tra reparti diversi con etichette esplicative (<em>&#128279; da REP</em>).</li>
-              <li><strong>Backup Interno &amp; Cloud Sync 3.3:</strong> Salvataggio automatico e sincronizzazione Google Drive estesi all'intero modulo richieste acquisto.</li>
             </ul>
           </div>
         </div>
@@ -2885,6 +2904,7 @@
     let scadenzaSearchQuery = '';
     let showGanttScadenze = true;
     let pendingImportedBOM = [];
+    let selectedBOMUids = new Set();
     let acquistiItems = [];
     let acquistiDeptFilter = 'all';
     let acquistiStatusFilter = 'all';
@@ -3338,7 +3358,7 @@
     function saveInternalBackup(silent = false) {
       try {
         const backupData = {
-          version: '3.3.0',
+          version: '3.4.0',
           timestamp: new Date().toISOString(),
           formattedDate: new Date().toLocaleString(),
           tasks: (typeof tasks !== 'undefined' && Array.isArray(tasks)) ? JSON.parse(JSON.stringify(tasks)) : [],
@@ -3415,6 +3435,7 @@
 
         if (Array.isArray(backup.bom)) {
           bomItems = JSON.parse(JSON.stringify(backup.bom));
+          if (typeof selectedBOMUids !== 'undefined') selectedBOMUids.clear();
           safeStorage.setItem('apex_racing_bom_v2', JSON.stringify(bomItems));
         }
 
@@ -5211,9 +5232,8 @@ function doPost(e) {
     // ----------------------------------------------------
     // BOM & SCADENZE VIEWS
     // ----------------------------------------------------
-    function renderBOMView() {
-      const depts = ['all', ...OFFICIAL_DEPTS];
-      let filtered = bomItems.filter(b => {
+    function getFilteredBOMItems() {
+      return bomItems.filter(b => {
         if (bomDeptFilter !== 'all' && b.reparto !== bomDeptFilter) return false;
         if (bomSearchQuery) {
           const q = bomSearchQuery.toLowerCase();
@@ -5226,6 +5246,12 @@ function doPost(e) {
         }
         return true;
       });
+    }
+
+    function renderBOMView() {
+      const depts = ['all', ...OFFICIAL_DEPTS];
+      const filtered = getFilteredBOMItems();
+      const allFilteredSelected = filtered.length > 0 && filtered.every(b => selectedBOMUids.has(b.uid));
 
       let html = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
@@ -5241,7 +5267,7 @@ function doPost(e) {
             }).join('')}
           </div>
 
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
             ${currentUserRole === 'owner' ? `
               <button class="btn btn-secondary" onclick="triggerBOMImport()" title="Carica file Excel (.xlsx, .xls) o CSV da computer">
                 <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -5257,6 +5283,16 @@ function doPost(e) {
                 <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Nuovo Componente BOM
               </button>
+              <button class="btn btn-danger" onclick="clearAllBOMItems()" title="Cancella tutti i componenti presenti nella distinta base BOM">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Svuota BOM
+              </button>
+              ${selectedBOMUids.size > 0 ? `
+                <button class="btn btn-danger" onclick="deleteSelectedBOMItems()" title="Elimina i ${selectedBOMUids.size} componenti selezionati">
+                  <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  Elimina Selezionati (${selectedBOMUids.size})
+                </button>
+              ` : ''}
               <input type="file" id="bom-file-input" accept=".xlsx, .xls, .csv, .tsv, .txt" style="display: none;" onchange="handleBOMFileUpload(event)">
             ` : ''}
           </div>
@@ -5265,12 +5301,25 @@ function doPost(e) {
         <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
           <input type="text" id="bom-search-input" placeholder="Cerca codice, componente, fornitore..." class="form-input" style="max-width: 320px;" value="${bomSearchQuery}" oninput="bomSearchQuery=this.value; renderView();">
           <span style="font-size: 0.8rem; color: var(--text-muted);">Componenti visualizzati: <strong>${filtered.length}</strong> su ${bomItems.length}</span>
+          ${(currentUserRole === 'owner' && selectedBOMUids.size > 0) ? `
+            <span class="badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4); margin-left: 6px;">
+              ${selectedBOMUids.size} selezionati
+            </span>
+            <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.72rem; margin-left: 4px;" onclick="clearBOMSelection()">
+              Deseleziona
+            </button>
+          ` : ''}
         </div>
 
         <div class="table-container">
           <table>
             <thead>
               <tr>
+                ${currentUserRole === 'owner' ? `
+                  <th style="width: 38px; text-align: center;">
+                    <input type="checkbox" id="bom-select-all" ${allFilteredSelected ? 'checked' : ''} onchange="toggleSelectAllBOM(this.checked)" title="Seleziona o deseleziona tutti i componenti visibili">
+                  </th>
+                ` : ''}
                 <th>Codice</th>
                 <th>Reparto</th>
                 <th>Area / Sottosistema</th>
@@ -5286,12 +5335,17 @@ function doPost(e) {
             <tbody>
               ${filtered.length === 0 ? `
                 <tr>
-                  <td colspan="10" style="text-align: center; padding: 36px; color: var(--text-muted);">
+                  <td colspan="${currentUserRole === 'owner' ? 11 : 9}" style="text-align: center; padding: 36px; color: var(--text-muted);">
                     Nessun componente trovato. ${currentUserRole === 'owner' ? 'Clicca su "<strong>Nuovo Componente BOM</strong>" o su "<strong>Carica Excel BOM</strong>" per importare la distinta.' : ''}
                   </td>
                 </tr>
               ` : filtered.map(b => `
-                <tr>
+                <tr ${selectedBOMUids.has(b.uid) ? 'style="background: rgba(239,68,68,0.06);"' : ''}>
+                  ${currentUserRole === 'owner' ? `
+                    <td style="text-align: center;">
+                      <input type="checkbox" ${selectedBOMUids.has(b.uid) ? 'checked' : ''} onchange="toggleSelectBOMItem('${b.uid}', this.checked)">
+                    </td>
+                  ` : ''}
                   <td><strong>${b.codice || '-'}</strong></td>
                   <td>${getDeptPill(b.reparto, b.reparto)}</td>
                   <td style="color: var(--text-muted);">${b.area || '-'}</td>
@@ -5383,7 +5437,28 @@ function doPost(e) {
       const approvedCost = acquistiItems.filter(a => a.stato === 'Approvata' || a.stato === 'Ordinata' || a.stato === 'Ricevuta')
                                         .reduce((acc, a) => acc + ((a.prezzo || 0) * (a.quantita || 1)), 0);
 
-      const isManager = (currentUserRole === 'owner' || currentUserRole === 'caporeparto');
+      const isOwnerOrCapo = (currentUserRole === 'owner' || currentUserRole === 'caporeparto');
+
+      // Gruppi per Reparto (Department Sections - come nel Gantt)
+      const deptsToDisplay = [];
+      if (acquistiDeptFilter !== 'all') {
+        deptsToDisplay.push(acquistiDeptFilter);
+      } else {
+        OFFICIAL_DEPTS.forEach(d => {
+          if (filtered.some(a => (normalizeDept(a.reparto) === d || a.reparto === d))) {
+            deptsToDisplay.push(d);
+          }
+        });
+        filtered.forEach(a => {
+          const norm = normalizeDept(a.reparto) || a.reparto;
+          if (norm && !deptsToDisplay.includes(norm)) {
+            deptsToDisplay.push(norm);
+          }
+        });
+        if (deptsToDisplay.length === 0 && filtered.length > 0) {
+          deptsToDisplay.push('Generale');
+        }
+      }
 
       let html = `
         <!-- KPI Summary Cards -->
@@ -5415,7 +5490,7 @@ function doPost(e) {
           <div style="display: flex; gap: 6px; flex-wrap: wrap;">
             ${depts.map(d => {
               const label = d === 'all' ? 'Tutti i Reparti' : (d === 'G&M' ? 'Grafica & Media' : d);
-              const count = d === 'all' ? acquistiItems.length : acquistiItems.filter(a => a.reparto === d).length;
+              const count = d === 'all' ? acquistiItems.length : acquistiItems.filter(a => (normalizeDept(a.reparto) === d || a.reparto === d)).length;
               return `
                 <button class="btn ${acquistiDeptFilter === d ? 'btn-primary' : 'btn-secondary'}" onclick="setAcquistiDeptFilter('${d}')">
                   ${label} <span style="opacity: 0.8; font-weight: normal;">(${count})</span>
@@ -5429,15 +5504,17 @@ function doPost(e) {
               <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
               Esporta Richieste (CSV)
             </button>
-            <button class="btn btn-primary" onclick="openCreateAcquistoModal()">
-              <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              + Nuova Richiesta
-            </button>
+            ${isOwnerOrCapo ? `
+              <button class="btn btn-primary" onclick="openCreateAcquistoModal()">
+                <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Nuova Richiesta
+              </button>
+            ` : ''}
           </div>
         </div>
 
         <!-- Filter Sub-bar & Search -->
-        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+        <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <input type="text" id="acquisti-search-input" placeholder="Cerca componente, part number, fornitore..." class="form-input" style="width: 280px;" value="${acquistiSearchQuery}" oninput="acquistiSearchQuery=this.value; renderView();">
             
@@ -5456,119 +5533,168 @@ function doPost(e) {
 
           <span style="font-size: 0.8rem; color: var(--text-muted);">Richieste visualizzate: <strong>${filtered.length}</strong> su ${acquistiItems.length}</span>
         </div>
-
-        <!-- Table View -->
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>ID / Data</th>
-                <th>Nome Componente</th>
-                <th>P. Number</th>
-                <th>Prezzo Stimato</th>
-                <th>Link / Fornitore</th>
-                <th>Reparto</th>
-                <th>Richiedente</th>
-                <th>Stato</th>
-                <th>Descrizione / Note</th>
-                <th>Azioni</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${filtered.length === 0 ? `
-                <tr>
-                  <td colspan="10" style="text-align: center; padding: 36px; color: var(--text-muted);">
-                    Nessuna richiesta di acquisto trovata. Clicca su "<strong>+ Nuova Richiesta</strong>" per inserire un componente da acquistare.
-                  </td>
-                </tr>
-              ` : filtered.map(item => {
-                const subTot = (item.prezzo || 0) * (item.quantita || 1);
-                const isUrl = item.fornitoreLink && (item.fornitoreLink.startsWith('http://') || item.fornitoreLink.startsWith('https://'));
-                const canEdit = isManager || (currentMemberId && item.richiedenteId === currentMemberId);
-                const canDelete = currentUserRole === 'owner' || (currentMemberId && item.richiedenteId === currentMemberId && item.stato === 'In Attesa');
-                const canAddToBOM = (currentUserRole === 'owner') && (item.stato === 'Approvata' || item.stato === 'Ordinata' || item.stato === 'Ricevuta');
-
-                return `
-                  <tr>
-                    <td>
-                      <strong>${item.id}</strong><br>
-                      <span style="font-size: 0.72rem; color: var(--text-muted);">${formatDateIT(item.dataRichiesta)}</span>
-                    </td>
-                    <td>
-                      <strong style="color: #fff; font-size: 0.88rem;">${item.nomeComponente}</strong>
-                    </td>
-                    <td>
-                      ${item.pNumber ? `<code style="font-size: 0.76rem; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">${item.pNumber}</code>` : '<span style="color: var(--text-muted);">-</span>'}
-                    </td>
-                    <td>
-                      <strong style="color: #22c55e;">&euro; ${(item.prezzo || 0).toFixed(2)}</strong>
-                      <span style="font-size: 0.72rem; color: var(--text-muted);"> &times; ${item.quantita || 1}</span><br>
-                      <span style="font-size: 0.74rem; font-weight: 700; color: #a3e635;">Tot: &euro; ${subTot.toFixed(2)}</span>
-                    </td>
-                    <td>
-                      ${isUrl ? `
-                        <a href="${item.fornitoreLink}" target="_blank" rel="noopener noreferrer" style="color: var(--brand-cyan); font-weight: 700; text-decoration: underline; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
-                          Visita Sito &nearr;
-                        </a>
-                      ` : (item.fornitoreLink ? `<span style="font-size: 0.8rem;">${item.fornitoreLink}</span>` : '<span style="color: var(--text-muted);">-</span>')}
-                    </td>
-                    <td>
-                      ${getDeptPill(item.reparto, item.reparto)}
-                    </td>
-                    <td>
-                      <span style="font-size: 0.8rem; font-weight: 600;">${item.richiedente || 'Membro'}</span>
-                    </td>
-                    <td>
-                      ${isManager ? `
-                        <select class="form-select" style="padding: 3px 6px; font-size: 0.74rem; width: auto;" onchange="updateAcquistoStatus('${item.id}', this.value)">
-                          <option value="In Attesa" ${item.stato === 'In Attesa' ? 'selected' : ''}>In Attesa</option>
-                          <option value="Approvata" ${item.stato === 'Approvata' ? 'selected' : ''}>Approvata</option>
-                          <option value="Ordinata" ${item.stato === 'Ordinata' ? 'selected' : ''}>Ordinata</option>
-                          <option value="Ricevuta" ${item.stato === 'Ricevuta' ? 'selected' : ''}>Ricevuta</option>
-                          <option value="Rifiutata" ${item.stato === 'Rifiutata' ? 'selected' : ''}>Rifiutata</option>
-                        </select>
-                      ` : `
-                        <span class="badge ${getAcquistiBadge(item.stato)}" style="font-size: 0.72rem;">
-                          ${item.stato}
-                        </span>
-                      `}
-                    </td>
-                    <td style="max-width: 200px;">
-                      <span style="font-size: 0.76rem; color: var(--text-muted); word-break: break-word;">${item.descrizione || '-'}</span>
-                    </td>
-                    <td>
-                      <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
-                        ${canEdit ? `
-                          <button class="btn btn-secondary" style="padding: 3px 7px;" onclick="openEditAcquistoModal('${item.id}')" title="Modifica Richiesta">
-                            <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                          </button>
-                        ` : ''}
-
-                        ${canAddToBOM ? `
-                          <button class="btn btn-secondary" style="padding: 3px 7px; color: var(--brand-cyan); border-color: rgba(6,182,212,0.4);" onclick="convertAcquistoToBOM('${item.id}')" title="Inserisci direttamente nella Distinta Base BOM">
-                            + BOM
-                          </button>
-                        ` : ''}
-
-                        ${canDelete ? `
-                          <button class="btn btn-danger" style="padding: 3px 7px;" onclick="deleteAcquisto('${item.id}')" title="Elimina Richiesta">
-                            <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                          </button>
-                        ` : ''}
-                      </div>
-                    </td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        </div>
       `;
+
+      if (filtered.length === 0 && acquistiDeptFilter === 'all') {
+        html += `
+          <div class="empty-state" style="text-align: center; padding: 48px 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px dashed var(--border-color, #2e3558); margin-top: 10px;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px;">Nessuna richiesta di acquisto trovata</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 520px; margin: 0 auto 16px auto;">
+              ${isOwnerOrCapo ? 'Non ci sono richieste corrispondenti ai filtri impostati. Clicca su "+ Nuova Richiesta" per inserire un componente.' : 'Non ci sono richieste di acquisto presenti al momento.'}
+            </p>
+            ${isOwnerOrCapo ? `
+              <button class="btn btn-primary" onclick="openCreateAcquistoModal()">
+                <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                + Nuova Richiesta
+              </button>
+            ` : ''}
+          </div>
+        `;
+        return html;
+      }
+
+      // Render each department section (Department Lanes)
+      deptsToDisplay.forEach(d => {
+        const deptItems = filtered.filter(a => (normalizeDept(a.reparto) === d || a.reparto === d));
+        const deptCost = deptItems.reduce((acc, a) => acc + ((a.prezzo || 0) * (a.quantita || 1)), 0);
+        const dColor = deptColors[d] || '#6341B5';
+        const dLabel = d === 'G&M' ? 'Grafica & Media' : (d === 'BP' ? 'Business & Pianificazione' : d);
+
+        html += `
+          <div class="acquisti-dept-section" style="margin-bottom: 24px; background: rgba(255,255,255,0.015); border-radius: 10px; border: 1px solid var(--border-color, #2e3558); border-left: 5px solid ${dColor}; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <!-- Department Section Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border-color, #2e3558); flex-wrap: wrap; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: ${dColor}; box-shadow: 0 0 8px ${dColor};"></span>
+                <h3 style="margin: 0; font-size: 1.02rem; font-weight: 800; color: #fff;">${dLabel}</h3>
+                <span class="badge" style="background: rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.74rem;">${deptItems.length} ${deptItems.length === 1 ? 'richiesta' : 'richieste'}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <span style="font-size: 0.82rem; color: #a3e635; font-weight: 700;">Subtotale: &euro; ${deptCost.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                ${isOwnerOrCapo ? `
+                  <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.74rem; border-color: ${dColor}; color: #fff;" onclick="openCreateAcquistoModal('${d}')" title="Aggiungi una nuova richiesta per il reparto ${d}">
+                    <svg class="svg-icon" style="width: 12px; height: 12px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    + Richiesta ${d}
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Table for Department -->
+            <div class="table-container" style="border: none; border-radius: 0; margin-bottom: 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID / Data</th>
+                    <th>Nome Componente</th>
+                    <th>P. Number</th>
+                    <th>Prezzo Stimato</th>
+                    <th>Link / Fornitore</th>
+                    <th>Richiedente</th>
+                    <th>Stato</th>
+                    <th>Descrizione / Note</th>
+                    <th>Azioni</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${deptItems.length === 0 ? `
+                    <tr>
+                      <td colspan="9" style="text-align: center; padding: 28px; color: var(--text-muted); font-size: 0.82rem;">
+                        Nessuna richiesta di acquisto presente per il reparto <strong>${dLabel}</strong>.
+                        ${isOwnerOrCapo ? `<br><button class="btn btn-secondary" style="margin-top: 8px; font-size: 0.74rem; padding: 4px 10px;" onclick="openCreateAcquistoModal('${d}')">+ Aggiungi Richiesta ${d}</button>` : ''}
+                      </td>
+                    </tr>
+                  ` : deptItems.map(item => {
+                    const subTot = (item.prezzo || 0) * (item.quantita || 1);
+                    const isUrl = item.fornitoreLink && (item.fornitoreLink.startsWith('http://') || item.fornitoreLink.startsWith('https://'));
+                    const canEdit = isOwnerOrCapo || (currentMemberId && item.richiedenteId === currentMemberId);
+                    const canDelete = currentUserRole === 'owner' || (currentMemberId && item.richiedenteId === currentMemberId && item.stato === 'In Attesa');
+                    const canAddToBOM = (currentUserRole === 'owner') && (item.stato === 'Approvata' || item.stato === 'Ordinata' || item.stato === 'Ricevuta');
+
+                    return `
+                      <tr>
+                        <td>
+                          <strong>${item.id}</strong><br>
+                          <span style="font-size: 0.72rem; color: var(--text-muted);">${formatDateIT(item.dataRichiesta)}</span>
+                        </td>
+                        <td>
+                          <strong style="color: #fff; font-size: 0.88rem;">${item.nomeComponente}</strong>
+                        </td>
+                        <td>
+                          ${item.pNumber ? `<code style="font-size: 0.76rem; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">${item.pNumber}</code>` : '<span style="color: var(--text-muted);">-</span>'}
+                        </td>
+                        <td>
+                          <strong style="color: #22c55e;">&euro; ${(item.prezzo || 0).toFixed(2)}</strong>
+                          <span style="font-size: 0.72rem; color: var(--text-muted);"> &times; ${item.quantita || 1}</span><br>
+                          <span style="font-size: 0.74rem; font-weight: 700; color: #a3e635;">Tot: &euro; ${subTot.toFixed(2)}</span>
+                        </td>
+                        <td>
+                          ${isUrl ? `
+                            <a href="${item.fornitoreLink}" target="_blank" rel="noopener noreferrer" style="color: var(--brand-cyan); font-weight: 700; text-decoration: underline; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                              Visita Sito &nearr;
+                            </a>
+                          ` : (item.fornitoreLink ? `<span style="font-size: 0.8rem;">${item.fornitoreLink}</span>` : '<span style="color: var(--text-muted);">-</span>')}
+                        </td>
+                        <td>
+                          <span style="font-size: 0.8rem; font-weight: 600;">${item.richiedente || 'Membro'}</span>
+                        </td>
+                        <td>
+                          ${isOwnerOrCapo ? `
+                            <select class="form-select" style="padding: 3px 6px; font-size: 0.74rem; width: auto;" onchange="updateAcquistoStatus('${item.id}', this.value)">
+                              <option value="In Attesa" ${item.stato === 'In Attesa' ? 'selected' : ''}>In Attesa</option>
+                              <option value="Approvata" ${item.stato === 'Approvata' ? 'selected' : ''}>Approvata</option>
+                              <option value="Ordinata" ${item.stato === 'Ordinata' ? 'selected' : ''}>Ordinata</option>
+                              <option value="Ricevuta" ${item.stato === 'Ricevuta' ? 'selected' : ''}>Ricevuta</option>
+                              <option value="Rifiutata" ${item.stato === 'Rifiutata' ? 'selected' : ''}>Rifiutata</option>
+                            </select>
+                          ` : `
+                            <span class="badge ${getAcquistiBadge(item.stato)}" style="font-size: 0.72rem;">
+                              ${item.stato}
+                            </span>
+                          `}
+                        </td>
+                        <td style="max-width: 200px;">
+                          <span style="font-size: 0.76rem; color: var(--text-muted); word-break: break-word;">${item.descrizione || '-'}</span>
+                        </td>
+                        <td>
+                          <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                            ${canEdit ? `
+                              <button class="btn btn-secondary" style="padding: 3px 7px;" onclick="openEditAcquistoModal('${item.id}')" title="Modifica Richiesta">
+                                <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                              </button>
+                            ` : ''}
+
+                            ${canAddToBOM ? `
+                              <button class="btn btn-secondary" style="padding: 3px 7px; color: var(--brand-cyan); border-color: rgba(6,182,212,0.4);" onclick="convertAcquistoToBOM('${item.id}')" title="Inserisci direttamente nella Distinta Base BOM">
+                                + BOM
+                              </button>
+                            ` : ''}
+
+                            ${canDelete ? `
+                              <button class="btn btn-danger" style="padding: 3px 7px;" onclick="deleteAcquisto('${item.id}')" title="Elimina Richiesta">
+                                <svg class="svg-icon" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                              </button>
+                            ` : ''}
+                          </div>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      });
 
       return html;
     }
 
     function openCreateAcquistoModal(preselectedDept) {
+      if (currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o i Capi Reparto possono creare richieste di acquisto.');
+        return;
+      }
       const modal = document.getElementById('acquisti-modal');
       const form = document.getElementById('acquisti-form');
       const title = document.getElementById('acquisti-modal-title');
@@ -5676,6 +5802,10 @@ function doPost(e) {
       const statoSelect = document.getElementById('req-stato');
       const stato = statoSelect ? statoSelect.value : 'In Attesa';
 
+      if (!editId && currentUserRole !== 'owner' && currentUserRole !== 'caporeparto') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario o i Capi Reparto possono creare richieste di acquisto.');
+        return;
+      }
       if (!nome) {
         alert('Il nome del componente \u00E8 obbligatorio.');
         return;
@@ -7701,6 +7831,67 @@ function doPost(e) {
       renderView();
     }
 
+    function toggleSelectBOMItem(uid, isChecked) {
+      if (isChecked) {
+        selectedBOMUids.add(uid);
+      } else {
+        selectedBOMUids.delete(uid);
+      }
+      renderView();
+    }
+
+    function toggleSelectAllBOM(isChecked) {
+      const filtered = getFilteredBOMItems();
+      if (isChecked) {
+        filtered.forEach(b => selectedBOMUids.add(b.uid));
+      } else {
+        filtered.forEach(b => selectedBOMUids.delete(b.uid));
+      }
+      renderView();
+    }
+
+    function clearBOMSelection() {
+      selectedBOMUids.clear();
+      renderView();
+    }
+
+    function deleteSelectedBOMItems() {
+      if (currentUserRole !== 'owner') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 eliminare componenti dalla distinta BOM.');
+        return;
+      }
+      const count = selectedBOMUids.size;
+      if (count === 0) {
+        alert('Nessun componente selezionato per l\'eliminazione!');
+        return;
+      }
+      if (confirm('Sei sicuro di voler eliminare i ' + count + ' componenti selezionati dalla distinta base BOM?')) {
+        bomItems = bomItems.filter(b => !selectedBOMUids.has(b.uid));
+        selectedBOMUids.clear();
+        saveBOMToStorage();
+        renderView();
+        if (typeof showToast === 'function') showToast(count + ' componenti eliminati dalla distinta BOM.', 'success');
+      }
+    }
+
+    function clearAllBOMItems() {
+      if (currentUserRole !== 'owner') {
+        alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 cancellare l\'intera distinta BOM.');
+        return;
+      }
+      if (bomItems.length === 0) {
+        alert('La distinta base BOM \u00E8 gi\u00E0 vuota!');
+        return;
+      }
+      if (confirm('ATTENZIONE: Sei sicuro di voler cancellare TUTTI i ' + bomItems.length + ' componenti dalla distinta base BOM?\r\nQuesta operazione svuoter\u00E0 l\'intera distinta.')) {
+        bomItems = [];
+        selectedBOMUids.clear();
+        saveBOMToStorage();
+        renderView();
+        if (typeof showToast === 'function') showToast('Distinta base BOM svuotata completamente.', 'warning');
+      }
+    }
+
     function deleteBOMItem(uid) {
       if (currentUserRole !== 'owner') {
         alert('ACCESSO LIMITATO: Solo il Profilo Proprietario pu\u00F2 eliminare componenti dalla distinta BOM.');
@@ -7708,6 +7899,7 @@ function doPost(e) {
       }
       if (confirm('Sei sicuro di voler eliminare questo componente dalla distinta BOM?')) {
         bomItems = bomItems.filter(b => b.uid !== uid);
+        selectedBOMUids.delete(uid);
         saveBOMToStorage();
         renderView();
       }
@@ -8007,6 +8199,7 @@ function doPost(e) {
       } else {
         bomItems = [...pendingImportedBOM, ...bomItems];
       }
+      if (typeof selectedBOMUids !== 'undefined') selectedBOMUids.clear();
 
       saveBOMToStorage();
       closeBOMImportModal();
@@ -9581,9 +9774,9 @@ function doPost(e) {
     // V3.0 UPDATE & VERSION ENGINE
     // ====================================================
 // ====================================================
-// APEX CORSE V3.3.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
+// APEX CORSE V3.4.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
 // ====================================================
-const APP_VERSION = '3.3.0';
+const APP_VERSION = '3.4.0';
 const APP_BUILD_DATE = '2026-10-13';
 let remoteVersionInfo = null;
 
@@ -9635,11 +9828,13 @@ function broadcastUpdateAnnouncement(customAnn = null) {
     title: 'Aggiornamento Apex Corse v' + APP_VERSION,
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
-      'Nuova Sezione Richieste Acquisto: Tracciamento acquisti con campi obbligatori (Nome componente, Prezzo) e facoltativi (P. number, Link/Azienda, Descrizione).',
+      'Gestione BOM Avanzata: Selezione multipla con checkbox per eliminazione a blocchi e pulsante rapido per svuotare l\'intera distinta base BOM.',
+      'Permessi Richieste Acquisto: Creazione riservata al Profilo Proprietario e ai Capi Reparto con blocco di sicurezza per i membri.',
+      'Richieste Acquisto per Reparto: Corsie dedicate per ciascun reparto con subtotali spesa e pulsante rapido + Richiesta [Reparto] come nel Gantt.',
+      'Nuova Sezione Richieste Acquisto: Tracciamento componenti con campi obbligatori/facoltativi e approvazione ordini.',
       'Integrazione Diretta BOM: Possibilit\u00E0 per il Proprietario di convertire le richieste approvate direttamente nella Distinta Base con 1 click.',
-      'Gantt Suddiviso per Reparto: Corsie dedicate (Chassis, Powertrain, Aero, GM, BP, ecc.) con pulsante rapido + Task per ogni reparto.',
-      'Dipendenze Inter-Reparto Avanzate: Frecce SVG evidenziate (ciano/verde tratteggiate) con indicatore esplicito nel Gantt.',
-      'Backup Interno & Cloud Sync 3.3: Salvataggio automatico e sincronizzazione Google Drive estesa all\'intero modulo acquisti.'
+      'Gantt Suddiviso per Reparto: Corsie dedicate (Chassis, Powertrain, Aero, GM, BP, ecc.) e frecce SVG inter-reparto evidenziate.',
+      'Backup Interno & Cloud Sync 3.4: Salvataggio automatico e sincronizzazione Google Drive estesa a tutte le funzionalit\u00E0.'
     ],
     author: 'Diego Giordano (Team Principal)',
     timestamp: new Date().toISOString()
