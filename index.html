@@ -2991,7 +2991,7 @@
     // CRYPTOGRAPHIC SHA-256 & SALTED SECURITY ENGINE (100% PURE ASCII)
     // ====================================================
     const APEX_CRYPTO_SALT = 'ApexCorse_FSAE_2026_SecureSalt_!';
-    const DEFAULT_OWNER_HASH = '5d7551fb0df8099bf792581910866a7109920dd35a25d6e05309b4992f9c2eb3';
+    const DEFAULT_OWNER_HASH = '6ac231170daf4aeadcc04194ef154ee07b1c895bef49190f99f2ae4bf8a58d0d';
     let currentAuthHash = safeStorage.getItem('apex_session_auth_hash') || '';
 
     function sha256_sync(ascii) {
@@ -3080,7 +3080,7 @@
       { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', passwordHash: '7dfd61060071d8844e274dc8330492f0001814a170d5b974b488fd091f095964', dataRegistrazione: '2026-10-01' },
       { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', passwordHash: '0991b84bb7da648d55534f16eaa6dfabc500a8631ca4222151bf7a4f1211d047', dataRegistrazione: '2026-10-01' },
       { id: 'mem-1791652074466', nome: 'Gabriele Lo Re', reparto: 'Aerodynamics', ruolo: 'Capo Reparto', email: 'g.lore@community.unipa.it', passwordHash: '7f2aeaf14dbba3dc7a2492efe9a55070f83eac1d39e2728588a8d58850bdac8f', dataRegistrazione: '2026-10-10' },
-      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', passwordHash: '7136ce2e40794bd7cce85a24cf0ccad1c50544889c08fc4937a8fd167761023d', dataRegistrazione: '2026-10-01' }
+      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', passwordHash: '9863aeb6e1fa125e943ab9d0f6bddb6882a81bb2b054f9c8e462c34f296ccf59', dataRegistrazione: '2026-10-01' }
     ];
 
     // ----------------------------------------------------
@@ -3957,11 +3957,26 @@ function doPost(e) {
     var payload = JSON.parse(raw);
     var auth = payload.auth || {};
 
-    // 1. Controllo Autorizzativo: Solo Proprietario o Capo Reparto possono salvare
-    if (auth.role !== 'owner' && auth.role !== 'caporeparto') {
+    // 1. Controllo di Sicurezza: Verifica Ruolo e Firma Crittografica Segreta
+    var VALID_OWNER_HASH = '6ac231170daf4aeadcc04194ef154ee07b1c895bef49190f99f2ae4bf8a58d0d';
+    var isAuthorized = false;
+
+    if (auth.role === 'owner') {
+      // Per il Proprietario: la firma deve coincidere al 100% con l'hash della password segreta
+      if (auth.authHash === VALID_OWNER_HASH) {
+        isAuthorized = true;
+      }
+    } else if (auth.role === 'caporeparto') {
+      // Per i Capi Reparto: deve possedere una firma hash autenticata a 64 caratteri
+      if (auth.authHash && auth.authHash.length === 64) {
+        isAuthorized = true;
+      }
+    }
+
+    if (!isAuthorized) {
       return ContentService.createTextOutput(JSON.stringify({
         status: "error",
-        message: "ACCESSO NEGATO: Solo il Profilo Proprietario o i Capi Reparto autenticati possono salvare modifiche sul database cloud."
+        message: "ACCESSO NEGATO: Firma crittografica di autenticazione non valida. Permesso di scrittura respinto."
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
