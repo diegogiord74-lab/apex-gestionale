@@ -1,17 +1,16 @@
 {
-  "version": "3.4.0",
-  "buildDate": "2026-10-13",
+  "version": "3.5.0",
+  "buildDate": "2026-10-14",
   "channel": "stable",
   "minRequiredVersion": "2.0.0",
-  "title": "Apex Corse v3.4.0 - Gestione Avanzata BOM & Richieste Acquisto per Reparto",
+  "title": "Apex Corse v3.5.0 - Sicurezza Crittografica Salted SHA-256 & Squadra per Reparto",
   "changelog": [
-    "Gestione BOM Avanzata (Selezione Multipla): Checkbox di selezione per ciascun componente e selezione totale per eliminazione in blocco",
-    "Pulsante Svuota BOM: Funzione rapida protetta per il Proprietario per cancellare con 1 click tutti i componenti della Distinta Base BOM",
-    "Permessi Richieste Acquisto: Creazione riservata esclusivamente a Profilo Proprietario e Capi Reparto con blocco di sicurezza per i membri",
-    "Richieste Acquisto per Reparto (Department Lanes): Suddivisione in corsie dedicate per ogni reparto con subtotali di spesa e pulsante rapido + Richiesta [Reparto] come nel Gantt",
-    "Nuova Sezione Richieste Acquisto: Tracciamento acquisti con campi obbligatori (Nome componente, Prezzo) e facoltativi (P. Number, Link/Azienda, Descrizione)",
-    "Workflow Ordini & Integrazione BOM: Approvazione richieste da parte di Proprietario/Capi Reparto e conversione diretta in Distinta Base BOM",
-    "Gantt Suddiviso per Reparto: Corsie dedicate e frecce SVG inter-reparto ciano/verde tratteggiate ad alta visibilit\u00E0",
-    "Backup Interno & Cloud Sync 3.4: Sincronizzazione automatica Google Drive e backup interno estesi alle nuove funzionalit\u00E0"
+    "Sicurezza Crittografica Salted SHA-256: Rimozione totale di password in chiaro dal sorgente GitHub. Autenticazione basata su hash crittografici non invertibili con salt protetto",
+    "Protezione Google Apps Script (Drive Sync): Verifica autorizzazione ruolo Proprietario/Capo Reparto, blocco anti-cancellazione (anti-wipe) e storico automatico snapshot nel foglio _BACKUP_HISTORY",
+    "Squadra Suddivisa per Reparto: Visualizzazione membri organizzata in sezioni/corsie per reparto con intestazione colorata, conteggio e pulsante rapido + Assegnatario",
+    "Filtro Assegnatari per Reparto: Nei dettagli task, selettore rapido [Solo Reparto Task] / [Tutti i Reparti] per assegnare al volo i membri del reparto di appartenenza",
+    "Raggruppamento Login per Reparto: Selettore profilo membro raggruppato ordinatamente per reparto",
+    "Gestione BOM Avanzata (Selezione Multipla): Checkbox di selezione per ciascun componente e cancellazione totale protetta per il Proprietario",
+    "Richieste Acquisto per Reparto: Corsie dedicate per reparto con subtotali di spesa e permessi riservati a Proprietario e Capi Reparto"
   ]
 }

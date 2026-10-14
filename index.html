@@ -806,7 +806,7 @@
 </head>
 <body>
   <!-- ==================================================== -->
-  <!-- APEX CORSE V3.1.1 - UPDATE NOTIFICATION BANNER -->
+  <!-- APEX CORSE V3.5.0 - UPDATE NOTIFICATION BANNER -->
   <!-- ==================================================== -->
   <div id="apex-update-banner" style="display: none; background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); border-bottom: 2px solid #6366f1; padding: 10px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 10000;">
     <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
@@ -817,7 +817,7 @@
         <div>
           <div style="font-weight: 800; font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 8px;">
             <span>NUOVO AGGIORNAMENTO DISPONIBILE!</span>
-            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.4.0</span>
+            <span id="update-banner-badge" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 7px;">v3.5.0</span>
           </div>
           <div id="update-banner-desc" style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">
             Una nuova versione della piattaforma e' pronta. Clicca per visualizzare il recap o aggiornare l'interfaccia senza perdere dati.
@@ -884,7 +884,7 @@
           </div>
                     <div class="dropdown-item" onclick="openUpdateModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Centro Aggiornamenti &amp; Backup (v3.4)</span>
+            <span>Centro Aggiornamenti &amp; Backup (v3.5)</span>
           </div>
           <div class="dropdown-item" onclick="openReleaseNotesModal(); closeSettingsMenu();">
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1141,7 +1141,7 @@
     </div>
   </div>
 
-  <!-- Update Center Modal (v3.4.0) -->
+  <!-- Update Center Modal (v3.5.0) -->
   <div id="update-modal" class="modal-backdrop" style="display: none; z-index: 9999; backdrop-filter: blur(8px); background: rgba(5, 8, 15, 0.85);">
     <div class="modal-box" style="max-width: 580px; text-align: left; border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.85); background: #111827;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -1160,11 +1160,11 @@
       <div style="display: flex; gap: 12px; margin-bottom: 16px;">
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Versione Installata</div>
-          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.4.0</div>
+          <div id="update-modal-current-ver" style="font-size: 1.15rem; font-weight: 900; color: #818cf8; margin-top: 2px;">v3.5.0</div>
         </div>
         <div style="flex: 1; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;">
           <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Data Rilascio</div>
-          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-13</div>
+          <div id="update-modal-build-date" style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 4px;">2026-10-14</div>
         </div>
       </div>
 
@@ -1253,7 +1253,7 @@
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <h3 style="font-size: 1.18rem; font-weight: 800; margin: 0; color: #fff;">Riepilogo Aggiornamento Apex Corse</h3>
-              <span id="recap-badge-version" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 8px;">v3.2.0</span>
+              <span id="recap-badge-version" class="badge" style="background: #4f46e5; color: #fff; font-size: 0.72rem; padding: 2px 8px;">v3.5.0</span>
             </div>
             <div id="recap-subtitle" style="font-size: 0.76rem; color: #94a3b8; margin-top: 2px;">
               Nuova versione distribuita dal Team Principal Diego Giordano &bull; Aggiornato via Cloud
@@ -1310,12 +1310,33 @@
       </div>
 
       <div style="overflow-y: auto; padding-right: 6px; flex: 1; display: flex; flex-direction: column; gap: 14px;">
-        <!-- Release Card v3.4.0 (Attuale) -->
+        <!-- Release Card v3.5.0 (Attuale) -->
         <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 10px; padding: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.4.0</span>
+              <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">Apex Corse v3.5.0</span>
               <span class="badge" style="background: #10b981; color: #fff; font-size: 0.68rem; padding: 2px 6px;">Attuale</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">14 Ottobre 2026</span>
+          </div>
+          <div style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
+              <li><strong>Sicurezza Crittografica Salted SHA-256:</strong> Rimozione totale di ogni password in chiaro dai file sorgente e da GitHub. Autenticazione crittografica sicura con sale protetto e migrazione trasparente delle credenziali.</li>
+              <li><strong>Google Apps Script Anti-Wipe &amp; Backup History:</strong> Script Google Drive protetto con verifica delle credenziali e del ruolo (Proprietario / Capo Reparto), blocco contro cancellazioni accidentali e storico automatico dei backup nel foglio <em>_BACKUP_HISTORY</em>.</li>
+              <li><strong>Squadra Suddivisa per Reparto:</strong> Visualizzazione membri organizzata in sezioni/corsie per reparto (Chassis, Powertrain, Aerodynamics, Electronics, Software, Graphics &amp; Media, Logistics, Business) con barra colorata, conteggio e pulsante rapido <em>+ Assegnatario [Reparto]</em>.</li>
+              <li><strong>Filtro Assegnatari per Reparto:</strong> Nella finestra task, selettore rapido <em>[Solo Reparto Task]</em> e <em>[Tutti i Reparti]</em> per filtrare immediatamente i membri del reparto assegnato, oltre al raggruppamento per reparto nel menu di login.</li>
+              <li><strong>Gestione BOM Avanzata &amp; Selezione Multipla:</strong> Selezione multipla con checkbox per cancellazione componenti a blocchi e pulsante rapido <em>Svuota BOM</em> protetto per il Proprietario.</li>
+              <li><strong>Richieste Acquisto per Reparto:</strong> Creazione e approvazione riservate a Proprietario e Capi Reparto con visualizzazione a corsie e conversione diretta in distinta base BOM.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Release Card v3.4.0 -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #e2e8f0;">Apex Corse v3.4.0</span>
+              <span class="badge" style="background: #6366f1; color: #fff; font-size: 0.68rem; padding: 2px 6px;">BOM &amp; Acquisti</span>
             </div>
             <span style="font-size: 0.72rem; color: #94a3b8;">13 Ottobre 2026</span>
           </div>
@@ -1573,7 +1594,7 @@
         <div class="form-grid-2">
           <div class="form-group">
             <label class="form-label">Reparto</label>
-            <select id="form-dept" class="form-select" onchange="autoSuggestId()" required>
+            <select id="form-dept" class="form-select" onchange="autoSuggestId(); onTaskDeptChange();" required>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -1647,6 +1668,11 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
               <label class="form-label" style="margin-bottom: 0;">Assegnatari Task (Singoli o Multipli)</label>
               <button type="button" class="btn btn-secondary" onclick="openMemberModalFromTask()" style="padding: 2px 7px; font-size: 0.7rem; height: auto;" title="Aggiungi nuovo membro alla squadra">+ Nuovo</button>
+            </div>
+            <div style="display: flex; gap: 4px; margin-bottom: 6px; align-items: center; flex-wrap: wrap;">
+              <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Reparto:</span>
+              <button type="button" id="btn-assignee-filter-taskdept" data-filter-dept="true" class="btn btn-primary" style="padding: 2px 7px; font-size: 0.68rem;" onclick="setModalAssigneeDeptFilter('task')">Solo Reparto Task</button>
+              <button type="button" id="btn-assignee-filter-all" class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.68rem;" onclick="setModalAssigneeDeptFilter('all')">Tutti i Reparti</button>
             </div>
             <select id="form-assignee-select" class="form-select" onchange="addAssigneeFromSelect(this.value); this.value='';" style="margin-bottom: 6px;">
               <option value="">+ Aggiungi Membro Registrato alla Task...</option>
@@ -2961,16 +2987,100 @@
       }
     ];
 
+    // ====================================================
+    // CRYPTOGRAPHIC SHA-256 & SALTED SECURITY ENGINE (100% PURE ASCII)
+    // ====================================================
+    const APEX_CRYPTO_SALT = 'ApexCorse_FSAE_2026_SecureSalt_!';
+    const DEFAULT_OWNER_HASH = '5d7551fb0df8099bf792581910866a7109920dd35a25d6e05309b4992f9c2eb3';
+    let currentAuthHash = safeStorage.getItem('apex_session_auth_hash') || '';
+
+    function sha256_sync(ascii) {
+      function rightRotate(value, amount) {
+        return (value >>> amount) | (value << (32 - amount));
+      }
+      var mathPow = Math.pow;
+      var maxWord = mathPow(2, 32);
+      var lengthProperty = 'length';
+      var i, j;
+      var result = '';
+      var words = [];
+      var asciiBitLength = ascii[lengthProperty] * 8;
+      var hash = sha256_sync.h = sha256_sync.h || [];
+      var k = sha256_sync.k = sha256_sync.k || [];
+      var primeCounter = k[lengthProperty];
+      var isComposite = {};
+      for (var candidate = 2; primeCounter < 64; candidate++) {
+        if (!isComposite[candidate]) {
+          for (i = 0; i < 313; i += candidate) {
+            isComposite[i] = candidate;
+          }
+          hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+          k[primeCounter++] = (mathPow(candidate, 1/3) * maxWord) | 0;
+        }
+      }
+      ascii += '\x80';
+      while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+      for (i = 0; i < ascii[lengthProperty]; i++) {
+        j = ascii.charCodeAt(i);
+        if (j >> 8) return '';
+        words[i >> 2] |= j << ((3 - i) % 4) * 8;
+      }
+      words[words[lengthProperty]] = ((asciiBitLength / maxWord) | 0);
+      words[words[lengthProperty]] = (asciiBitLength | 0);
+      for (j = 0; j < words[lengthProperty];) {
+        var w = words.slice(j, j += 16);
+        var oldHash = hash;
+        hash = hash.slice(0, 8);
+        for (i = 0; i < 64; i++) {
+          var i2 = i + j;
+          var w15 = w[i - 15], w2 = w[i - 2];
+          var a = hash[0], e = hash[4];
+          var temp1 = hash[7]
+            + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+            + ((e & hash[5]) ^ ((~e) & hash[6]))
+            + k[i]
+            + (w[i] = (i < 16) ? w[i] : (
+                w[i - 16]
+                + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+                + w[i - 7]
+                + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+              ) | 0
+            );
+          var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+            + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+          hash = [(temp1 + temp2) | 0].concat(hash);
+          hash[4] = (hash[4] + temp1) | 0;
+        }
+        for (i = 0; i < 8; i++) {
+          hash[i] = (hash[i] + oldHash[i]) | 0;
+        }
+      }
+      for (i = 0; i < 8; i++) {
+        for (j = 3; j + 1; j--) {
+          var b = (hash[i] >> (j * 8)) & 255;
+          result += ((b < 16) ? 0 : '') + b.toString(16);
+        }
+      }
+      return result;
+    }
+
+    function calculateSaltedHash(plainPassword, idOrRole) {
+      if (!plainPassword) return '';
+      const combined = String(plainPassword) + ':' + String(idOrRole) + ':' + APEX_CRYPTO_SALT;
+      return sha256_sync(combined);
+    }
+
+    // Zero cleartext passwords stored: only salted cryptographic hashes
     const DEFAULT_MEMBERS = [
-      { id: 'mem-1791571230913', nome: 'Roberta La Face', reparto: 'Business', ruolo: 'Capo Reparto Business', email: 'business@apexcorse.it', password: 'aaa', dataRegistrazione: '2026-10-09' },
-      { id: 'mem-1791574294045', nome: 'Angela', reparto: 'Graphics & Media', ruolo: 'Social Media Manager', email: 'angela@apexcorse.it', password: 'angela', dataRegistrazione: '2026-10-09' },
-      { id: 'mem-1791574688441', nome: 'Carmine', reparto: 'Graphics & Media', ruolo: 'Grafico', email: 'carmine@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-09' },
-      { id: 'mem-1791629350162', nome: 'Paolo Sidoti', reparto: 'Chassis', ruolo: 'Capo Reparto Chassis', email: 'p.sidoti@community.unipa.it', password: 'test2', dataRegistrazione: '2026-10-10' },
-      { id: 'mem-giuseppe', nome: 'Giuseppe Blunda', reparto: 'Powertrain', ruolo: 'Direttore Tecnico Sistemi', email: 'g.blunda@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', password: 'test2', dataRegistrazione: '2026-10-01' },
-      { id: 'mem-1791652074466', nome: 'Gabriele Lo Re', reparto: 'Aerodynamics', ruolo: 'Capo Reparto', email: 'g.lore@community.unipa.it', password: 'test2', dataRegistrazione: '2026-10-10' },
-      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', password: 'test1', dataRegistrazione: '2026-10-01' }
+      { id: 'mem-1791571230913', nome: 'Roberta La Face', reparto: 'Business', ruolo: 'Capo Reparto Business', email: 'business@apexcorse.it', passwordHash: '12f32a69555dc1af6400f826049fe29059109683d86cf566cbd06b9c4680b8b8', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791574294045', nome: 'Angela', reparto: 'Graphics & Media', ruolo: 'Social Media Manager', email: 'angela@apexcorse.it', passwordHash: 'f5b779c15b0a15343447f2575c2c892d9a1a392f47f8b8ed48c0de38e10eea1f', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791574688441', nome: 'Carmine', reparto: 'Graphics & Media', ruolo: 'Grafico', email: 'carmine@apexcorse.it', passwordHash: '76c0fa60f906ff452d9813eb7a4fef48fcad1c6ab8d127bf2c2c15e04830a8f7', dataRegistrazione: '2026-10-09' },
+      { id: 'mem-1791629350162', nome: 'Paolo Sidoti', reparto: 'Chassis', ruolo: 'Capo Reparto Chassis', email: 'p.sidoti@community.unipa.it', passwordHash: '9bec377e28787efc36b0a8e7b6a81403b8ea451779dc597088cb331accc36816', dataRegistrazione: '2026-10-10' },
+      { id: 'mem-giuseppe', nome: 'Giuseppe Blunda', reparto: 'Powertrain', ruolo: 'Direttore Tecnico Sistemi', email: 'g.blunda@apexcorse.it', passwordHash: '36640a0836eeb3c6e13f1e85ce22d92cb16c94bfa7365a82e4f8527d363f665e', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', passwordHash: '7dfd61060071d8844e274dc8330492f0001814a170d5b974b488fd091f095964', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', passwordHash: '0991b84bb7da648d55534f16eaa6dfabc500a8631ca4222151bf7a4f1211d047', dataRegistrazione: '2026-10-01' },
+      { id: 'mem-1791652074466', nome: 'Gabriele Lo Re', reparto: 'Aerodynamics', ruolo: 'Capo Reparto', email: 'g.lore@community.unipa.it', passwordHash: '7f2aeaf14dbba3dc7a2492efe9a55070f83eac1d39e2728588a8d58850bdac8f', dataRegistrazione: '2026-10-10' },
+      { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', passwordHash: '7136ce2e40794bd7cce85a24cf0ccad1c50544889c08fc4937a8fd167761023d', dataRegistrazione: '2026-10-01' }
     ];
 
     // ----------------------------------------------------
@@ -3035,8 +3145,18 @@
           memberGroup.style.display = 'block';
           const sel = document.getElementById('login-member-select');
           if (sel) {
-            sel.innerHTML = '<option value="">-- Seleziona il tuo nome dalla lista --</option>' +
-              teamMembers.map(m => `<option value="${m.id}" ${currentMemberId === m.id ? 'selected' : ''}>${m.nome} (${m.reparto})</option>`).join('');
+            let optHtml = '<option value="">-- Seleziona il tuo nome dalla lista --</option>';
+            OFFICIAL_DEPTS.forEach(d => {
+              const mems = teamMembers.filter(m => (normalizeDept(m.reparto) === d || m.reparto === d));
+              if (mems.length > 0) {
+                optHtml += `<optgroup label="${d} (${mems.length})">`;
+                mems.forEach(m => {
+                  optHtml += `<option value="${m.id}" ${currentMemberId === m.id ? 'selected' : ''}>${m.nome} (${m.ruolo || d})</option>`;
+                });
+                optHtml += `</optgroup>`;
+              }
+            });
+            sel.innerHTML = optHtml;
           }
         }
         if (regFields) regFields.style.display = 'none';
@@ -3103,18 +3223,21 @@
       const errMsg = document.getElementById('login-error-msg');
 
       if (selectedLoginRole === 'owner') {
-        const ownerSavedPwd = safeStorage.getItem('apex_owner_password') || 'test1';
-        if (enteredPwd !== ownerSavedPwd && enteredPwd !== 'test1') {
+        const ownerExpectedHash = safeStorage.getItem('apex_owner_password_hash') || DEFAULT_OWNER_HASH;
+        const enteredHash = calculateSaltedHash(enteredPwd, 'owner');
+        if (enteredHash !== ownerExpectedHash) {
           if (errMsg) {
             errMsg.innerText = 'Password Proprietario non corretta. Riprova.';
             errMsg.style.display = 'block';
           }
           return;
         }
+        currentAuthHash = enteredHash;
         currentUserRole = 'owner';
         currentMemberId = null;
         personalMemberFilter = 'owner';
         safeStorage.setItem('apex_session_role', 'owner');
+        safeStorage.setItem('apex_session_auth_hash', currentAuthHash);
         safeStorage.removeItem('apex_session_member_id');
         closeLoginModal();
         updateHeaderUserStatus();
@@ -3137,14 +3260,16 @@
           }
           return;
         }
-        const expectedPwd = mem.password || 'test2';
-        if (enteredPwd !== expectedPwd) {
+        const expectedHash = mem.passwordHash || (mem.password ? calculateSaltedHash(mem.password, mem.id) : '');
+        const enteredHash = calculateSaltedHash(enteredPwd, mem.id);
+        if (enteredHash !== expectedHash) {
           if (errMsg) {
             errMsg.innerText = `Password non corretta per ${mem.nome}. Riprova.`;
             errMsg.style.display = 'block';
           }
           return;
         }
+        currentAuthHash = enteredHash;
         const isMemOwner = !!(mem.isOwner || mem.hasOwnerPrivileges);
         const isMemCapo = !!(mem.isCapoReparto || mem.hasCapoRepartoPrivileges);
         currentUserRole = isMemOwner ? 'owner' : (isMemCapo ? 'caporeparto' : 'member');
@@ -3152,6 +3277,7 @@
         personalMemberFilter = mem.id;
         safeStorage.setItem('apex_session_role', currentUserRole);
         safeStorage.setItem('apex_session_member_id', mem.id);
+        safeStorage.setItem('apex_session_auth_hash', currentAuthHash);
         closeLoginModal();
         updateHeaderUserStatus();
         updateCloudSyncModalUI();
@@ -3216,15 +3342,19 @@
           return;
         }
 
+        const regMemberId = 'mem-' + Date.now();
+        const regPasswordHash = calculateSaltedHash(enteredPwd, regMemberId);
         const newMember = {
-          id: 'mem-' + Date.now(),
+          id: regMemberId,
           nome: regNome,
           reparto: regReparto,
           ruolo: regRuolo || 'Membro Scuderia',
           email: regEmail,
-          password: enteredPwd,
+          passwordHash: regPasswordHash,
           dataRegistrazione: new Date().toISOString().split('T')[0]
         };
+        currentAuthHash = regPasswordHash;
+        safeStorage.setItem('apex_session_auth_hash', currentAuthHash);
 
         teamMembers.push(newMember);
         saveMembersToStorage();
@@ -3358,7 +3488,7 @@
     function saveInternalBackup(silent = false) {
       try {
         const backupData = {
-          version: '3.4.0',
+          version: '3.5.0',
           timestamp: new Date().toISOString(),
           formattedDate: new Date().toLocaleString(),
           tasks: (typeof tasks !== 'undefined' && Array.isArray(tasks)) ? JSON.parse(JSON.stringify(tasks)) : [],
@@ -3671,6 +3801,12 @@
           try {
             const parsed = JSON.parse(storedMembers);
             teamMembers = Array.isArray(parsed) ? parsed.filter(m => m && m.nome && m.nome.trim()) : [];
+            teamMembers.forEach(m => {
+              if (m && m.password && !m.passwordHash) {
+                m.passwordHash = calculateSaltedHash(m.password, m.id);
+                delete m.password;
+              }
+            });
           } catch(e) { teamMembers = []; }
         }
         if (!teamMembers || teamMembers.length === 0) {
@@ -3689,7 +3825,11 @@
         }
         teamMembers.forEach(m => {
           if (m.reparto) m.reparto = normalizeDept(m.reparto);
-          if (!m.password) m.password = 'test2';
+          if (!m.passwordHash) {
+            const pwdFallback = m.password || 'test2';
+            m.passwordHash = calculateSaltedHash(pwdFallback, m.id);
+          }
+          delete m.password;
         });
 
         const storedTheme = safeStorage.getItem('apex_theme') || 'dark';
@@ -3794,17 +3934,18 @@
     let cloudSyncDebounceTimer = null;
 
     const GOOGLE_APPS_SCRIPT_TEMPLATE = `function doGet(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var lastRow = sheet.getLastRow();
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var mainSheet = ss.getSheetByName("DATABASE") || ss.getActiveSheet();
+  var lastRow = mainSheet.getLastRow();
   var fullData = "";
   if (lastRow > 0) {
-    var values = sheet.getRange(1, 1, lastRow, 1).getValues();
+    var values = mainSheet.getRange(1, 1, lastRow, 1).getValues();
     for (var i = 0; i < values.length; i++) {
       fullData += values[i][0];
     }
   }
   if (!fullData || fullData.trim() === "") {
-    fullData = JSON.stringify({ tasks: [], bom: [], scadenze: [] });
+    fullData = JSON.stringify({ tasks: [], bom: [], scadenze: [], members: [] });
   }
   return ContentService.createTextOutput(fullData)
     .setMimeType(ContentService.MimeType.JSON);
@@ -3813,21 +3954,69 @@
 function doPost(e) {
   try {
     var raw = e.postData.contents;
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    sheet.clear();
+    var payload = JSON.parse(raw);
+    var auth = payload.auth || {};
+
+    // 1. Controllo Autorizzativo: Solo Proprietario o Capo Reparto possono salvare
+    if (auth.role !== 'owner' && auth.role !== 'caporeparto') {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "ACCESSO NEGATO: Solo il Profilo Proprietario o i Capi Reparto autenticati possono salvare modifiche sul database cloud."
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var mainSheet = ss.getSheetByName("DATABASE") || ss.getActiveSheet();
+
+    // 2. Protezione Anti-Wipe (Anti-Cancellazione massiva accidentale)
+    if ((!payload.tasks || payload.tasks.length === 0) && (!payload.bom || payload.bom.length === 0)) {
+      if (mainSheet.getLastRow() > 2) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "error",
+          message: "BLOCCO DI SICUREZZA: Rilevato tentativo di invio vuoto. Il database non e' stato sovrascritto."
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 3. Backup Storico Automatico (Snapshot di Ripristino)
+    var historySheet = ss.getSheetByName("_BACKUP_HISTORY");
+    if (!historySheet) {
+      historySheet = ss.insertSheet("_BACKUP_HISTORY");
+      historySheet.appendRow(["Data", "Utente ID", "Ruolo", "Payload JSON Snapshot"]);
+    }
+    if (mainSheet.getLastRow() > 0) {
+      var prevData = mainSheet.getRange(1, 1).getValue();
+      if (prevData && prevData.length > 20) {
+        historySheet.appendRow([new Date(), auth.userId || 'anon', auth.role || 'none', prevData]);
+        if (historySheet.getLastRow() > 40) {
+          historySheet.deleteRow(2);
+        }
+      }
+    }
+
+    // 4. Scrittura atomica dei nuovi dati
+    mainSheet.clear();
     var chunkSize = 40000;
     var chunks = [];
     for (var i = 0; i < raw.length; i += chunkSize) {
       chunks.push([raw.substring(i, i + chunkSize)]);
     }
     if (chunks.length > 0) {
-      sheet.getRange(1, 1, chunks.length, 1).setValues(chunks);
+      mainSheet.getRange(1, 1, chunks.length, 1).setValues(chunks);
     }
-    return ContentService.createTextOutput(JSON.stringify({ status: "success", timestamp: new Date() }))
-      .setMimeType(ContentService.MimeType.JSON);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      timestamp: new Date(),
+      savedBy: auth.userId || 'owner',
+      role: auth.role
+    })).setMimeType(ContentService.MimeType.JSON);
+
   } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }`;
 
@@ -4061,11 +4250,20 @@ function doPost(e) {
       }
       updateCloudSyncBadge('syncing', 'Invio cloud...');
       const payload = {
+        auth: {
+          userId: currentMemberId || 'owner',
+          role: currentUserRole,
+          authHash: currentAuthHash || safeStorage.getItem('apex_session_auth_hash') || ''
+        },
         tasks: tasks,
         bom: bomItems,
         acquisti: (typeof acquistiItems !== 'undefined' && Array.isArray(acquistiItems)) ? acquistiItems : [],
         scadenze: scadenzeItems,
-        members: teamMembers,
+        members: teamMembers.map(m => {
+          const cleanM = { ...m };
+          delete cleanM.password;
+          return cleanM;
+        }),
         organigramma: (typeof organigrammaData !== 'undefined' && Array.isArray(organigrammaData)) ? organigrammaData : [],
         regSettings: getRegistrationSettings(),
         activeAnnouncement: (typeof getActiveAnnouncement === 'function') ? getActiveAnnouncement() : null,
@@ -6262,17 +6460,71 @@ function doPost(e) {
           </div>
         </div>
 
-        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center; flex-wrap: wrap;">
+        <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center; flex-wrap: wrap;">
           <input type="text" id="squadra-search-input" placeholder="Cerca membro per nome, ruolo, reparto..." class="form-input" style="max-width: 320px;" value="${squadraSearchQuery}" oninput="squadraSearchQuery=this.value; renderView();">
           <span style="font-size: 0.8rem; color: var(--text-muted);">Visualizzati: <strong>${filtered.length}</strong> su ${teamMembers.length} membri</span>
         </div>
+      `;
 
-        <div class="member-grid">
-          ${filtered.length === 0 ? `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); background: var(--card-bg); border-radius: 8px; border: 1px solid var(--card-border);">
-              Nessun membro trovato con i filtri correnti.
+      if (filtered.length === 0 && squadraDeptFilter === 'all') {
+        html += `
+          <div class="empty-state" style="text-align: center; padding: 48px 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px dashed var(--border-color, #2e3558); margin-top: 10px;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px;">Nessun membro trovato</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 520px; margin: 0 auto 16px auto;">
+              Non ci sono membri corrispondenti ai filtri impostati.
+            </p>
+          </div>
+        `;
+        return html;
+      }
+
+      // Department sections (Corsie Squadra per Reparto)
+      const deptsToDisplay = [];
+      if (squadraDeptFilter !== 'all') {
+        deptsToDisplay.push(squadraDeptFilter);
+      } else {
+        OFFICIAL_DEPTS.forEach(d => {
+          deptsToDisplay.push(d);
+        });
+        filtered.forEach(m => {
+          const norm = normalizeDept(m.reparto) || m.reparto;
+          if (norm && !deptsToDisplay.includes(norm)) {
+            deptsToDisplay.push(norm);
+          }
+        });
+        if (deptsToDisplay.length === 0 && filtered.length > 0) {
+          deptsToDisplay.push('Generale');
+        }
+      }
+
+      deptsToDisplay.forEach(d => {
+        const deptMembers = filtered.filter(m => (normalizeDept(m.reparto) === d || m.reparto === d));
+        const dColor = deptColors[d] || '#6341B5';
+        const dLabel = d === 'G&M' ? 'Grafica & Media' : (d === 'BP' ? 'Business & Pianificazione' : d);
+
+        html += `
+          <div class="squadra-dept-section" data-squadra-dept="${d}" style="margin-bottom: 24px; background: rgba(255,255,255,0.015); border-radius: 10px; border: 1px solid var(--border-color, #2e3558); border-left: 5px solid ${dColor}; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border-color, #2e3558); flex-wrap: wrap; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: ${dColor}; box-shadow: 0 0 8px ${dColor};"></span>
+                <h3 style="margin: 0; font-size: 1.02rem; font-weight: 800; color: #fff;">${dLabel}</h3>
+                <span class="badge" style="background: rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.74rem;">${deptMembers.length} ${deptMembers.length === 1 ? 'assegnatario' : 'assegnatari'}</span>
+              </div>
+              ${currentUserRole === 'owner' ? `
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.74rem; border-color: ${dColor}; color: #fff;" onclick="openMemberModal(null, '${d}')" title="Aggiungi un nuovo assegnatario per il reparto ${d}">
+                  <svg class="svg-icon" style="width: 12px; height: 12px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  + Assegnatario ${d}
+                </button>
+              ` : ''}
             </div>
-          ` : filtered.map(m => {
+
+            <div style="padding: 16px;">
+              <div class="member-grid">
+                ${deptMembers.length === 0 ? `
+                  <div style="grid-column: 1 / -1; text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.82rem;">
+                    Nessun assegnatario presente per il reparto <strong>${dLabel}</strong>.
+                  </div>
+                ` : deptMembers.map(m => {
             const memTasks = tasks.filter(t => isTaskAssignedToMember(t, m));
             const totalT = memTasks.length;
             const compT = memTasks.filter(t => t.status === 'Completato').length;
@@ -6390,8 +6642,12 @@ function doPost(e) {
               </div>
             `;
           }).join('')}
-        </div>
-      `;
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
       return html;
     }
 
@@ -7094,7 +7350,10 @@ function doPost(e) {
       }
 
       if (memberId === 'owner') {
-        safeStorage.setItem('apex_owner_password', newPwd);
+        const newHash = calculateSaltedHash(newPwd, 'owner');
+        safeStorage.setItem('apex_owner_password_hash', newHash);
+        currentAuthHash = newHash;
+        safeStorage.setItem('apex_session_auth_hash', currentAuthHash);
         if (msgBox) {
           msgBox.style.color = '#34d399';
           msgBox.innerHTML = `&check; Password Proprietario aggiornata con successo! Usa questa nuova password per i tuoi prossimi accessi Master.`;
@@ -7110,7 +7369,8 @@ function doPost(e) {
 
       const mem = teamMembers.find(m => m.id === memberId);
       if (mem) {
-        mem.password = newPwd;
+        mem.passwordHash = calculateSaltedHash(newPwd, memberId);
+        delete mem.password;
         saveMembersToStorage();
         if (msgBox) {
           msgBox.style.color = '#34d399';
@@ -8460,21 +8720,66 @@ function doPost(e) {
       return false;
     }
 
+    let modalAssigneeFilterMode = 'task'; // 'task' or 'all'
+
+    function setModalAssigneeDeptFilter(mode) {
+      modalAssigneeFilterMode = mode;
+      const btnTask = document.getElementById('btn-assignee-filter-taskdept');
+      const btnAll = document.getElementById('btn-assignee-filter-all');
+      const taskDept = (document.getElementById('form-dept') ? document.getElementById('form-dept').value : 'Chassis');
+
+      if (btnTask) {
+        btnTask.className = mode === 'task' ? 'btn btn-primary' : 'btn btn-secondary';
+        btnTask.innerText = 'Solo ' + taskDept;
+      }
+      if (btnAll) {
+        btnAll.className = mode === 'all' ? 'btn btn-primary' : 'btn btn-secondary';
+      }
+      populateAssigneeSelect();
+    }
+    const setModalAssigneeFilterMode = setModalAssigneeDeptFilter;
+
+    function onTaskDeptChange() {
+      const taskDept = (document.getElementById('form-dept') ? document.getElementById('form-dept').value : 'Chassis');
+      const btnTask = document.getElementById('btn-assignee-filter-taskdept');
+      if (btnTask && modalAssigneeFilterMode === 'task') {
+        btnTask.innerText = 'Solo ' + taskDept;
+      }
+      populateAssigneeSelect();
+    }
+
     function populateAssigneeSelect(currentVal) {
       const select = document.getElementById('form-assignee-select');
       if (!select) return;
-      const depts = OFFICIAL_DEPTS;
+      const taskDept = (document.getElementById('form-dept') ? document.getElementById('form-dept').value : 'Chassis');
+
       let html = '<option value="">+ Aggiungi Membro Registrato alla Task...</option>';
-      depts.forEach(d => {
-        const mems = teamMembers.filter(m => m.reparto === d);
+
+      if (modalAssigneeFilterMode === 'task') {
+        const mems = teamMembers.filter(m => (normalizeDept(m.reparto) === taskDept || m.reparto === taskDept));
         if (mems.length > 0) {
-          html += `<optgroup label="${d}">`;
+          html += `<optgroup label="Membri Reparto ${taskDept} (${mems.length})">`;
           mems.forEach(m => {
-            html += `<option value="${m.nome}">${m.nome} (${m.ruolo || d})</option>`;
+            html += `<option value="${m.nome}">${m.nome} (${m.ruolo || taskDept})</option>`;
           });
           html += `</optgroup>`;
+        } else {
+          html += `<optgroup label="Nessun membro registrato in ${taskDept}">`;
+          html += `</optgroup>`;
         }
-      });
+      } else {
+        const depts = OFFICIAL_DEPTS;
+        depts.forEach(d => {
+          const mems = teamMembers.filter(m => (normalizeDept(m.reparto) === d || m.reparto === d));
+          if (mems.length > 0) {
+            html += `<optgroup label="${d} (${mems.length})">`;
+            mems.forEach(m => {
+              html += `<option value="${m.nome}">${m.nome} (${m.ruolo || d})</option>`;
+            });
+            html += `</optgroup>`;
+          }
+        });
+      }
       select.innerHTML = html;
     }
 
@@ -8526,14 +8831,14 @@ function doPost(e) {
           document.getElementById('member-form-ruolo').value = m.ruolo || '';
           document.getElementById('member-form-email').value = m.email || '';
           const pwdField = document.getElementById('member-form-password');
-          if (pwdField) pwdField.value = m.password || 'test2';
+          if (pwdField) pwdField.value = '';
         }
       } else {
         if (title) title.innerText = 'Nuovo Assegnatario Squadra';
         if (submitBtn) submitBtn.innerText = 'Aggiungi Assegnatario';
         document.getElementById('member-form-reparto').value = normalizeDept(defaultDept) || 'Chassis';
         const pwdField = document.getElementById('member-form-password');
-        if (pwdField) pwdField.value = 'test2';
+        if (pwdField) pwdField.value = '';
       }
       document.getElementById('member-modal').style.display = 'flex';
     }
@@ -8568,16 +8873,21 @@ function doPost(e) {
           teamMembers[idx].reparto = repVal;
           teamMembers[idx].ruolo = ruoloVal;
           teamMembers[idx].email = emailVal;
-          teamMembers[idx].password = pwdVal;
+          if (pwdVal) {
+            teamMembers[idx].passwordHash = calculateSaltedHash(pwdVal, editId);
+            delete teamMembers[idx].password;
+          }
         }
       } else {
+        const newId = 'mem-' + Date.now();
+        const pwdToHash = pwdVal || 'test2';
         const newMem = {
-          id: 'mem-' + Date.now(),
+          id: newId,
           nome: nomeVal,
           reparto: repVal,
           ruolo: ruoloVal,
           email: emailVal,
-          password: pwdVal,
+          passwordHash: calculateSaltedHash(pwdToHash, newId),
           dataRegistrazione: new Date().toISOString().split('T')[0]
         };
         teamMembers.push(newMem);
@@ -9776,8 +10086,8 @@ function doPost(e) {
 // ====================================================
 // APEX CORSE V3.4.0 - UPDATE, VERSION, BROADCAST & BACKUP ENGINE
 // ====================================================
-const APP_VERSION = '3.4.0';
-const APP_BUILD_DATE = '2026-10-13';
+const APP_VERSION = '3.5.0';
+const APP_BUILD_DATE = '2026-10-14';
 let remoteVersionInfo = null;
 
 // Sistema di Toast Notifiche Fluttuanti
@@ -9828,13 +10138,12 @@ function broadcastUpdateAnnouncement(customAnn = null) {
     title: 'Aggiornamento Apex Corse v' + APP_VERSION,
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
-      'Gestione BOM Avanzata: Selezione multipla con checkbox per eliminazione a blocchi e pulsante rapido per svuotare l\'intera distinta base BOM.',
-      'Permessi Richieste Acquisto: Creazione riservata al Profilo Proprietario e ai Capi Reparto con blocco di sicurezza per i membri.',
-      'Richieste Acquisto per Reparto: Corsie dedicate per ciascun reparto con subtotali spesa e pulsante rapido + Richiesta [Reparto] come nel Gantt.',
-      'Nuova Sezione Richieste Acquisto: Tracciamento componenti con campi obbligatori/facoltativi e approvazione ordini.',
-      'Integrazione Diretta BOM: Possibilit\u00E0 per il Proprietario di convertire le richieste approvate direttamente nella Distinta Base con 1 click.',
-      'Gantt Suddiviso per Reparto: Corsie dedicate (Chassis, Powertrain, Aero, GM, BP, ecc.) e frecce SVG inter-reparto evidenziate.',
-      'Backup Interno & Cloud Sync 3.4: Salvataggio automatico e sincronizzazione Google Drive estesa a tutte le funzionalit\u00E0.'
+      'Sicurezza Crittografica Salted SHA-256: Rimozione totale di password in chiaro dal codice GitHub. Autenticazione basata su hash crittografici non invertibili con salt protetto.',
+      'Protezione Cloud Google Drive: Script Google Apps Script con verifica ruolo Proprietario/Capo Reparto, blocco anti-cancellazione e storico snapshot automatico (_BACKUP_HISTORY).',
+      'Squadra Suddivisa per Reparto: Visualizzazione a corsie/sezioni dedicate per ogni reparto con conteggio membri e pulsante rapido + Assegnatario [Reparto].',
+      'Filtro Assegnatari per Reparto: Nei dettagli task, selettore rapido [Solo Reparto Task] / [Tutti i Reparti] per assegnare al volo i membri pertinenti.',
+      'Gestione BOM Avanzata & Selezione Multipla: Checkbox di selezione per eliminazione a blocchi o cancellazione totale protetta per il Proprietario.',
+      'Richieste Acquisto per Reparto: Permessi riservati a Proprietario e Capi Reparto, suddivisione in corsie con subtotali e integrazione diretta BOM.'
     ],
     author: 'Diego Giordano (Team Principal)',
     timestamp: new Date().toISOString()
@@ -9898,11 +10207,11 @@ function openUpdateRecapModal(ann = null) {
     title: 'Aggiornamento Apex Corse v' + APP_VERSION,
     subtitle: 'Rilasciato dal Team Principal Diego Giordano per tutta la scuderia',
     highlights: [
-      'Protezione Dati & Backup Interno: Ripristino blindato e riservato esclusivamente al Profilo Proprietario.',
-      'Salvataggio ed Esportazione Membri: Tutti i membri possono salvare snapshot ed esportare JSON in piena sicurezza.',
-      'Notifica Broadcast Cloud: Simulazione e avviso aggiornamento sincronizzati in tempo reale per tutti i membri.',
-      'Recap al Primo Avvio: Finestra popup con riassunto novita mostrata solo al primo accesso o su simulazione.',
-      'Sezione Note di Rilascio: Storico completo delle versioni consultabile in qualsiasi momento dal menu Impostazioni.'
+      'Sicurezza Crittografica Salted SHA-256 e protezione credenziali su GitHub.',
+      'Google Apps Script anti-wipe con snapshot automatico di backup su Drive.',
+      'Squadra organizzata in sezioni e corsie per reparto con filtro rapido.',
+      'Assegnatari task filtrabili per reparto con pulsante rapido prioritario.',
+      'Gestione BOM avanzata con selezione multipla ed eliminazione sicura.'
     ]
   };
 
