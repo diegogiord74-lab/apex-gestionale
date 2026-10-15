@@ -1035,6 +1035,7 @@
             <div class="form-group">
               <label class="form-label" style="font-size: 0.78rem;">Reparto *</label>
               <select id="reg-reparto" class="form-select">
+                <option value="Direzione Generale">Direzione Generale</option>
                 <option value="Chassis">Chassis</option>
                 <option value="Powertrain">Powertrain</option>
                 <option value="Aerodynamics">Aerodynamics</option>
@@ -1104,6 +1105,7 @@
           <div class="form-group">
             <label class="form-label">Reparto Competente *</label>
             <select id="member-form-reparto" class="form-select" required>
+              <option value="Direzione Generale">Direzione Generale</option>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -1595,6 +1597,7 @@
           <div class="form-group">
             <label class="form-label">Reparto</label>
             <select id="form-dept" class="form-select" onchange="autoSuggestId(); onTaskDeptChange();" required>
+              <option value="Direzione Generale">Direzione Generale</option>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -1762,6 +1765,7 @@
           <div class="form-group">
             <label class="form-label">Reparto</label>
             <select id="bom-form-dept" class="form-select" required>
+              <option value="Direzione Generale">Direzione Generale</option>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -1862,6 +1866,7 @@
           <div class="form-group">
             <label class="form-label">Reparto Richiedente</label>
             <select id="req-reparto" class="form-select" required>
+              <option value="Direzione Generale">Direzione Generale</option>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -1870,6 +1875,16 @@
               <option value="Graphics & Media">Graphics & Media</option>
               <option value="Business">Business</option>
               <option value="Logistics">Logistics</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Priorit&agrave; Richiesta</label>
+            <select id="req-priorita" class="form-select">
+              <option value="Media" selected>Media</option>
+              <option value="Critica">Critica</option>
+              <option value="Alta">Alta</option>
+              <option value="Bassa">Bassa</option>
             </select>
           </div>
 
@@ -1922,6 +1937,7 @@
           <div class="form-group">
             <label class="form-label">Reparto Competente</label>
             <select id="scadenza-form-dept" class="form-select" required>
+              <option value="Direzione Generale">Direzione Generale</option>
               <option value="Chassis">Chassis</option>
               <option value="Powertrain">Powertrain</option>
               <option value="Aerodynamics">Aerodynamics</option>
@@ -2820,6 +2836,7 @@
       if (lower === 'chassis' || lower === 'telaio') return 'Chassis';
       if (lower === 'powertrain' || lower === 'motore') return 'Powertrain';
       if (lower === 'business') return 'Business';
+      if (lower === 'direzione generale' || lower === 'direzione' || lower === 'faculty' || lower === 'direttore tecnico') return 'Direzione Generale';
       return d;
     }
 
@@ -2835,6 +2852,7 @@
     ];
 
     const deptColors = {
+      'Direzione Generale': '#693fbc',
       'Chassis': '#6341B5',
       'Powertrain': '#D13931',
       'Aerodynamics': '#5DCBD1',
@@ -2852,6 +2870,7 @@
     };
 
     const deptTextColors = {
+      'Direzione Generale': '#ffffff',
       'Chassis': '#ffffff',
       'Powertrain': '#ffffff',
       'Aerodynamics': '#111827',
@@ -2934,6 +2953,7 @@
     let acquistiItems = [];
     let acquistiDeptFilter = 'all';
     let acquistiStatusFilter = 'all';
+    let acquistiPriorityFilter = 'all';
     let acquistiSearchQuery = '';
 
     const DEFAULT_ACQUISTI = [
@@ -2943,6 +2963,7 @@
         pNumber: '0265005303',
         prezzo: 145.00,
         quantita: 2,
+        priorita: 'Alta',
         fornitoreLink: 'https://www.bosch-motorsport.com',
         descrizione: 'Sensori per telemetria idraulica circuito freni anteriore e posteriore FSAE',
         reparto: 'Electronics',
@@ -2959,6 +2980,7 @@
         pNumber: 'CF-200-TW-100',
         prezzo: 320.00,
         quantita: 1,
+        priorita: 'Critica',
         fornitoreLink: 'Angeloni Group Compositi',
         descrizione: 'Rotolo 10m x 1m per laminazione alette ala anteriore e pacco pance laterali',
         reparto: 'Aerodynamics',
@@ -2975,6 +2997,7 @@
         pNumber: 'ROD-M10-MS',
         prezzo: 85.00,
         quantita: 4,
+        priorita: 'Media',
         fornitoreLink: 'https://www.fluro.de',
         descrizione: 'Snodi sferici di precisione per puntoni e triangoli sospensione anteriore',
         reparto: 'Chassis',
@@ -3080,8 +3103,16 @@
       { id: 'mem-claudia', nome: 'Claudia Genovese', reparto: 'Aerodynamics', ruolo: 'Capo Reparto Aerodynamics', email: 'aero@apexcorse.it', passwordHash: '7dfd61060071d8844e274dc8330492f0001814a170d5b974b488fd091f095964', dataRegistrazione: '2026-10-01' },
       { id: 'mem-matteo', nome: 'Matteo Glorioso', reparto: 'Graphics & Media', ruolo: 'Capo Reparto Grafica', email: 'grafica@apexcorse.it', passwordHash: '0991b84bb7da648d55534f16eaa6dfabc500a8631ca4222151bf7a4f1211d047', dataRegistrazione: '2026-10-01' },
       { id: 'mem-1791652074466', nome: 'Gabriele Lo Re', reparto: 'Aerodynamics', ruolo: 'Capo Reparto', email: 'g.lore@community.unipa.it', passwordHash: '7f2aeaf14dbba3dc7a2492efe9a55070f83eac1d39e2728588a8d58850bdac8f', dataRegistrazione: '2026-10-10' },
+      { id: 'mem-salvatore', nome: 'Salvatore Alessi', reparto: 'Direzione Generale', ruolo: 'Direttore Tecnico', email: 's.alessi@apexcorse.it', passwordHash: '1460a55fb832c22c275b6a0a313d614fe6c7f854168983a645ab55f6d549c9f5', dataRegistrazione: '2026-10-01' },
       { id: 'mem-diego', nome: 'Diego Giordano', reparto: 'Direzione Generale', ruolo: 'Team Principal & Team Leader', email: 'd.giordano@apexcorse.it', passwordHash: '9863aeb6e1fa125e943ab9d0f6bddb6882a81bb2b054f9c8e462c34f296ccf59', dataRegistrazione: '2026-10-01' }
     ];
+
+    function isMemberCapoReparto(mem) {
+      if (!mem) return false;
+      if (mem.isCapoReparto || mem.hasCapoRepartoPrivileges) return true;
+      var r = (mem.ruolo || '').toLowerCase();
+      return r.includes('capo') || r.includes('direttore') || r.includes('lead') || r.includes('responsabile');
+    }
 
     // ----------------------------------------------------
     // AUTHENTICATION & ROLE MANAGEMENT (Owner vs Member vs Registration)
@@ -3146,7 +3177,8 @@
           const sel = document.getElementById('login-member-select');
           if (sel) {
             let optHtml = '<option value="">-- Seleziona il tuo nome dalla lista --</option>';
-            OFFICIAL_DEPTS.forEach(d => {
+            const loginDepts = ['Direzione Generale', ...OFFICIAL_DEPTS];
+            loginDepts.forEach(d => {
               const mems = teamMembers.filter(m => (normalizeDept(m.reparto) === d || m.reparto === d));
               if (mems.length > 0) {
                 optHtml += `<optgroup label="${d} (${mems.length})">`;
@@ -3271,7 +3303,7 @@
         }
         currentAuthHash = enteredHash;
         const isMemOwner = !!(mem.isOwner || mem.hasOwnerPrivileges);
-        const isMemCapo = !!(mem.isCapoReparto || mem.hasCapoRepartoPrivileges);
+        const isMemCapo = isMemberCapoReparto(mem);
         currentUserRole = isMemOwner ? 'owner' : (isMemCapo ? 'caporeparto' : 'member');
         currentMemberId = mem.id;
         personalMemberFilter = mem.id;
@@ -3842,16 +3874,18 @@
           currentUserRole = 'owner';
           currentMemberId = null;
           personalMemberFilter = 'owner';
+          currentAuthHash = safeStorage.getItem('apex_session_auth_hash') || safeStorage.getItem('apex_owner_password_hash') || DEFAULT_OWNER_HASH;
           closeLoginModal();
           updateHeaderUserStatus();
           updateCloudSyncModalUI();
         } else if (savedMemId && teamMembers.some(m => m.id === savedMemId)) {
           const mem = teamMembers.find(m => m.id === savedMemId);
           const isMemOwner = !!(mem && (mem.isOwner || mem.hasOwnerPrivileges));
-          const isMemCapo = !!(mem && (mem.isCapoReparto || mem.hasCapoRepartoPrivileges));
+          const isMemCapo = isMemberCapoReparto(mem);
           currentUserRole = isMemOwner ? 'owner' : (isMemCapo ? 'caporeparto' : 'member');
           currentMemberId = savedMemId;
           personalMemberFilter = savedMemId;
+          currentAuthHash = safeStorage.getItem('apex_session_auth_hash') || (mem ? mem.passwordHash : '') || '';
           closeLoginModal();
           updateHeaderUserStatus();
           updateCloudSyncModalUI();
@@ -3957,18 +3991,17 @@ function doPost(e) {
     var payload = JSON.parse(raw);
     var auth = payload.auth || {};
 
-    // 1. Controllo di Sicurezza: Verifica Ruolo e Firma Crittografica Segreta
+    // 1. Controllo di Sicurezza: Verifica Ruolo e Firma Crittografica (Diego Master + Co-Owner + Capi Reparto)
     var VALID_OWNER_HASH = '6ac231170daf4aeadcc04194ef154ee07b1c895bef49190f99f2ae4bf8a58d0d';
     var isAuthorized = false;
 
-    if (auth.role === 'owner') {
-      // Per il Proprietario: la firma deve coincidere al 100% con l'hash della password segreta
-      if (auth.authHash === VALID_OWNER_HASH) {
-        isAuthorized = true;
-      }
-    } else if (auth.role === 'caporeparto') {
-      // Per i Capi Reparto: deve possedere una firma hash autenticata a 64 caratteri
-      if (auth.authHash && auth.authHash.length === 64) {
+    // A) Accesso Master Owner Diego Giordano (Password Master)
+    if (auth.authHash === VALID_OWNER_HASH) {
+      isAuthorized = true;
+    }
+    // B) Accesso Co-Proprietari e Capi Reparto Autenticati (Ruolo owner o caporeparto con firma valida)
+    else if (auth.role === 'owner' || auth.role === 'caporeparto') {
+      if (auth.authHash && typeof auth.authHash === 'string' && auth.authHash.length === 64) {
         isAuthorized = true;
       }
     }
@@ -4264,11 +4297,20 @@ function doPost(e) {
         return;
       }
       updateCloudSyncBadge('syncing', 'Invio cloud...');
+      let effectiveAuthHash = currentAuthHash || safeStorage.getItem('apex_session_auth_hash') || '';
+      if (!effectiveAuthHash || effectiveAuthHash.length !== 64) {
+        if (currentUserRole === 'owner' && (!currentMemberId || currentMemberId === 'owner')) {
+          effectiveAuthHash = safeStorage.getItem('apex_owner_password_hash') || DEFAULT_OWNER_HASH;
+        } else if (currentMemberId) {
+          const m = teamMembers.find(x => x.id === currentMemberId);
+          if (m && m.passwordHash) effectiveAuthHash = m.passwordHash;
+        }
+      }
       const payload = {
         auth: {
           userId: currentMemberId || 'owner',
           role: currentUserRole,
-          authHash: currentAuthHash || safeStorage.getItem('apex_session_auth_hash') || ''
+          authHash: effectiveAuthHash
         },
         tasks: tasks,
         bom: bomItems,
@@ -5603,6 +5645,7 @@ function doPost(e) {
       return acquistiItems.filter(item => {
         if (acquistiDeptFilter !== 'all' && item.reparto !== acquistiDeptFilter) return false;
         if (acquistiStatusFilter !== 'all' && item.stato !== acquistiStatusFilter) return false;
+        if (acquistiPriorityFilter !== 'all' && (item.priorita || 'Media') !== acquistiPriorityFilter) return false;
         if (acquistiSearchQuery) {
           const q = acquistiSearchQuery.toLowerCase();
           const match = (item.id && item.id.toLowerCase().includes(q)) ||
@@ -5628,6 +5671,24 @@ function doPost(e) {
       renderView();
     }
 
+    function setAcquistiPriorityFilter(priority) {
+      acquistiPriorityFilter = priority;
+      renderView();
+    }
+
+    function getAcquistiPriorityBadge(priority) {
+      const p = priority || 'Media';
+      if (p === 'Critica') {
+        return '<span class="badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; font-weight: 700;">&#128308; Critica</span>';
+      } else if (p === 'Alta') {
+        return '<span class="badge" style="background: rgba(249, 115, 22, 0.2); border: 1px solid #f97316; color: #fdba74; font-weight: 700;">&#128992; Alta</span>';
+      } else if (p === 'Bassa') {
+        return '<span class="badge" style="background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #86efac; font-weight: 700;">&#128994; Bassa</span>';
+      } else {
+        return '<span class="badge" style="background: rgba(234, 179, 8, 0.2); border: 1px solid #eab308; color: #fde047; font-weight: 700;">&#128993; Media</span>';
+      }
+    }
+
     function getAcquistiBadge(status) {
       switch (status) {
         case 'In Attesa': return 'badge-richiesta-attesa';
@@ -5640,7 +5701,7 @@ function doPost(e) {
     }
 
     function renderAcquistiView() {
-      const depts = ['all', ...OFFICIAL_DEPTS];
+      const depts = ['all', 'Direzione Generale', ...OFFICIAL_DEPTS];
       const filtered = getFilteredAcquisti();
 
       const totalCount = acquistiItems.length;
@@ -5657,7 +5718,8 @@ function doPost(e) {
       if (acquistiDeptFilter !== 'all') {
         deptsToDisplay.push(acquistiDeptFilter);
       } else {
-        OFFICIAL_DEPTS.forEach(d => {
+        const allDeptsToScan = ['Direzione Generale', ...OFFICIAL_DEPTS];
+        allDeptsToScan.forEach(d => {
           if (filtered.some(a => (normalizeDept(a.reparto) === d || a.reparto === d))) {
             deptsToDisplay.push(d);
           }
@@ -5742,6 +5804,17 @@ function doPost(e) {
                 <option value="Rifiutata" ${acquistiStatusFilter === 'Rifiutata' ? 'selected' : ''}>Rifiutata</option>
               </select>
             </div>
+
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Priorit&agrave;:</span>
+              <select class="form-select" style="width: auto; padding: 4px 10px; font-size: 0.78rem;" onchange="setAcquistiPriorityFilter(this.value)">
+                <option value="all" ${acquistiPriorityFilter === 'all' ? 'selected' : ''}>Tutte le Priorit&agrave;</option>
+                <option value="Critica" ${acquistiPriorityFilter === 'Critica' ? 'selected' : ''}>Critica</option>
+                <option value="Alta" ${acquistiPriorityFilter === 'Alta' ? 'selected' : ''}>Alta</option>
+                <option value="Media" ${acquistiPriorityFilter === 'Media' ? 'selected' : ''}>Media</option>
+                <option value="Bassa" ${acquistiPriorityFilter === 'Bassa' ? 'selected' : ''}>Bassa</option>
+              </select>
+            </div>
           </div>
 
           <span style="font-size: 0.8rem; color: var(--text-muted);">Richieste visualizzate: <strong>${filtered.length}</strong> su ${acquistiItems.length}</span>
@@ -5799,6 +5872,7 @@ function doPost(e) {
                 <thead>
                   <tr>
                     <th>ID / Data</th>
+                    <th>Priorit&agrave;</th>
                     <th>Nome Componente</th>
                     <th>P. Number</th>
                     <th>Prezzo Stimato</th>
@@ -5812,7 +5886,7 @@ function doPost(e) {
                 <tbody>
                   ${deptItems.length === 0 ? `
                     <tr>
-                      <td colspan="9" style="text-align: center; padding: 28px; color: var(--text-muted); font-size: 0.82rem;">
+                      <td colspan="10" style="text-align: center; padding: 28px; color: var(--text-muted); font-size: 0.82rem;">
                         Nessuna richiesta di acquisto presente per il reparto <strong>${dLabel}</strong>.
                         ${isOwnerOrCapo ? `<br><button class="btn btn-secondary" style="margin-top: 8px; font-size: 0.74rem; padding: 4px 10px;" onclick="openCreateAcquistoModal('${d}')">+ Aggiungi Richiesta ${d}</button>` : ''}
                       </td>
@@ -5829,6 +5903,9 @@ function doPost(e) {
                         <td>
                           <strong>${item.id}</strong><br>
                           <span style="font-size: 0.72rem; color: var(--text-muted);">${formatDateIT(item.dataRichiesta)}</span>
+                        </td>
+                        <td>
+                          ${getAcquistiPriorityBadge(item.priorita)}
                         </td>
                         <td>
                           <strong style="color: #fff; font-size: 0.88rem;">${item.nomeComponente}</strong>
@@ -5931,6 +6008,8 @@ function doPost(e) {
 
       const qtaInput = document.getElementById('req-quantita');
       if (qtaInput) qtaInput.value = '1';
+      const prioSelect = document.getElementById('req-priorita');
+      if (prioSelect) prioSelect.value = 'Media';
 
       if (statoGroup) {
         if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
@@ -5986,6 +6065,9 @@ function doPost(e) {
       const stSelect = document.getElementById('req-stato');
       if (stSelect) stSelect.value = item.stato || 'In Attesa';
 
+      const prioSelect = document.getElementById('req-priorita');
+      if (prioSelect) prioSelect.value = item.priorita || 'Media';
+
       if (statoGroup) {
         if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
           statoGroup.style.display = 'block';
@@ -6012,6 +6094,8 @@ function doPost(e) {
       const reparto = document.getElementById('req-reparto').value;
       const fornitore = (document.getElementById('req-fornitore').value || '').trim();
       const desc = (document.getElementById('req-desc').value || '').trim();
+      const prioSelect = document.getElementById('req-priorita');
+      const priorita = prioSelect ? prioSelect.value : 'Media';
       const statoSelect = document.getElementById('req-stato');
       const stato = statoSelect ? statoSelect.value : 'In Attesa';
 
@@ -6047,6 +6131,7 @@ function doPost(e) {
           item.reparto = reparto;
           item.fornitoreLink = fornitore;
           item.descrizione = desc;
+          item.priorita = priorita;
           if (currentUserRole === 'owner' || currentUserRole === 'caporeparto') {
             item.stato = stato;
             if (stato === 'Approvata' && !item.approvatoDa) {
@@ -6068,6 +6153,7 @@ function doPost(e) {
           pNumber: pNumber,
           prezzo: prezzo,
           quantita: quantita,
+          priorita: priorita,
           fornitoreLink: fornitore,
           descrizione: desc,
           reparto: reparto,
@@ -6180,10 +6266,11 @@ function doPost(e) {
         return;
       }
 
-      let csv = 'ID,Data Richiesta,Nome Componente,Part Number,Prezzo Unitario,Quantita,Totale Stimato,Link o Fornitore,Reparto,Richiedente,Stato,Descrizione\r\n';
+      let csv = 'ID,Data Richiesta,Priorita,Nome Componente,Part Number,Prezzo Unitario,Quantita,Totale Stimato,Link o Fornitore,Reparto,Richiedente,Stato,Descrizione\r\n';
 
       acquistiItems.forEach(item => {
         const subTot = ((item.prezzo || 0) * (item.quantita || 1)).toFixed(2);
+        const prioClean = (item.priorita || 'Media').replace(/"/g, '""');
         const nomeClean = (item.nomeComponente || '').replace(/"/g, '""');
         const pNumClean = (item.pNumber || '').replace(/"/g, '""');
         const fornClean = (item.fornitoreLink || '').replace(/"/g, '""');
@@ -6195,6 +6282,7 @@ function doPost(e) {
         const row = [
           item.id || '',
           item.dataRichiesta || '',
+          '"' + prioClean + '"',
           '"' + nomeClean + '"',
           '"' + pNumClean + '"',
           (item.prezzo || 0).toFixed(2),
@@ -6414,7 +6502,7 @@ function doPost(e) {
     // SQUADRA & ASSEGNATARI VIEW
     // ----------------------------------------------------
     function renderSquadraView() {
-      const depts = ['all', ...OFFICIAL_DEPTS];
+      const depts = ['all', 'Direzione Generale', ...OFFICIAL_DEPTS];
       let filtered = teamMembers.filter(m => {
         if (squadraDeptFilter !== 'all' && m.reparto !== squadraDeptFilter) return false;
         if (squadraSearchQuery) {
@@ -6498,7 +6586,8 @@ function doPost(e) {
       if (squadraDeptFilter !== 'all') {
         deptsToDisplay.push(squadraDeptFilter);
       } else {
-        OFFICIAL_DEPTS.forEach(d => {
+        const allDeptsToDisplay = ['Direzione Generale', ...OFFICIAL_DEPTS];
+        allDeptsToDisplay.forEach(d => {
           deptsToDisplay.push(d);
         });
         filtered.forEach(m => {
@@ -7123,8 +7212,8 @@ function doPost(e) {
                 <div>
                   <div style="font-weight: 800; font-size: 0.9rem; color: #fff; display: flex; align-items: center; gap: 8px;">
                     <span>Ruoli &amp; Privilegi Scuderia: ${member.nome}</span>
-                    <span class="badge" style="background: ${member.isOwner ? 'rgba(16, 185, 129, 0.2)' : (member.isCapoReparto ? 'rgba(14, 165, 233, 0.2)' : 'rgba(255,255,255,0.08)')}; color: ${member.isOwner ? '#10b981' : (member.isCapoReparto ? '#38bdf8' : '#94a3b8')}; border: 1px solid ${member.isOwner ? 'rgba(16, 185, 129, 0.4)' : (member.isCapoReparto ? 'rgba(14, 165, 233, 0.4)' : 'rgba(255,255,255,0.1)')};">
-                      ${member.isOwner ? '&#128081; Co-Proprietario (Completo)' : (member.isCapoReparto ? '&#9874; Capo Reparto (Solo Task)' : 'Membro Standard')}
+                    <span class="badge" style="background: ${member.isOwner ? 'rgba(16, 185, 129, 0.2)' : (isMemberCapoReparto(member) ? 'rgba(14, 165, 233, 0.2)' : 'rgba(255,255,255,0.08)')}; color: ${member.isOwner ? '#10b981' : (isMemberCapoReparto(member) ? '#38bdf8' : '#94a3b8')}; border: 1px solid ${member.isOwner ? 'rgba(16, 185, 129, 0.4)' : (isMemberCapoReparto(member) ? 'rgba(14, 165, 233, 0.4)' : 'rgba(255,255,255,0.1)')};">
+                      ${member.isOwner ? '&#128081; Co-Proprietario (Completo)' : (isMemberCapoReparto(member) ? '&#9874; Capo Reparto (Solo Task)' : 'Membro Standard')}
                     </span>
                   </div>
                   <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
@@ -7139,9 +7228,9 @@ function doPost(e) {
                 <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isOwner ? '#818cf8' : '#fff'};">&#128081; Permessi Proprietario</span>
               </label>
 
-              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--bg); padding: 8px 14px; border-radius: 6px; border: 1px solid ${member.isCapoReparto ? '#0284c7' : 'var(--card-border)'}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                <input type="checkbox" id="check-member-caporeparto-privileges-${member.id}" ${member.isCapoReparto ? 'checked' : ''} onchange="toggleMemberCapoRepartoPrivilege('${member.id}', this.checked)" style="transform: scale(1.25); cursor: pointer; accent-color: #0284c7;">
-                <span style="font-weight: 700; font-size: 0.82rem; color: ${member.isCapoReparto ? '#38bdf8' : '#fff'};">&#9874; Capo Reparto (Solo Task: Aggiungi, Modifica, Elimina)</span>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--bg); padding: 8px 14px; border-radius: 6px; border: 1px solid ${isMemberCapoReparto(member) ? '#0284c7' : 'var(--card-border)'}; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                <input type="checkbox" id="check-member-caporeparto-privileges-${member.id}" ${isMemberCapoReparto(member) ? 'checked' : ''} onchange="toggleMemberCapoRepartoPrivilege('${member.id}', this.checked)" style="transform: scale(1.25); cursor: pointer; accent-color: #0284c7;">
+                <span style="font-weight: 700; font-size: 0.82rem; color: ${isMemberCapoReparto(member) ? '#38bdf8' : '#fff'};">&#9874; Capo Reparto (Solo Task: Aggiungi, Modifica, Elimina)</span>
               </label>
             </div>
           </div>
@@ -7602,6 +7691,8 @@ function doPost(e) {
     function autoSuggestId() {
       const dept = document.getElementById('form-dept').value;
       const prefixes = {
+        'Direzione Generale': 'DIR',
+        'Direzione': 'DIR',
         'Chassis': 'CHA',
         'Powertrain': 'POW',
         'Aerodynamics': 'AER',
@@ -8783,7 +8874,7 @@ function doPost(e) {
           html += `</optgroup>`;
         }
       } else {
-        const depts = OFFICIAL_DEPTS;
+        const depts = ['Direzione Generale', ...OFFICIAL_DEPTS];
         depts.forEach(d => {
           const mems = teamMembers.filter(m => (normalizeDept(m.reparto) === d || m.reparto === d));
           if (mems.length > 0) {
@@ -8986,16 +9077,16 @@ function doPost(e) {
         },
 
         // ----------------------------------------------------
-        // DIREZIONE TECNICA - SALVATORE ALESSI (CHASSIS & AERO)
+        // DIREZIONE TECNICA - SALVATORE ALESSI (DIREZIONE GENERALE)
         // ----------------------------------------------------
         {
           id: 'org-salvatore',
           nome: 'Salvatore Alessi',
-          ruolo: 'Direttore Tecnico (Chassis & Aerodynamics)',
-          reparto: 'Direzione Tecnica Veicolo',
+          ruolo: 'Direttore Tecnico',
+          reparto: 'Direzione Generale',
           livello: 2,
           email: 's.alessi@apexcorse.it',
-          note: 'Supervisione tecnica, integrazione dinamica veicolo e coordinamento dei reparti Chassis e Aerodynamics'
+          note: 'Direzione Tecnica, coordinamento generale dei reparti tecnici e integrazione veicolo'
         },
 
         // ----------------------------------------------------
